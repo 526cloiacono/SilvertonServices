@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silverton | Shop Tires</title>
+  <style>
+    :root {
+      --color-primary: #002d5c;
+      --color-accent: #e2231a;
+      --color-highlight: #00838f;
+      --color-bg: #ffffff;
+      --color-bg-alt: #f4f5f6;
+      --color-text: #1a1a1a;
+      --color-text-muted: #5a5a5a;
+      --font-heading: Arial, Helvetica, sans-serif;
+      --font-body: Arial, Helvetica, sans-serif;
+      --max-width: 1200px;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    .btn { display: inline-block; padding: 0.75rem 1.75rem; border-radius: var(--radius); text-decoration: none; font-weight: bold; cursor: pointer; border: 2px solid transparent; font-size: 0.9rem; }
+    .btn-primary { background: var(--color-accent); color: #fff; }
+    .btn-outline { background: transparent; color: #fff; border-color: #fff; }
+    .top-bar { background: var(--color-primary); color: #fff; font-size: 0.85rem; }
+    .top-bar-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.5rem 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 1.5rem; }
+    .top-bar a { color: #fff; text-decoration: none; }
+    .top-bar .phone { font-weight: bold; }
+    .site-header { background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .logo { font-weight: 700; color: var(--color-primary); text-decoration: none; font-size: 1rem; }
+    .main-nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; flex-wrap: wrap; }
+    .main-nav a { text-decoration: none; color: var(--color-text); font-weight: 600; font-size: 0.9rem; }
+    .hero { background: linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color: #fff; text-align: center; padding: 7rem 1rem; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .hero h1 { font-family: var(--font-heading); font-size: 2.25rem; margin: 0 0 1rem; }
+    .hero p { max-width: 600px; margin: 0 auto 2rem; opacity: 0.9; }
+    .page { max-width: var(--max-width); margin: 0 auto; padding: 3rem 1rem 4rem; }
+    .card { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); padding: 1.5rem; }
+    .card h2 { font-family: var(--font-heading); color: var(--color-primary); margin-top: 0; margin-bottom: 0.75rem; }
+    .card p { color: var(--color-text-muted); margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <a href="#">Call Today</a>
+      <a href="#">Find a Location</a>
+      <a href="#">Book Service</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Proudly Serving Toms River</a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="shop-tires.html">Shop Tires</a></li>
+          <li><a href="auto-services.html">Auto Services</a></li>
+          <li><a href="coupons.html">Coupons</a></li>
+          <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
+          <li><a href="financing.html">Financing</a></li>
+          <li><a href="find-a-store.html">Find a Store</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <h1>Shop Tires</h1>
+    <p>Browse our tire selection and get the right fit for your vehicle.</p>
+    <div class="hero-ctas" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem;">
+      <a href="coupons.html" class="btn btn-outline">View Coupons</a>
+      <a href="find-a-store.html" class="btn btn-primary">Find a Store</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="card">
+      <h2>Coming Soon</h2>
+      <p>This is a basic skeleton page for the shop tires section.</p>
+    </div>
+  </div>
+</body>
+</html>

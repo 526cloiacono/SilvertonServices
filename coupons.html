@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silverton | Coupons</title>
+<style>
+  :root {
+    --color-primary: #002d5c;
+    --color-accent: #e2231a;
+    --color-highlight: #00838f;
+    --color-bg: #ffffff;
+    --color-bg-alt: #f4f5f6;
+    --color-text: #1a1a1a;
+    --color-text-muted: #5a5a5a;
+    --font-heading: Arial, Helvetica, sans-serif;
+    --font-body: Arial, Helvetica, sans-serif;
+    --max-width: 1200px;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  .page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+  }
+  .top-bar {
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.85rem;
+  }
+  .top-bar-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .top-bar a { color: #fff; text-decoration: none; }
+  .site-header {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+  }
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .edit-button {
+    background: var(--color-accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .edit-button:hover { opacity: 0.9; }
+  .edit-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .edit-modal.show { display: flex; }
+  .edit-modal-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    width: min(100%, 420px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .edit-modal-card h3 { margin-top: 0; color: var(--color-primary); }
+  .edit-modal-card label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .edit-modal-card input[type="text"],
+  .edit-modal-card input[type="password"],
+  .edit-modal-card input[type="file"] {
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    font: inherit;
+  }
+  .edit-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .edit-status {
+    margin-top: 0.8rem;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    min-height: 1.2rem;
+  }
+  .main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  .main-nav a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .hero {
+    background: linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat;
+    color: #fff;
+    padding: 4rem 1rem;
+    text-align: center;
+    margin: 1.5rem 0 2rem;
+    border-radius: var(--radius);
+  }
+  .hero h1 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin: 0;
+  }
+  .hero p { max-width: 700px; margin: 0.75rem auto 0; opacity: 0.95; }
+  .card {
+    background: var(--color-bg-alt);
+    border: 1px solid #e5e5e5;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card h2 {
+    margin-top: 0;
+    color: var(--color-primary);
+  }
+  .placeholder {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <a href="#">Call Today</a>
+      <a href="#">Find a Location</a>
+      <a href="#">Book Service</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <button type="button" class="edit-button" id="openEditModal">Edit</button>
+        <a href="index.html" class="logo">Proudly Serving Toms River</a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="coupons.html">Coupons</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="edit-modal" id="editModal" aria-hidden="true">
+    <div class="edit-modal-card">
+      <h3>Upload Coupon Page Hero Image</h3>
+      <form id="editForm" enctype="multipart/form-data">
+        <label>Username<input type="text" name="username" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <label>Hero Image<input type="file" name="heroImage" accept="image/*" required></label>
+        <div class="edit-form-actions">
+          <button type="button" class="btn btn-dark-outline" id="closeEditModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+        <p class="edit-status" id="editStatus"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="page">
+    <section class="hero" id="hero-section">
+      <h1>Coupons &amp; Specials</h1>
+      <p>Discover current offers, seasonal deals, and service promotions from Silverton.</p>
+    </section>
+
+    <div class="card">
+      <h2>Current Offers</h2>
+      <p class="placeholder">Coupon content will be added here.</p>
+    </div>
+
+    <div class="card">
+      <h2>Special Promotions</h2>
+      <p class="placeholder">Upcoming deals and promotions will appear here.</p>
+    </div>
+  </div>
+
+  <script>
+    const correctUsername = 'silverton';
+    const correctPassword = 'silverton123';
+
+    function setHeroBackground() {
+      const hero = document.getElementById('hero-section');
+      if (!hero) return;
+      const fallback = 'IMG/silvertonheadNW.png';
+      const uploaded = '/uploads/hero.jpg';
+      const localImage = localStorage.getItem('silvertonCouponsHeroImage');
+      const img = new Image();
+
+      img.onload = function () {
+        hero.style.background = `linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('${uploaded}?t=${Date.now()}') center/cover no-repeat`;
+      };
+
+      img.onerror = function () {
+        if (localImage) {
+          hero.style.background = `linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('${localImage}') center/cover no-repeat`;
+        } else {
+          hero.style.background = `linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('${fallback}') center/cover no-repeat`;
+        }
+      };
+
+      img.src = uploaded + '?t=' + Date.now();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      setHeroBackground();
+
+      const openBtn = document.getElementById('openEditModal');
+      const closeBtn = document.getElementById('closeEditModal');
+      const modal = document.getElementById('editModal');
+      const form = document.getElementById('editForm');
+      const status = document.getElementById('editStatus');
+
+      if (openBtn && modal) {
+        openBtn.addEventListener('click', function () {
+          modal.classList.add('show');
+          modal.setAttribute('aria-hidden', 'false');
+          if (status) status.textContent = '';
+        });
+      }
+
+      if (closeBtn && modal) {
+        closeBtn.addEventListener('click', function () {
+          modal.classList.remove('show');
+          modal.setAttribute('aria-hidden', 'true');
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener('click', function (event) {
+          if (event.target === modal) {
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+          }
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          const usernameField = form.querySelector('input[name="username"]');
+          const passwordField = form.querySelector('input[name="password"]');
+          const fileInput = form.querySelector('input[name="heroImage"]');
+          const file = fileInput && fileInput.files[0];
+
+          const enteredUsername = usernameField ? usernameField.value.trim() : '';
+          const enteredPassword = passwordField ? passwordField.value.trim() : '';
+
+          if (enteredUsername !== correctUsername || enteredPassword !== correctPassword) {
+            if (status) status.textContent = 'Invalid username or password.';
+            return;
+          }
+
+          if (status) status.textContent = 'Uploading...';
+
+          const completeUpload = function (message) {
+            if (status) status.textContent = message;
+            setHeroBackground();
+            form.reset();
+            setTimeout(function () {
+              modal.classList.remove('show');
+              modal.setAttribute('aria-hidden', 'true');
+            }, 800);
+          };
+
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = async function () {
+              const fileDataUrl = reader.result;
+              localStorage.setItem('silvertonCouponsHeroImage', fileDataUrl);
+              try {
+                const data = new FormData(form);
+                const response = await fetch('/api/upload-hero', {
+                  method: 'POST',
+                  body: data
+                });
+                const result = await response.json();
+                if (result.ok) {
+                  completeUpload(result.message || 'Hero image updated and stored for the site.');
+                } else {
+                  completeUpload(result.message || 'The upload was rejected by the server.');
+                }
+              } catch (error) {
+                completeUpload('The upload server is unavailable, so the image is only cached locally for this browser.');
+              }
+            };
+            reader.onerror = function () {
+              completeUpload('Unable to read the selected image.');
+            };
+            reader.readAsDataURL(file);
+          } else {
+            completeUpload('Please choose an image file.');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
