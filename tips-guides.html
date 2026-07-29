@@ -41,9 +41,34 @@
     .hero p { max-width: 680px; margin: 0 auto 2rem; opacity: 0.95; font-size: 1.05rem; }
     .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
     .page { max-width: var(--max-width); margin: 0 auto; padding: 3rem 1rem 4rem; }
-    .card { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); padding: 1.5rem; }
-    .card h2 { font-family: var(--font-heading); color: var(--color-primary); margin-top: 0; margin-bottom: 0.75rem; }
-    .card p { color: var(--color-text-muted); margin: 0; }
+    .page-intro { margin-bottom: 1.5rem; }
+    .page-intro h2 { font-family: var(--font-heading); color: var(--color-primary); margin-bottom: 0.5rem; }
+    .page-intro p { color: var(--color-text-muted); margin: 0; }
+    .search-box { margin-bottom: 1.25rem; padding: 1rem 1.1rem; background: #fff; border: 1px solid #e3e3e3; border-radius: var(--radius); box-shadow: 0 3px 10px rgba(0,0,0,0.04); }
+    .search-box label { display: block; font-weight: 700; color: var(--color-primary); margin-bottom: 0.4rem; }
+    .search-box input { width: 100%; border: 1px solid #d8dce6; border-radius: var(--radius); padding: 0.8rem 0.95rem; font-size: 0.95rem; }
+    .search-box input:focus { outline: 2px solid rgba(60,96,193,0.18); border-color: var(--color-primary); }
+    .search-empty { margin: 0 0 1rem; color: var(--color-text-muted); }
+    .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .part-accordion { display: grid; gap: 1rem; }
+    .part-panel { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); box-shadow: 0 6px 18px rgba(0,0,0,0.04); overflow: hidden; }
+    .part-toggle { width: 100%; background: transparent; border: 0; padding: 1rem 1.25rem; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--color-primary); font-weight: 700; }
+    .part-title { display: flex; align-items: center; gap: 0.6rem; font-size: 1rem; }
+    .part-toggle-icon { color: var(--color-accent); font-size: 1.1rem; }
+    .part-content { padding: 0 1.25rem 1.25rem; }
+    .guide-card { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); padding: 1.25rem; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+    .guide-card-header { margin-bottom: 0.75rem; }
+    .guide-card-toggle { width: 100%; background: transparent; border: 0; padding: 0; text-align: left; cursor: pointer; }
+    .guide-card-kicker { color: var(--color-accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.35rem; }
+    .guide-card-title-row { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; }
+    .guide-card h3 { font-family: var(--font-heading); margin: 0; color: var(--color-primary); font-size: 1.05rem; }
+    .guide-card-toggle-icon { color: var(--color-accent); font-size: 1.1rem; font-weight: 700; }
+    .guide-card-summary { color: var(--color-text-muted); margin: 0 0 1rem; }
+    .guide-card-group { margin-top: 0.85rem; }
+    .guide-card-group h4 { font-size: 0.95rem; margin: 0 0 0.35rem; color: var(--color-text); }
+    .guide-card-group ul { margin: 0; padding-left: 1rem; color: var(--color-text-muted); }
+    .guide-card-group li { margin-bottom: 0.3rem; }
+    .guide-card-group p { margin: 0; color: var(--color-text-muted); }
   </style>
 </head>
 <body>
@@ -51,6 +76,7 @@
     <div class="top-bar-inner">
       <a href="tel:+17322176588">(732) 217-6588</a>
       <a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a>
+      <a href="https://www.silvertonmotors.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.3rem 0.6rem; font-size:0.72rem; line-height:1; white-space:nowrap;">Used Lot</a>
     </div>
   </div>
 
@@ -85,10 +111,3281 @@
   </div>
 
   <div class="page">
-    <div class="card">
-      <h2>Coming Soon</h2>
-      <p>This is a basic skeleton page for the tips and guides section.</p>
+    <div class="page-intro">
+      <h2>Tires 101 & Brakes Basics</h2>
+      <p>A practical guide to tire basics, brake care, and everyday vehicle safety.</p>
+    </div>
+
+    <div id="app">
+      <div class="search-box">
+        <label for="guide-search">Search topics</label>
+        <input id="guide-search" v-model="searchQuery" type="search" placeholder="Search for tires, brakes, oil, safety..." />
+      </div>
+
+      <p v-if="showEmptyState" class="search-empty">No results found for “{{ searchQuery }}”. Try another keyword.</p>
+
+      <div class="part-accordion">
+        <article v-for="part in filteredParts" :key="part.key" class="part-panel">
+          <button class="part-toggle" type="button" @click="togglePart(part.key)">
+            <span class="part-title">{{ part.label }}</span>
+            <span class="part-toggle-icon">{{ isPartExpanded(part.key) || part.matchesSearch ? '−' : '+' }}</span>
+          </button>
+
+          <div v-show="isPartExpanded(part.key) || part.matchesSearch" class="part-content">
+            <div class="guide-grid">
+              <article v-for="section in part.sections" :key="section.id" class="guide-card">
+                <div class="guide-card-header">
+                  <button class="guide-card-toggle" type="button" @click="toggleSection(section.id)">
+                    <p class="guide-card-kicker">{{ section.id }}</p>
+                    <div class="guide-card-title-row">
+                      <h3>{{ section.title }}</h3>
+                      <span class="guide-card-toggle-icon">{{ isExpanded(section.id) || section.matchesSearch ? '−' : '+' }}</span>
+                    </div>
+                  </button>
+                </div>
+                <p class="guide-card-summary">{{ section.summary }}</p>
+
+                <div v-show="isExpanded(section.id) || section.matchesSearch">
+                  <div v-for="group in section.groups" :key="group.heading" class="guide-card-group">
+                    <h4>{{ group.heading }}</h4>
+                    <ul v-if="group.items">
+                      <li v-for="item in group.items" :key="item">{{ item }}</li>
+                    </ul>
+                    <p v-else>{{ group.text }}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
+
+  <script type="application/json" id="guide-data">
+    {
+      "sections": [
+        {
+          "id": "1.1",
+          "title": "How Tires Work",
+          "summary": "Tires are the only part of your vehicle that touches the road, making them essential to control, braking, and safety.",
+          "groups": [
+            {
+              "heading": "Why Tires Matter",
+              "items": [
+                "Improve stopping ability",
+                "Maintain traction in rain, snow, and dry conditions",
+                "Improve handling and stability",
+                "Increase fuel efficiency",
+                "Provide a smoother ride"
+              ]
+            },
+            {
+              "heading": "How Tires Are Built",
+              "items": [
+                "Tread: the outer rubber section that grips the road",
+                "Sidewall: protects the tire and provides flexibility",
+                "Steel belts: add strength and stability",
+                "Inner liner: helps hold air inside the tire"
+              ]
+            },
+            {
+              "heading": "Common Tire Problems",
+              "items": [
+                "Low air pressure",
+                "Uneven wear",
+                "Cracks or damage",
+                "Loss of tread",
+                "Punctures"
+              ]
+            },
+            {
+              "heading": "Maintenance Tips",
+              "items": [
+                "Check pressure monthly",
+                "Inspect tires regularly",
+                "Rotate tires on schedule",
+                "Replace damaged tires quickly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "Understanding Tire Types",
+          "summary": "Different tires are designed for different weather conditions, driving habits, and vehicle needs.",
+          "groups": [
+            {
+              "heading": "All-Season Tires",
+              "items": [
+                "Good year-round performance",
+                "Longer tread life",
+                "Comfortable ride",
+                "Best for mild weather and everyday driving"
+              ]
+            },
+            {
+              "heading": "Winter Tires",
+              "items": [
+                "Built for cold temperatures and slippery roads",
+                "Special rubber compounds and deeper tread patterns",
+                "Better braking and control in snow and ice"
+              ]
+            },
+            {
+              "heading": "Performance Tires",
+              "items": [
+                "Improved grip and steering response",
+                "More responsive cornering",
+                "Usually wear faster and cost more"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "Reading a Tire Sidewall",
+          "summary": "The numbers and letters on a tire reveal size, capability, and manufacturing details.",
+          "groups": [
+            {
+              "heading": "Example: 225/55R17",
+              "items": [
+                "225 = tire width in millimeters",
+                "55 = sidewall height compared to width",
+                "R = radial construction",
+                "17 = wheel diameter"
+              ]
+            },
+            {
+              "heading": "Why This Matters",
+              "items": [
+                "Helps you buy the correct replacement tire",
+                "Helps avoid unsafe tire combinations",
+                "Improves understanding of your vehicle's limits"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.4",
+          "title": "Tire Pressure",
+          "summary": "Proper inflation is one of the easiest ways to improve safety and extend tire life.",
+          "groups": [
+            {
+              "heading": "Underinflated Tires",
+              "items": [
+                "Increased friction",
+                "More heat buildup",
+                "Poor fuel economy",
+                "Faster edge wear",
+                "Less control"
+              ]
+            },
+            {
+              "heading": "Overinflated Tires",
+              "items": [
+                "Reduced traction",
+                "Rougher ride",
+                "Uneven center wear"
+              ]
+            },
+            {
+              "heading": "Best Practices",
+              "items": [
+                "Check pressure once a month",
+                "Check before long trips",
+                "Check when tires are cold",
+                "Follow manufacturer recommendations"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.5",
+          "title": "Tire Tread Depth",
+          "summary": "Tread depth affects how well your tires grip the road, especially in rain, snow, or ice.",
+          "groups": [
+            {
+              "heading": "Why Tread Matters",
+              "items": [
+                "The grooves channel water away from the contact patch",
+                "As tread wears down, traction decreases"
+              ]
+            },
+            {
+              "heading": "Warning Signs",
+              "items": [
+                "Tires look smooth",
+                "Vehicle slips in rain",
+                "Stopping distances increase",
+                "Uneven wear patterns appear"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.6",
+          "title": "Tire Rotation",
+          "summary": "Rotation helps tires wear more evenly and last longer.",
+          "groups": [
+            {
+              "heading": "Why Rotation Is Needed",
+              "items": [
+                "Front tires handle steering",
+                "Drive tires handle acceleration",
+                "Braking affects tire wear"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Longer tire life",
+                "Better handling",
+                "More even tread wear",
+                "Improved safety"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.7",
+          "title": "Wheel Alignment",
+          "summary": "Alignment adjusts your wheel angles so they contact the road evenly.",
+          "groups": [
+            {
+              "heading": "Signs of Poor Alignment",
+              "items": [
+                "Vehicle pulls to one side",
+                "Steering wheel is off-center",
+                "Uneven tire wear",
+                "Tires wear quickly"
+              ]
+            },
+            {
+              "heading": "Common Causes",
+              "items": [
+                "Potholes",
+                "Curbs",
+                "Accidents",
+                "Suspension wear"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.8",
+          "title": "Tire Balancing",
+          "summary": "Balancing helps the tire and wheel rotate evenly for a smoother ride.",
+          "groups": [
+            {
+              "heading": "Signs of Imbalance",
+              "items": [
+                "Steering wheel vibration",
+                "Shaking at certain speeds",
+                "Uneven tire wear"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Smoother ride",
+                "Less stress on suspension",
+                "Longer tire life"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.9",
+          "title": "When Tires Need Replacement",
+          "summary": "Tires eventually lose their ability to perform safely due to wear, age, and damage.",
+          "groups": [
+            {
+              "heading": "Replace Tires When",
+              "items": [
+                "Tread is too low",
+                "Sidewalls are damaged",
+                "Cracks appear",
+                "Tires constantly lose air",
+                "Tires are old"
+              ]
+            },
+            {
+              "heading": "Factors Affecting Tire Life",
+              "items": [
+                "Driving habits",
+                "Road conditions",
+                "Climate",
+                "Maintenance",
+                "Storage conditions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1.10",
+          "title": "Tire Maintenance Checklist",
+          "summary": "A quick checklist to help you stay on top of routine care.",
+          "groups": [
+            {
+              "heading": "Monthly",
+              "items": [
+                "Check tire pressure",
+                "Look for damage",
+                "Inspect tread",
+                "Check for uneven wear"
+              ]
+            },
+            {
+              "heading": "Regular Service",
+              "items": [
+                "Rotate tires",
+                "Balance tires when needed",
+                "Check alignment",
+                "Repair damage quickly"
+              ]
+            },
+            {
+              "heading": "Before Long Trips",
+              "items": [
+                "Inspect tires",
+                "Check pressure",
+                "Confirm spare tire condition"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.1",
+          "title": "How Your Vehicle's Braking System Works",
+          "summary": "Your brakes slow down and stop the vehicle by turning brake pedal pressure into friction at the wheels.",
+          "groups": [
+            {
+              "heading": "How It Works",
+              "items": [
+                "The brake pedal activates the braking system",
+                "Brake fluid transfers pressure through the brake lines",
+                "Brake components create friction against the wheels",
+                "The friction slows the vehicle down"
+              ]
+            },
+            {
+              "heading": "Modern Brakes",
+              "items": [
+                "Most vehicles use disc brakes",
+                "Disc brakes provide reliable stopping power and better heat control"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "Main Parts of a Brake System",
+          "summary": "Brake pads, rotors, calipers, and fluid all work together to create safe stopping power.",
+          "groups": [
+            {
+              "heading": "Brake Pads",
+              "items": [
+                "Press against the rotors to create friction",
+                "Wear down over time and need regular inspection",
+                "Worn pads can damage other brake components"
+              ]
+            },
+            {
+              "heading": "Brake Rotors",
+              "items": [
+                "Metal discs connected to the wheels",
+                "Can warp, groove, or become uneven with heat or wear"
+              ]
+            },
+            {
+              "heading": "Brake Calipers",
+              "items": [
+                "Hold the brake pads and squeeze them against the rotors",
+                "Can stick and cause uneven braking"
+              ]
+            },
+            {
+              "heading": "Brake Fluid",
+              "items": [
+                "Transfers pressure from the brake pedal to the braking components",
+                "Needs to stay clean and at the proper level"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "title": "Signs Your Brakes Need Attention",
+          "summary": "Certain noises, vibrations, and pedal changes can point to brake wear or damage.",
+          "groups": [
+            {
+              "heading": "Squeaking or Squealing",
+              "items": [
+                "Often means pads are wearing thin or a wear indicator is contacting the rotor"
+              ]
+            },
+            {
+              "heading": "Grinding Noise",
+              "items": [
+                "Usually means pads are extremely worn and metal parts may be contacting each other"
+              ]
+            },
+            {
+              "heading": "Vibrations While Braking",
+              "items": [
+                "May indicate warped rotors, uneven pad wear, or suspension issues"
+              ]
+            },
+            {
+              "heading": "Vehicle Pulling While Braking",
+              "items": [
+                "May point to uneven braking pressure or a caliper problem"
+              ]
+            },
+            {
+              "heading": "Soft or Spongy Brake Pedal",
+              "items": [
+                "Can be caused by air in the brake lines, low brake fluid, or leaks"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.4",
+          "title": "Brake Maintenance",
+          "summary": "Routine inspections can catch small problems before they become safety concerns.",
+          "groups": [
+            {
+              "heading": "Regular Brake Inspections",
+              "items": [
+                "Check brake pad thickness",
+                "Inspect rotor condition",
+                "Review brake fluid levels",
+                "Examine calipers and brake lines"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Improved safety",
+                "Lower repair costs",
+                "Longer brake lifespan"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.5",
+          "title": "How Long Do Brakes Last?",
+          "summary": "Brake life depends on driving habits, vehicle weight, environment, and maintenance.",
+          "groups": [
+            {
+              "heading": "Driving Habits",
+              "items": [
+                "Hard braking and frequent sudden stops wear brakes faster"
+              ]
+            },
+            {
+              "heading": "Vehicle Type",
+              "items": [
+                "Heavier vehicles, trucks, and SUVs usually put more stress on brakes"
+              ]
+            },
+            {
+              "heading": "Driving Environment",
+              "items": [
+                "Stop-and-go traffic, mountain driving, and towing increase wear"
+              ]
+            },
+            {
+              "heading": "Maintenance",
+              "items": [
+                "Regular inspections help brakes last longer"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.6",
+          "title": "Brake Warning Lights",
+          "summary": "Warning lights can indicate low fluid, worn pads, an engaged parking brake, or a brake system fault.",
+          "groups": [
+            {
+              "heading": "What To Do",
+              "items": [
+                "Do not ignore brake warning lights",
+                "Have the vehicle checked promptly to identify the cause"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.7",
+          "title": "Brake Safety Tips",
+          "summary": "Good driving habits can help extend brake life and improve safety.",
+          "groups": [
+            {
+              "heading": "Safe Following Distance",
+              "items": [
+                "More space gives you more time to stop safely"
+              ]
+            },
+            {
+              "heading": "Avoid Excessive Braking",
+              "items": [
+                "Smooth braking helps reduce heat and extend brake life"
+              ]
+            },
+            {
+              "heading": "Pay Attention to Changes",
+              "items": [
+                "New noises, pedal changes, or longer stopping distances should be checked quickly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.8",
+          "title": "Brake Replacement Guide",
+          "summary": "Different brake components are replaced based on wear, damage, and condition.",
+          "groups": [
+            {
+              "heading": "Brake Pads",
+              "items": [
+                "Usually replaced when they become too thin or damaged"
+              ]
+            },
+            {
+              "heading": "Rotors",
+              "items": [
+                "May be resurfaced or replaced depending on condition"
+              ]
+            },
+            {
+              "heading": "Calipers",
+              "items": [
+                "Typically replaced only if damaged or malfunctioning"
+              ]
+            },
+            {
+              "heading": "Brake Fluid",
+              "items": [
+                "Should be serviced according to manufacturer recommendations"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.9",
+          "title": "Common Brake Problems and Solutions",
+          "summary": "Some brake issues are easy to spot and should be addressed quickly.",
+          "groups": [
+            {
+              "heading": "Common Issues",
+              "items": [
+                "Squeaking - worn pads - inspect or replace pads",
+                "Grinding - severe wear - service brakes immediately",
+                "Vibration - rotor issues - inspect rotors",
+                "Pulling - uneven braking - check brake system",
+                "Soft pedal - hydraulic issue - inspect brake fluid and system"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2.10",
+          "title": "Brake Maintenance Checklist",
+          "summary": "A simple checklist to keep your brake system reliable and safe.",
+          "groups": [
+            {
+              "heading": "Monthly",
+              "items": [
+                "Pay attention to noises",
+                "Check brake warning lights",
+                "Notice changes in pedal feel"
+              ]
+            },
+            {
+              "heading": "During Service",
+              "items": [
+                "Inspect brake pads",
+                "Check rotors",
+                "Check brake fluid",
+                "Inspect calipers"
+              ]
+            },
+            {
+              "heading": "Before Long Trips",
+              "items": [
+                "Make sure brakes feel normal",
+                "Listen for unusual sounds",
+                "Address problems before traveling"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.1",
+          "title": "How Your Vehicle's Engine Works",
+          "summary": "The engine converts fuel into energy that powers the vehicle and allows it to move.",
+          "groups": [
+            {
+              "heading": "Basic Engine Process",
+              "items": [
+                "Air and fuel enter the engine",
+                "Combustion creates power",
+                "Power moves through the transmission and drivetrain",
+                "Exhaust leaves the engine"
+              ]
+            },
+            {
+              "heading": "Important Note",
+              "items": [
+                "Most vehicles use an internal combustion engine",
+                "A properly maintained engine runs more efficiently and reliably"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "Main Engine Components",
+          "summary": "The engine block, pistons, cylinders, spark plugs, and battery all play key roles in engine operation.",
+          "groups": [
+            {
+              "heading": "Engine Block",
+              "items": [
+                "The main structure of the engine",
+                "Contains the cylinders where combustion happens"
+              ]
+            },
+            {
+              "heading": "Pistons",
+              "items": [
+                "Move up and down inside the cylinders",
+                "Worn piston rings can cause compression and oil consumption issues"
+              ]
+            },
+            {
+              "heading": "Cylinders",
+              "items": [
+                "Where fuel combustion takes place",
+                "Common setups include 4-cylinder, 6-cylinder, and 8-cylinder engines"
+              ]
+            },
+            {
+              "heading": "Spark Plugs",
+              "items": [
+                "Create the spark needed to ignite the air-fuel mixture",
+                "Bad spark plugs can cause starting and performance issues"
+              ]
+            },
+            {
+              "heading": "Battery and Starter",
+              "items": [
+                "The battery provides electricity to start the engine",
+                "The starter motor turns the engine over"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "Motor Oil Basics",
+          "summary": "Motor oil is one of the most important fluids in your vehicle because it protects engine parts.",
+          "groups": [
+            {
+              "heading": "What Motor Oil Does",
+              "items": [
+                "Lubricates engine parts",
+                "Removes heat",
+                "Cleans the engine",
+                "Protects against corrosion"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.4",
+          "title": "Types of Motor Oil",
+          "summary": "Conventional, synthetic, and synthetic blend oils each offer different benefits.",
+          "groups": [
+            {
+              "heading": "Conventional Oil",
+              "items": [
+                "Usually less expensive",
+                "Works well in many older vehicles"
+              ]
+            },
+            {
+              "heading": "Synthetic Oil",
+              "items": [
+                "Handles extreme temperatures better",
+                "Lasts longer and offers better protection"
+              ]
+            },
+            {
+              "heading": "Synthetic Blend Oil",
+              "items": [
+                "A mix of conventional and synthetic oils",
+                "Provides some synthetic benefits at a lower cost"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.5",
+          "title": "Understanding Oil Viscosity",
+          "summary": "Viscosity tells you how easily oil flows at cold and hot temperatures.",
+          "groups": [
+            {
+              "heading": "Example: 5W-30",
+              "items": [
+                "The first number relates to cold-weather flow",
+                "The second number relates to performance at operating temperature"
+              ]
+            },
+            {
+              "heading": "Why Correct Oil Matters",
+              "items": [
+                "Using the wrong oil can reduce protection and increase wear",
+                "Always follow the manufacturer recommendation"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.6",
+          "title": "Oil Changes",
+          "summary": "Regular oil changes are one of the most important maintenance services for your vehicle.",
+          "groups": [
+            {
+              "heading": "Benefits of Regular Oil Changes",
+              "items": [
+                "Protects engine parts",
+                "Improves performance",
+                "Improves reliability",
+                "Extends engine life"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.7",
+          "title": "When Should You Change Your Oil?",
+          "summary": "Oil change frequency depends on driving habits, vehicle age, oil type, and manufacturer guidance.",
+          "groups": [
+            {
+              "heading": "Factors That Affect Frequency",
+              "items": [
+                "Short trips",
+                "Towing heavy loads",
+                "Stop-and-go traffic",
+                "Vehicle age",
+                "Oil type"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.8",
+          "title": "Oil Filters",
+          "summary": "The oil filter removes dirt and contaminants from the oil so the engine stays protected.",
+          "groups": [
+            {
+              "heading": "Why Oil Filters Matter",
+              "items": [
+                "A dirty filter can reduce oil flow",
+                "It can allow contaminants into the engine"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.9",
+          "title": "Signs Your Engine May Have Problems",
+          "summary": "Warning lights, noises, rough idling, poor economy, and overheating can signal engine trouble.",
+          "groups": [
+            {
+              "heading": "Check Engine Light",
+              "items": [
+                "May indicate sensor, fuel, ignition, or emissions issues"
+              ]
+            },
+            {
+              "heading": "Strange Engine Noises",
+              "items": [
+                "Knocking, clicking, and grinding can point to low oil or internal problems"
+              ]
+            },
+            {
+              "heading": "Rough Idling",
+              "items": [
+                "May be caused by dirty filters, spark plug issues, fuel problems, or sensors"
+              ]
+            },
+            {
+              "heading": "Poor Fuel Economy",
+              "items": [
+                "Can result from dirty air filters, tire problems, engine issues, or old spark plugs"
+              ]
+            },
+            {
+              "heading": "Overheating",
+              "items": [
+                "May be caused by low coolant, cooling system issues, thermostat problems, or radiator problems"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.10",
+          "title": "Engine Maintenance Tips",
+          "summary": "Regular fluid checks, filter changes, and maintenance schedules keep the engine healthy.",
+          "groups": [
+            {
+              "heading": "Check Fluids Regularly",
+              "items": [
+                "Engine oil",
+                "Coolant",
+                "Transmission fluid",
+                "Brake fluid",
+                "Power steering fluid"
+              ]
+            },
+            {
+              "heading": "Replace Filters",
+              "items": [
+                "Oil filter",
+                "Air filter",
+                "Cabin air filter",
+                "Fuel filter"
+              ]
+            },
+            {
+              "heading": "Follow Maintenance Schedules",
+              "items": [
+                "Regular maintenance prevents breakdowns and expensive repairs"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.11",
+          "title": "Ways to Extend Engine Life",
+          "summary": "Driving smoothly, warming the engine properly, using quality fluids, and staying current on maintenance all help.",
+          "groups": [
+            {
+              "heading": "Helpful Habits",
+              "items": [
+                "Drive smoothly",
+                "Warm up the engine properly",
+                "Use quality fluids",
+                "Keep up with maintenance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.12",
+          "title": "Engine Maintenance Checklist",
+          "summary": "A simple checklist for staying on top of engine care.",
+          "groups": [
+            {
+              "heading": "Monthly",
+              "items": [
+                "Check oil level",
+                "Look for leaks",
+                "Check warning lights",
+                "Pay attention to unusual sounds"
+              ]
+            },
+            {
+              "heading": "Regular Service",
+              "items": [
+                "Change oil",
+                "Replace filters",
+                "Inspect belts and hoses",
+                "Check fluids"
+              ]
+            },
+            {
+              "heading": "Before Long Trips",
+              "items": [
+                "Check oil level",
+                "Inspect for leaks",
+                "Make sure warning lights are off"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.1",
+          "title": "Understanding When You Need New Tires",
+          "summary": "Buying tires is a major safety decision because tires affect traction, handling, comfort, and fuel efficiency.",
+          "groups": [
+            {
+              "heading": "Signs You May Need New Tires",
+              "items": [
+                "Low tread depth",
+                "Worn or smooth-looking tires",
+                "More slipping in rain",
+                "Longer stopping distances",
+                "Poor handling"
+              ]
+            },
+            {
+              "heading": "Cracks or Aging",
+              "items": [
+                "Sun exposure and heat can age tires",
+                "Cracks, dry rubber, and brittleness are warning signs"
+              ]
+            },
+            {
+              "heading": "Frequent Air Loss",
+              "items": [
+                "Repeated air loss may point to a puncture, valve issue, wheel damage, or tire deterioration"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "Choosing the Right Tire Size",
+          "summary": "Every vehicle requires a tire size that supports proper performance and safety.",
+          "groups": [
+            {
+              "heading": "How to Find the Right Size",
+              "items": [
+                "Driver's door sticker",
+                "Owner's manual",
+                "Current tire sidewall"
+              ]
+            },
+            {
+              "heading": "Example: 235/60R18",
+              "items": [
+                "235 = width in millimeters",
+                "60 = sidewall height compared to width",
+                "R = radial construction",
+                "18 = wheel size"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.3",
+          "title": "Choosing Between Different Tire Categories",
+          "summary": "Different tire types are designed for different climates, driving styles, and terrain.",
+          "groups": [
+            {
+              "heading": "All-Season Tires",
+              "items": [
+                "Balanced performance",
+                "Comfortable ride",
+                "Long-lasting tread",
+                "Usually affordable"
+              ]
+            },
+            {
+              "heading": "Summer Tires",
+              "items": [
+                "Better dry-road grip",
+                "Improved cornering",
+                "Responsive steering"
+              ]
+            },
+            {
+              "heading": "Winter Tires",
+              "items": [
+                "Better snow and ice traction",
+                "More control in cold weather",
+                "Improved braking in winter"
+              ]
+            },
+            {
+              "heading": "All-Terrain Tires",
+              "items": [
+                "Good for paved roads and off-road surfaces",
+                "Stronger construction and more aggressive tread"
+              ]
+            },
+            {
+              "heading": "Performance Tires",
+              "items": [
+                "Sharper handling and stronger grip",
+                "May wear faster and cost more"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.4",
+          "title": "Understanding Tire Ratings",
+          "summary": "Load, speed, traction, and temperature ratings help you compare tire capabilities.",
+          "groups": [
+            {
+              "heading": "Load Rating",
+              "items": [
+                "Shows how much weight a tire can safely support"
+              ]
+            },
+            {
+              "heading": "Speed Rating",
+              "items": [
+                "Indicates how much speed the tire can safely handle"
+              ]
+            },
+            {
+              "heading": "Traction and Temperature Ratings",
+              "items": [
+                "Describe grip and heat resistance characteristics"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.5",
+          "title": "Choosing Between Budget and Premium Tires",
+          "summary": "Budget tires may be affordable, while premium tires often offer stronger performance and longevity.",
+          "groups": [
+            {
+              "heading": "Budget Tires",
+              "items": [
+                "Lower purchase price",
+                "Can meet basic safety needs"
+              ]
+            },
+            {
+              "heading": "Premium Tires",
+              "items": [
+                "Better performance",
+                "Longer tread life",
+                "Improved comfort",
+                "Stronger warranties"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.6",
+          "title": "Understanding Tire Brands",
+          "summary": "Different manufacturers specialize in different strengths, such as tread life, comfort, winter traction, or off-road performance.",
+          "groups": [
+            {
+              "heading": "How to Compare Brands",
+              "items": [
+                "Read reviews",
+                "Check warranty coverage",
+                "Compare tire ratings",
+                "Match the brand to your driving needs and budget"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.7",
+          "title": "Matching Tires to Your Driving Style",
+          "summary": "The best tire depends on how you use your vehicle every day.",
+          "groups": [
+            {
+              "heading": "Daily Commuting",
+              "items": [
+                "Comfortable all-season tires with reliability and fuel efficiency"
+              ]
+            },
+            {
+              "heading": "Highway Driving",
+              "items": [
+                "Quiet ride, stability, and long-lasting tread"
+              ]
+            },
+            {
+              "heading": "Sports Driving",
+              "items": [
+                "Better handling, strong grip, and performance ratings"
+              ]
+            },
+            {
+              "heading": "Off-Road Driving",
+              "items": [
+                "Durable construction, aggressive tread, and strong sidewalls"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.8",
+          "title": "Understanding Tire Warranties",
+          "summary": "Warranties can help protect you against certain performance or production issues.",
+          "groups": [
+            {
+              "heading": "Common Warranty Types",
+              "items": [
+                "Tread life warranty",
+                "Manufacturer defect warranty",
+                "Road hazard coverage"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.9",
+          "title": "Common Tire Buying Mistakes",
+          "summary": "Avoid selecting tires based only on price or ignoring your vehicle's needs.",
+          "groups": [
+            {
+              "heading": "Common Mistakes",
+              "items": [
+                "Buying only based on price",
+                "Buying the wrong tire type",
+                "Ignoring tire ratings",
+                "Replacing only one tire"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.10",
+          "title": "Getting the Best Value When Buying Tires",
+          "summary": "The best tire is not always the most expensive one, but it should match your needs and budget.",
+          "groups": [
+            {
+              "heading": "Best Practices",
+              "items": [
+                "Research tire specifications and reviews",
+                "Consider long-term cost",
+                "Buy the right tire for your vehicle and conditions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4.11",
+          "title": "Tire Buying Checklist",
+          "summary": "A quick checklist to help you shop with confidence.",
+          "groups": [
+            {
+              "heading": "Before You Buy",
+              "items": [
+                "Confirm correct tire size",
+                "Check vehicle recommendations",
+                "Choose the right tire type",
+                "Compare warranties",
+                "Consider driving conditions",
+                "Check reviews"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.1",
+          "title": "Why Tire Care Matters",
+          "summary": "Proper tire care improves safety, performance, fuel economy, and tire lifespan.",
+          "groups": [
+            {
+              "heading": "Your Tires Affect",
+              "items": [
+                "Steering control",
+                "Braking ability",
+                "Fuel economy",
+                "Ride comfort",
+                "Overall safety"
+              ]
+            },
+            {
+              "heading": "Ignoring Maintenance Can Lead To",
+              "items": [
+                "Uneven wear",
+                "Reduced traction",
+                "Lower fuel efficiency",
+                "Unexpected tire failure"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "Checking Tire Pressure",
+          "summary": "Maintaining correct tire pressure is one of the most important parts of tire care.",
+          "groups": [
+            {
+              "heading": "Why Proper Pressure Matters",
+              "items": [
+                "Helps maintain road contact",
+                "Improves braking and turning control",
+                "Reduces uneven wear"
+              ]
+            },
+            {
+              "heading": "Underinflated Tires",
+              "items": [
+                "Edges wear faster",
+                "Tires create more heat",
+                "Fuel economy decreases",
+                "Steering feels heavier"
+              ]
+            },
+            {
+              "heading": "Overinflated Tires",
+              "items": [
+                "Less road contact",
+                "Reduced traction",
+                "Rougher ride",
+                "Faster center tread wear"
+              ]
+            },
+            {
+              "heading": "Best Practices",
+              "items": [
+                "Check pressure monthly",
+                "Check before long trips",
+                "Check when tires are cold",
+                "Use the manufacturer's recommended PSI"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "title": "Inspecting Your Tires",
+          "summary": "Regular inspections help drivers catch damage and wear issues before they become dangerous.",
+          "groups": [
+            {
+              "heading": "What to Look For",
+              "items": [
+                "Cracks from sun, heat, weather, and age",
+                "Bulges or bubbles that may indicate internal damage",
+                "Cuts or punctures from road debris",
+                "Uneven wear caused by pressure, alignment, rotation, or suspension issues"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.4",
+          "title": "Tire Rotation",
+          "summary": "Rotation helps tires wear more evenly by moving them to different positions on the vehicle.",
+          "groups": [
+            {
+              "heading": "Why Tires Wear Differently",
+              "items": [
+                "Front tires usually handle steering and more braking force",
+                "Rear tires may wear differently based on vehicle type and driving habits"
+              ]
+            },
+            {
+              "heading": "Benefits of Rotation",
+              "items": [
+                "Extend tire life",
+                "Improve handling",
+                "Save money"
+              ]
+            },
+            {
+              "heading": "When to Rotate",
+              "items": [
+                "Many vehicles benefit from rotation every 5,000-8,000 miles"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.5",
+          "title": "Tire Balancing",
+          "summary": "Balancing ensures the tire and wheel combination is evenly distributed for a smoother ride.",
+          "groups": [
+            {
+              "heading": "Signs Tires May Need Balancing",
+              "items": [
+                "Steering wheel vibration",
+                "Shaking at certain speeds",
+                "Uneven tread wear",
+                "Vehicle feels less smooth"
+              ]
+            },
+            {
+              "heading": "Benefits of Balancing",
+              "items": [
+                "Improves ride comfort",
+                "Protects suspension parts",
+                "Helps tires wear evenly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.6",
+          "title": "Wheel Alignment and Tire Care",
+          "summary": "Alignment helps keep the wheels positioned correctly so tires wear evenly and the vehicle handles properly.",
+          "groups": [
+            {
+              "heading": "Signs of Alignment Problems",
+              "items": [
+                "Vehicle pulls left or right",
+                "Steering wheel is not centered",
+                "Tires wear unevenly",
+                "Steering feels unusual"
+              ]
+            },
+            {
+              "heading": "Causes",
+              "items": [
+                "Potholes",
+                "Curbs",
+                "Accidents",
+                "Suspension wear"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Improves handling",
+                "Increases tire lifespan",
+                "Improves fuel efficiency"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.7",
+          "title": "Tire Repairs",
+          "summary": "Some tire damage can be repaired, but others require replacement for safety.",
+          "groups": [
+            {
+              "heading": "Repairable Damage",
+              "items": [
+                "Small punctures located in the correct area",
+                "Tires with no major structural damage"
+              ]
+            },
+            {
+              "heading": "Damage That Usually Requires Replacement",
+              "items": [
+                "Large cuts",
+                "Sidewall damage",
+                "Severe cracking",
+                "Structural damage"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.8",
+          "title": "Preventing Uneven Tire Wear",
+          "summary": "Uneven tire wear is often caused by inflation, rotation, alignment, or suspension problems.",
+          "groups": [
+            {
+              "heading": "Common Causes and Solutions",
+              "items": [
+                "Incorrect inflation - maintain correct pressure",
+                "Lack of rotation - rotate regularly",
+                "Alignment issues - have alignment checked",
+                "Worn suspension parts - inspect during maintenance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.9",
+          "title": "Extending Tire Life",
+          "summary": "Good habits can help your tires last longer and perform better.",
+          "groups": [
+            {
+              "heading": "Helpful Habits",
+              "items": [
+                "Drive smoothly",
+                "Maintain proper inflation",
+                "Keep tires clean",
+                "Store seasonal tires properly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.10",
+          "title": "Seasonal Tire Care",
+          "summary": "Tires need different care approaches depending on the season.",
+          "groups": [
+            {
+              "heading": "Summer Tire Care",
+              "items": [
+                "Heat increases tire stress",
+                "Check pressure regularly"
+              ]
+            },
+            {
+              "heading": "Winter Tire Care",
+              "items": [
+                "Cold temperatures reduce pressure",
+                "Check tread depth before winter"
+              ]
+            },
+            {
+              "heading": "Spring Tire Check",
+              "items": [
+                "Inspect for pothole damage",
+                "Check alignment and tread condition"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.11",
+          "title": "Tire Care Mistakes to Avoid",
+          "summary": "Small habits can create big tire problems over time.",
+          "groups": [
+            {
+              "heading": "Avoid These Mistakes",
+              "items": [
+                "Ignoring tire pressure",
+                "Waiting until tires fail",
+                "Skipping rotations",
+                "Mixing incorrect tires",
+                "Ignoring warning signs"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5.12",
+          "title": "Complete Tire Care Checklist",
+          "summary": "A practical checklist for keeping your tires safe and healthy.",
+          "groups": [
+            {
+              "heading": "Monthly",
+              "items": [
+                "Check tire pressure",
+                "Inspect for damage",
+                "Look at tread wear"
+              ]
+            },
+            {
+              "heading": "Every Service Visit",
+              "items": [
+                "Check alignment",
+                "Check balance",
+                "Inspect tires"
+              ]
+            },
+            {
+              "heading": "Regularly",
+              "items": [
+                "Rotate tires",
+                "Repair damage quickly",
+                "Replace worn tires"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.1",
+          "title": "How Driving Habits Affect Your Vehicle",
+          "summary": "The way you drive affects safety, fuel economy, tire wear, brake wear, and overall vehicle longevity.",
+          "groups": [
+            {
+              "heading": "Aggressive Driving Can Lead To",
+              "items": [
+                "Faster tire wear",
+                "Increased brake wear",
+                "Higher fuel consumption",
+                "More stress on engine and transmission components"
+              ]
+            },
+            {
+              "heading": "Better Alternative",
+              "items": [
+                "Smooth and controlled driving helps your vehicle last longer"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "title": "Smooth Acceleration",
+          "summary": "Gradually increasing speed reduces stress on your vehicle and helps improve efficiency.",
+          "groups": [
+            {
+              "heading": "Problems With Hard Acceleration",
+              "items": [
+                "Increases fuel usage",
+                "Wears tires faster",
+                "Puts stress on the drivetrain",
+                "Creates unnecessary engine strain"
+              ]
+            },
+            {
+              "heading": "Better Driving Habits",
+              "items": [
+                "Accelerate smoothly",
+                "Maintain steady speeds",
+                "Avoid unnecessary engine strain"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.3",
+          "title": "Proper Braking Habits",
+          "summary": "Your braking style directly affects how long your brake components last.",
+          "groups": [
+            {
+              "heading": "Aggressive Braking",
+              "items": [
+                "Faster brake pad wear",
+                "Excessive heat buildup",
+                "Rotor damage",
+                "Reduced brake lifespan"
+              ]
+            },
+            {
+              "heading": "Better Braking Techniques",
+              "items": [
+                "Look ahead for traffic changes",
+                "Slow down gradually",
+                "Leave enough following distance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.4",
+          "title": "Maintaining a Safe Following Distance",
+          "summary": "Leaving extra space gives you more time to react and reduces sudden braking.",
+          "groups": [
+            {
+              "heading": "Why It Matters",
+              "items": [
+                "Reduces sudden braking",
+                "Prevents collisions",
+                "Improves traffic flow"
+              ]
+            },
+            {
+              "heading": "Vehicle Benefits",
+              "items": [
+                "Less brake wear",
+                "Less tire stress",
+                "Smoother driving"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.5",
+          "title": "Highway Driving Tips",
+          "summary": "Highway driving places different demands on your vehicle than city driving.",
+          "groups": [
+            {
+              "heading": "Maintaining Speed",
+              "items": [
+                "Improve fuel economy",
+                "Reduce engine strain",
+                "Create smoother driving"
+              ]
+            },
+            {
+              "heading": "Before Highway Trips",
+              "items": [
+                "Check tire pressure",
+                "Check oil level",
+                "Check fuel level",
+                "Check tire condition",
+                "Check warning lights"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.6",
+          "title": "City Driving Tips",
+          "summary": "City driving often creates more wear due to frequent stopping, starting, and idling.",
+          "groups": [
+            {
+              "heading": "Common Challenges",
+              "items": [
+                "Stop-and-go traffic",
+                "Frequent braking",
+                "Short trips",
+                "Heavy acceleration"
+              ]
+            },
+            {
+              "heading": "Effects on Your Vehicle",
+              "items": [
+                "Brake wear",
+                "Tire wear",
+                "Fuel consumption",
+                "Engine stress"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.7",
+          "title": "Fuel-Saving Driving Techniques",
+          "summary": "Driving habits have a major impact on fuel economy.",
+          "groups": [
+            {
+              "heading": "Maintain a Steady Speed",
+              "items": [
+                "Constant speeding up and slowing down uses more fuel"
+              ]
+            },
+            {
+              "heading": "Avoid Excessive Idling",
+              "items": [
+                "Leaving your vehicle running while parked wastes fuel"
+              ]
+            },
+            {
+              "heading": "Reduce Extra Weight",
+              "items": [
+                "Unnecessary cargo increases vehicle weight and lowers efficiency"
+              ]
+            },
+            {
+              "heading": "Keep Tires Properly Inflated",
+              "items": [
+                "Underinflated tires create more resistance and make the engine work harder"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.8",
+          "title": "Driving in Rain",
+          "summary": "Wet roads reduce traction and increase stopping distances.",
+          "groups": [
+            {
+              "heading": "Rain Driving Tips",
+              "items": [
+                "Slow down",
+                "Increase following distance",
+                "Avoid sudden movements"
+              ]
+            },
+            {
+              "heading": "Tire Importance",
+              "items": [
+                "Proper tread helps move water away and maintain traction"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.9",
+          "title": "Driving in Snow and Ice",
+          "summary": "Winter conditions reduce traction and create more dangerous driving situations.",
+          "groups": [
+            {
+              "heading": "Before Driving",
+              "items": [
+                "Check tires",
+                "Check visibility",
+                "Check vehicle fluids",
+                "Check lights"
+              ]
+            },
+            {
+              "heading": "Snow Driving Tips",
+              "items": [
+                "Drive slowly",
+                "Brake smoothly",
+                "Avoid quick turns"
+              ]
+            },
+            {
+              "heading": "Winter Tires",
+              "items": [
+                "Provide better snow traction, cold-weather grip, and braking ability"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.10",
+          "title": "Driving in Hot Weather",
+          "summary": "Extreme heat can affect tires, fluids, and engine performance.",
+          "groups": [
+            {
+              "heading": "Heat Effects",
+              "items": [
+                "Increase tire pressure",
+                "Stress cooling systems",
+                "Affect batteries",
+                "Increase fluid breakdown"
+              ]
+            },
+            {
+              "heading": "Hot Weather Tips",
+              "items": [
+                "Check tire pressure",
+                "Check coolant levels",
+                "Check engine oil",
+                "Check battery condition"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.11",
+          "title": "Protecting Your Tires While Driving",
+          "summary": "Road hazards can damage tires, wheels, and suspension components.",
+          "groups": [
+            {
+              "heading": "Avoid Potholes",
+              "items": [
+                "Potholes can damage tires, wheels, and alignment"
+              ]
+            },
+            {
+              "heading": "Avoid Hitting Curbs",
+              "items": [
+                "Curbs can cause sidewall damage and alignment problems"
+              ]
+            },
+            {
+              "heading": "Watch Road Conditions",
+              "items": [
+                "Be careful around debris, construction zones, and rough pavement"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.12",
+          "title": "Vehicle-Friendly Driving Habits",
+          "summary": "Small habits can make a big difference in vehicle health and efficiency.",
+          "groups": [
+            {
+              "heading": "Helpful Habits",
+              "items": [
+                "Warm up the vehicle properly",
+                "Avoid overloading your vehicle",
+                "Use recommended maintenance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.13",
+          "title": "Common Driving Mistakes",
+          "summary": "Avoid habits that waste fuel, wear parts faster, or reduce safety.",
+          "groups": [
+            {
+              "heading": "Avoid These Mistakes",
+              "items": [
+                "Riding the brakes",
+                "Rapid acceleration",
+                "Ignoring warning signs",
+                "Driving on damaged tires"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.14",
+          "title": "Defensive Driving",
+          "summary": "Defensive driving means anticipating hazards and making safer decisions on the road.",
+          "groups": [
+            {
+              "heading": "Defensive Driving Practices",
+              "items": [
+                "Stay alert",
+                "Watch other drivers",
+                "Follow traffic rules",
+                "Adjust for conditions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6.15",
+          "title": "Driving Maintenance Checklist",
+          "summary": "A quick checklist for safer, more efficient driving habits.",
+          "groups": [
+            {
+              "heading": "Before Trips",
+              "items": [
+                "Check tires",
+                "Check fuel level",
+                "Check warning lights",
+                "Adjust mirrors"
+              ]
+            },
+            {
+              "heading": "While Driving",
+              "items": [
+                "Listen for unusual sounds",
+                "Notice changes in handling",
+                "Maintain safe distances"
+              ]
+            },
+            {
+              "heading": "Regular Habits",
+              "items": [
+                "Avoid aggressive driving",
+                "Keep tires properly inflated",
+                "Drive smoothly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.1",
+          "title": "Why Regular Vehicle Maintenance Matters",
+          "summary": "Routine maintenance helps keep your vehicle safe, reliable, efficient, and longer lasting.",
+          "groups": [
+            {
+              "heading": "Benefits of Regular Maintenance",
+              "items": [
+                "Improves safety",
+                "Prevents expensive repairs",
+                "Improves performance",
+                "Extends vehicle life"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.2",
+          "title": "Understanding Your Vehicle Maintenance Schedule",
+          "summary": "Every vehicle has a recommended maintenance schedule based on mileage, time, and driving conditions.",
+          "groups": [
+            {
+              "heading": "Maintenance Intervals",
+              "items": [
+                "Mileage-based service",
+                "Time-based service",
+                "Driving-condition-based service"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.3",
+          "title": "Checking Vehicle Fluids",
+          "summary": "Fluids allow major systems to operate correctly and safely.",
+          "groups": [
+            {
+              "heading": "Key Fluids",
+              "items": [
+                "Engine oil",
+                "Coolant",
+                "Transmission fluid",
+                "Brake fluid",
+                "Power steering fluid",
+                "Washer fluid"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.4",
+          "title": "Oil Change Maintenance",
+          "summary": "Oil changes are one of the most important regular services for a vehicle.",
+          "groups": [
+            {
+              "heading": "Why Oil Changes Matter",
+              "items": [
+                "Reduce friction",
+                "Control heat",
+                "Remove contaminants",
+                "Protect engine components"
+              ]
+            },
+            {
+              "heading": "Signs You May Need an Oil Change",
+              "items": [
+                "Oil warning light",
+                "Dark or dirty oil",
+                "Engine noise",
+                "Poor performance",
+                "Mileage interval reached"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.5",
+          "title": "Air Filters",
+          "summary": "Air filters prevent dirt and debris from entering the engine.",
+          "groups": [
+            {
+              "heading": "Why Air Filters Matter",
+              "items": [
+                "Reduce airflow",
+                "Affect engine performance",
+                "Reduce fuel efficiency"
+              ]
+            },
+            {
+              "heading": "Signs of a Dirty Air Filter",
+              "items": [
+                "Reduced acceleration",
+                "Poor fuel economy",
+                "Engine running rough"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.6",
+          "title": "Cabin Air Filters",
+          "summary": "Cabin air filters clean the air entering the vehicle's interior.",
+          "groups": [
+            {
+              "heading": "Signs It Needs Replacement",
+              "items": [
+                "Weak airflow from vents",
+                "Unusual smells",
+                "More dust inside the vehicle"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Improved air quality",
+                "Better heating and cooling performance",
+                "More comfort"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.7",
+          "title": "Battery Maintenance",
+          "summary": "The battery powers the vehicle's electrical systems and helps start the engine.",
+          "groups": [
+            {
+              "heading": "Signs of Battery Problems",
+              "items": [
+                "Slow engine start",
+                "Clicking noises",
+                "Dim lights",
+                "Electrical issues"
+              ]
+            },
+            {
+              "heading": "Battery Care Tips",
+              "items": [
+                "Inspect battery connections",
+                "Keep terminals clean",
+                "Test battery condition regularly"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.8",
+          "title": "Belts and Hoses",
+          "summary": "Belts and hoses help operate important vehicle systems.",
+          "groups": [
+            {
+              "heading": "Serpentine Belt",
+              "items": [
+                "Powers the alternator, A/C, and power steering"
+              ]
+            },
+            {
+              "heading": "Hoses",
+              "items": [
+                "Move fluids throughout the vehicle",
+                "Can leak or crack over time"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.9",
+          "title": "Tire Maintenance as Part of Vehicle Care",
+          "summary": "Tires are a major part of routine maintenance because they affect safety and performance.",
+          "groups": [
+            {
+              "heading": "Regular Tire Checks Include",
+              "items": [
+                "Tire pressure",
+                "Tread depth",
+                "Tire damage",
+                "Rotation schedule",
+                "Alignment condition"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.10",
+          "title": "Brake Maintenance",
+          "summary": "Brake inspections help identify wear before braking performance is affected.",
+          "groups": [
+            {
+              "heading": "Regular Checks Include",
+              "items": [
+                "Brake pad thickness",
+                "Rotor condition",
+                "Brake fluid",
+                "Brake system performance"
+              ]
+            },
+            {
+              "heading": "Warning Signs",
+              "items": [
+                "Squeaking",
+                "Grinding",
+                "Vibrations",
+                "Longer stopping distances"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.11",
+          "title": "Preventative Maintenance",
+          "summary": "Preventative maintenance means taking care of problems before they become failures.",
+          "groups": [
+            {
+              "heading": "Examples",
+              "items": [
+                "Replace worn parts",
+                "Inspect regularly",
+                "Keep records"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.12",
+          "title": "Seasonal Maintenance",
+          "summary": "Different seasons bring different maintenance needs.",
+          "groups": [
+            {
+              "heading": "Spring",
+              "items": [
+                "Check tires after winter",
+                "Check alignment after potholes",
+                "Inspect wiper blades and fluids"
+              ]
+            },
+            {
+              "heading": "Summer",
+              "items": [
+                "Check cooling system",
+                "Check A/C",
+                "Check tire pressure and battery"
+              ]
+            },
+            {
+              "heading": "Fall",
+              "items": [
+                "Prepare for colder temperatures and rain",
+                "Check tires, battery, lights, and fluids"
+              ]
+            },
+            {
+              "heading": "Winter",
+              "items": [
+                "Check tire traction",
+                "Check antifreeze/coolant",
+                "Check battery strength",
+                "Prepare emergency supplies"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.13",
+          "title": "Warning Signs You Should Not Ignore",
+          "summary": "Dashboard lights, strange sounds, and handling changes can point to serious issues.",
+          "groups": [
+            {
+              "heading": "Watch For",
+              "items": [
+                "Dashboard warning lights",
+                "Grinding, clicking, squealing, or knocking",
+                "Pulling, vibrations, rough shifting, or reduced power"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.14",
+          "title": "Vehicle Maintenance Checklist",
+          "summary": "A practical checklist for routine vehicle care.",
+          "groups": [
+            {
+              "heading": "Monthly",
+              "items": [
+                "Check tire pressure",
+                "Check fluids",
+                "Inspect lights",
+                "Look for leaks"
+              ]
+            },
+            {
+              "heading": "Every Few Months",
+              "items": [
+                "Inspect tires",
+                "Check battery condition",
+                "Check filters"
+              ]
+            },
+            {
+              "heading": "Regular Service",
+              "items": [
+                "Oil changes",
+                "Tire rotations",
+                "Brake inspections",
+                "Fluid services"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7.15",
+          "title": "Tips to Make Your Vehicle Last Longer",
+          "summary": "Simple habits and regular service can help your vehicle last much longer.",
+          "groups": [
+            {
+              "heading": "Helpful Habits",
+              "items": [
+                "Follow maintenance schedules",
+                "Fix problems early",
+                "Drive responsibly",
+                "Keep your vehicle clean"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.1",
+          "title": "Understanding Auto Services",
+          "summary": "Auto services are professional inspections, repairs, and maintenance procedures that keep a vehicle operating safely and efficiently.",
+          "groups": [
+            {
+              "heading": "Benefits",
+              "items": [
+                "Prevent breakdowns",
+                "Improve vehicle performance",
+                "Extend vehicle lifespan",
+                "Maintain safety",
+                "Protect resale value"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.2",
+          "title": "Oil Change Service",
+          "summary": "An oil change replaces old engine oil with fresh oil and usually includes replacing the oil filter.",
+          "groups": [
+            {
+              "heading": "What Happens During an Oil Change",
+              "items": [
+                "Old oil is drained",
+                "The oil filter is replaced",
+                "New oil is added",
+                "The technician may inspect other components"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Protect engine parts",
+                "Reduce friction",
+                "Improve engine performance",
+                "Improve reliability",
+                "Extend engine life"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.3",
+          "title": "Tire Services",
+          "summary": "Tire services help maintain traction, handling, and safety.",
+          "groups": [
+            {
+              "heading": "Tire Installation",
+              "items": [
+                "Proper mounting and balancing are essential"
+              ]
+            },
+            {
+              "heading": "Tire Rotation Service",
+              "items": [
+                "Creates even wear and longer tire life"
+              ]
+            },
+            {
+              "heading": "Tire Balancing Service",
+              "items": [
+                "Corrects uneven weight distribution"
+              ]
+            },
+            {
+              "heading": "Wheel Alignment Service",
+              "items": [
+                "Adjusts wheel angles to manufacturer specs"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.4",
+          "title": "Brake Services",
+          "summary": "Brake services help maintain your vehicle's ability to slow down and stop safely.",
+          "groups": [
+            {
+              "heading": "Brake Inspection",
+              "items": [
+                "Checks pads, rotors, calipers, fluid, and lines"
+              ]
+            },
+            {
+              "heading": "Brake Pad Replacement",
+              "items": [
+                "Maintains stopping performance and protects rotors"
+              ]
+            },
+            {
+              "heading": "Brake Rotor Service",
+              "items": [
+                "Keeps rotors smooth and properly shaped"
+              ]
+            },
+            {
+              "heading": "Brake Fluid Service",
+              "items": [
+                "Maintains braking performance and protects components"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.5",
+          "title": "Battery Services",
+          "summary": "Battery services help ensure your vehicle starts reliably and electrical systems work properly.",
+          "groups": [
+            {
+              "heading": "Battery Testing",
+              "items": [
+                "Checks whether the battery can hold and deliver enough power"
+              ]
+            },
+            {
+              "heading": "Battery Replacement",
+              "items": [
+                "May be needed when the battery no longer holds a charge"
+              ]
+            },
+            {
+              "heading": "Battery Maintenance Tips",
+              "items": [
+                "Keep terminals clean",
+                "Check battery condition regularly",
+                "Replace weak batteries before failure"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.6",
+          "title": "Suspension Services",
+          "summary": "Suspension maintenance helps provide stability, comfort, and control.",
+          "groups": [
+            {
+              "heading": "Common Components",
+              "items": [
+                "Shocks",
+                "Struts",
+                "Springs",
+                "Control arms"
+              ]
+            },
+            {
+              "heading": "Signs of Problems",
+              "items": [
+                "Rough ride",
+                "Excessive bouncing",
+                "Vehicle pulling",
+                "Uneven tire wear",
+                "Clunking noises"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.7",
+          "title": "Steering Services",
+          "summary": "Steering services keep your vehicle responsive and easy to control.",
+          "groups": [
+            {
+              "heading": "Common Problems",
+              "items": [
+                "Difficulty turning",
+                "Loose steering",
+                "Strange noises",
+                "Vehicle wandering"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Better control",
+                "Safer driving",
+                "Improved handling"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.8",
+          "title": "Cooling System Services",
+          "summary": "Cooling system service helps prevent engine overheating.",
+          "groups": [
+            {
+              "heading": "Main Components",
+              "items": [
+                "Radiator",
+                "Coolant",
+                "Thermostat",
+                "Hoses",
+                "Water pump"
+              ]
+            },
+            {
+              "heading": "Signs of Problems",
+              "items": [
+                "Temperature warning light",
+                "Overheating",
+                "Coolant leaks",
+                "Steam from the engine area"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.9",
+          "title": "Exhaust System Services",
+          "summary": "Exhaust services help remove engine gases and reduce emissions safely.",
+          "groups": [
+            {
+              "heading": "Common Components",
+              "items": [
+                "Exhaust pipes",
+                "Muffler",
+                "Catalytic converter"
+              ]
+            },
+            {
+              "heading": "Signs of Problems",
+              "items": [
+                "Loud noises",
+                "Unusual smells",
+                "Reduced performance",
+                "Visible damage"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.10",
+          "title": "Inspection Services",
+          "summary": "Vehicle inspections help identify potential problems before they become serious.",
+          "groups": [
+            {
+              "heading": "Common Inspection Areas",
+              "items": [
+                "Tires",
+                "Brakes",
+                "Fluids",
+                "Safety equipment"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.11",
+          "title": "Preventative Auto Services",
+          "summary": "Preventative services are designed to avoid unexpected breakdowns.",
+          "groups": [
+            {
+              "heading": "Examples",
+              "items": [
+                "Oil changes",
+                "Tire rotations",
+                "Brake inspections",
+                "Battery testing",
+                "Fluid checks"
+              ]
+            },
+            {
+              "heading": "Benefits",
+              "items": [
+                "Lower repair costs",
+                "Increased reliability",
+                "Safer driving",
+                "Longer vehicle life"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.12",
+          "title": "Choosing When to Get Service",
+          "summary": "Do not wait until failure to schedule maintenance.",
+          "groups": [
+            {
+              "heading": "Get Service When",
+              "items": [
+                "The manufacturer schedule recommends it",
+                "Warning signs appear",
+                "Vehicle performance changes",
+                "Unusual sounds occur"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8.13",
+          "title": "Auto Service Checklist",
+          "summary": "A practical checklist for keeping up with regular vehicle care.",
+          "groups": [
+            {
+              "heading": "Regularly",
+              "items": [
+                "Change oil",
+                "Rotate tires",
+                "Check brakes",
+                "Inspect fluids",
+                "Test battery"
+              ]
+            },
+            {
+              "heading": "When Problems Appear",
+              "items": [
+                "Check warning lights",
+                "Listen for unusual noises",
+                "Address handling changes",
+                "Schedule inspections"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.1",
+          "title": "How Weather Affects Your Vehicle",
+          "summary": "Weather conditions can affect tires, fluids, batteries, engines, and overall vehicle performance.",
+          "groups": [
+            {
+              "heading": "Cold Weather Effects",
+              "items": [
+                "Battery performance drops",
+                "Tire pressure decreases",
+                "Engine fluids can thicken",
+                "Starting the vehicle can become harder"
+              ]
+            },
+            {
+              "heading": "Hot Weather Effects",
+              "items": [
+                "Tire pressure increases",
+                "Engine cooling systems work harder",
+                "Battery life can be stressed",
+                "Vehicle fluids can break down faster"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.2",
+          "title": "Winter Vehicle Preparation",
+          "summary": "Preparing your vehicle before winter helps improve safety and prevents breakdowns.",
+          "groups": [
+            {
+              "heading": "Winter Tire Preparation",
+              "items": [
+                "Inspect tread depth",
+                "Check tire pressure",
+                "Look for cracks or damage",
+                "Consider winter tires for cold conditions"
+              ]
+            },
+            {
+              "heading": "Benefits of Winter Tires",
+              "items": [
+                "Improved braking",
+                "Better control",
+                "Increased traction",
+                "Safer winter driving"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.3",
+          "title": "Driving in Snow",
+          "summary": "Snow reduces traction and makes stopping and turning more difficult.",
+          "groups": [
+            {
+              "heading": "Snow Driving Tips",
+              "items": [
+                "Reduce speed",
+                "Increase following distance",
+                "Avoid sudden movements"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.4",
+          "title": "Driving on Ice",
+          "summary": "Ice is one of the most dangerous driving conditions because traction can disappear quickly.",
+          "groups": [
+            {
+              "heading": "Ice Driving Tips",
+              "items": [
+                "Drive slowly",
+                "Brake carefully",
+                "Stay calm during sliding"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.5",
+          "title": "Cold Weather Tire Care",
+          "summary": "Cold temperatures can change tire pressure and affect performance.",
+          "groups": [
+            {
+              "heading": "Why Tire Pressure Drops in Winter",
+              "items": [
+                "Air contracts as temperatures decrease"
+              ]
+            },
+            {
+              "heading": "Winter Tire Tips",
+              "items": [
+                "Check pressure frequently",
+                "Inspect tread before winter",
+                "Replace worn tires",
+                "Keep tires properly inflated"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.6",
+          "title": "Preparing Your Battery for Winter",
+          "summary": "Cold weather makes it harder for batteries to provide power.",
+          "groups": [
+            {
+              "heading": "Signs of Battery Problems",
+              "items": [
+                "Slow engine starting",
+                "Clicking sounds",
+                "Dim headlights",
+                "Electrical problems"
+              ]
+            },
+            {
+              "heading": "Winter Battery Tips",
+              "items": [
+                "Test battery strength before winter",
+                "Clean battery terminals",
+                "Replace weak batteries"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.7",
+          "title": "Checking Vehicle Fluids in Winter",
+          "summary": "Cold weather affects fluid performance and vehicle operation.",
+          "groups": [
+            {
+              "heading": "Key Fluids to Watch",
+              "items": [
+                "Engine oil must flow properly in cold temperatures",
+                "Coolant/antifreeze helps prevent freezing",
+                "Winter washer fluid helps clear snow and salt"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.8",
+          "title": "Winter Visibility and Safety",
+          "summary": "Winter weather often reduces visibility due to snow, ice, and shorter daylight hours.",
+          "groups": [
+            {
+              "heading": "Check These Systems",
+              "items": [
+                "Headlights",
+                "Brake lights",
+                "Turn signals",
+                "Windshield wipers",
+                "Defrosters"
+              ]
+            },
+            {
+              "heading": "Replace Worn Wipers",
+              "items": [
+                "Old wipers can leave streaks and reduce visibility"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.9",
+          "title": "Summer Vehicle Preparation",
+          "summary": "Summer heat can stress tires, cooling systems, batteries, and air conditioning.",
+          "groups": [
+            {
+              "heading": "Summer Stress Areas",
+              "items": [
+                "Tires",
+                "Engine cooling",
+                "Batteries",
+                "Air conditioning"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.10",
+          "title": "Summer Tire Care",
+          "summary": "Hot roads and high temperatures increase tire stress.",
+          "groups": [
+            {
+              "heading": "Summer Tire Tips",
+              "items": [
+                "Check tire pressure regularly",
+                "Inspect for cracks and damage",
+                "Check tread depth"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.11",
+          "title": "Preventing Overheating",
+          "summary": "The engine depends on the cooling system to maintain safe temperatures in hot weather.",
+          "groups": [
+            {
+              "heading": "Cooling System Components",
+              "items": [
+                "Radiator",
+                "Coolant",
+                "Thermostat",
+                "Hoses",
+                "Water pump"
+              ]
+            },
+            {
+              "heading": "Signs of Overheating",
+              "items": [
+                "Temperature gauge rising",
+                "Warning lights",
+                "Reduced performance",
+                "Coolant leaks"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.12",
+          "title": "Air Conditioning Maintenance",
+          "summary": "Your vehicle's air conditioning system keeps passengers comfortable during hot weather.",
+          "groups": [
+            {
+              "heading": "Signs of AC Problems",
+              "items": [
+                "Warm air blowing",
+                "Weak airflow",
+                "Strange noises",
+                "Unusual smells"
+              ]
+            },
+            {
+              "heading": "Maintenance",
+              "items": [
+                "Check refrigerant levels",
+                "Inspect components",
+                "Check airflow"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.13",
+          "title": "Driving in Rain",
+          "summary": "Rain reduces traction and visibility, making safe driving habits important.",
+          "groups": [
+            {
+              "heading": "Rain Driving Challenges",
+              "items": [
+                "Reduced tire grip",
+                "Longer stopping distances",
+                "Water buildup on roads"
+              ]
+            },
+            {
+              "heading": "Rain Driving Tips",
+              "items": [
+                "Slow down",
+                "Keep distance",
+                "Use proper tires"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.14",
+          "title": "Hydroplaning Prevention",
+          "summary": "Hydroplaning occurs when tires lose contact with the road because of water buildup.",
+          "groups": [
+            {
+              "heading": "Ways to Reduce Risk",
+              "items": [
+                "Maintain proper tire pressure",
+                "Keep good tread depth",
+                "Reduce speed in heavy rain",
+                "Avoid sudden steering movements"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.15",
+          "title": "Spring Vehicle Maintenance",
+          "summary": "Spring is a good time to inspect your vehicle after winter conditions.",
+          "groups": [
+            {
+              "heading": "Spring Checklist",
+              "items": [
+                "Check tires",
+                "Check alignment",
+                "Check brakes",
+                "Check wipers",
+                "Check fluids",
+                "Check battery"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.16",
+          "title": "Fall Vehicle Preparation",
+          "summary": "Fall is the ideal time to prepare your vehicle before colder weather arrives.",
+          "groups": [
+            {
+              "heading": "Fall Checklist",
+              "items": [
+                "Inspect tires",
+                "Test battery",
+                "Check coolant",
+                "Replace worn wipers",
+                "Check lights"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.17",
+          "title": "Extreme Weather Emergency Preparation",
+          "summary": "Drivers should be prepared for unexpected weather situations.",
+          "groups": [
+            {
+              "heading": "Helpful Emergency Items",
+              "items": [
+                "Flashlight",
+                "First-aid supplies",
+                "Water",
+                "Phone charger",
+                "Blanket",
+                "Basic tools"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.18",
+          "title": "Seasonal Maintenance Mistakes",
+          "summary": "Avoid habits that leave your vehicle unprepared for seasonal changes.",
+          "groups": [
+            {
+              "heading": "Avoid These Mistakes",
+              "items": [
+                "Ignoring tire pressure",
+                "Waiting until winter to prepare",
+                "Ignoring cooling systems",
+                "Using worn tires"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9.19",
+          "title": "Weather & Season Checklist",
+          "summary": "A practical seasonal checklist for safe vehicle care.",
+          "groups": [
+            {
+              "heading": "Winter",
+              "items": [
+                "Check tires",
+                "Test battery",
+                "Check coolant",
+                "Inspect lights",
+                "Prepare emergency supplies"
+              ]
+            },
+            {
+              "heading": "Spring",
+              "items": [
+                "Inspect winter damage",
+                "Check alignment",
+                "Maintain tires"
+              ]
+            },
+            {
+              "heading": "Summer",
+              "items": [
+                "Monitor overheating",
+                "Check AC",
+                "Inspect tires"
+              ]
+            },
+            {
+              "heading": "Fall",
+              "items": [
+                "Prepare for cold weather",
+                "Check battery",
+                "Replace worn parts"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.1",
+          "title": "Why Vehicle Safety Matters",
+          "summary": "Vehicle safety depends on maintenance, working components, and responsible driving habits.",
+          "groups": [
+            {
+              "heading": "A Safe Vehicle Depends On",
+              "items": [
+                "Properly maintained tires",
+                "Reliable brakes",
+                "Good visibility",
+                "Working safety equipment",
+                "Regular inspections"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.2",
+          "title": "Tire Safety",
+          "summary": "Tires are one of the most important safety features on your vehicle.",
+          "groups": [
+            {
+              "heading": "Checking Tire Pressure",
+              "items": [
+                "Proper inflation helps tires perform correctly",
+                "Underinflation can reduce handling and increase wear",
+                "Overinflation can reduce traction and create a rougher ride"
+              ]
+            },
+            {
+              "heading": "Safety Tips",
+              "items": [
+                "Check pressure regularly",
+                "Use manufacturer recommendations",
+                "Check before long trips",
+                "Adjust pressure when tires are cold"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.3",
+          "title": "Tire Tread Safety",
+          "summary": "Tread helps tires grip the road and remove water during wet conditions.",
+          "groups": [
+            {
+              "heading": "Signs of Unsafe Tires",
+              "items": [
+                "Low tread depth",
+                "Cracks",
+                "Bulges",
+                "Cuts",
+                "Uneven wear"
+              ]
+            },
+            {
+              "heading": "Why Worn Tires Are Dangerous",
+              "items": [
+                "Longer stopping distances",
+                "Reduced control",
+                "Poor performance in rain or snow"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.4",
+          "title": "Brake Safety",
+          "summary": "Brakes are responsible for slowing and stopping your vehicle safely.",
+          "groups": [
+            {
+              "heading": "Brake Warning Signs",
+              "items": [
+                "Squeaking or squealing",
+                "Grinding",
+                "Vibrations",
+                "Soft brake pedal"
+              ]
+            },
+            {
+              "heading": "Brake Safety Tips",
+              "items": [
+                "Have brakes inspected regularly",
+                "Do not ignore noises",
+                "Replace worn brake components",
+                "Pay attention to changes in braking performance"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.5",
+          "title": "Vehicle Visibility Safety",
+          "summary": "Being able to see and be seen is critical for safe driving.",
+          "groups": [
+            {
+              "heading": "Check These Lights",
+              "items": [
+                "Headlights",
+                "Brake lights",
+                "Turn signals"
+              ]
+            },
+            {
+              "heading": "Windshield Wipers",
+              "items": [
+                "Replace worn wipers to maintain visibility"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.6",
+          "title": "Seat Belt Safety",
+          "summary": "Seat belts help protect occupants during sudden stops or collisions.",
+          "groups": [
+            {
+              "heading": "Seat Belt Tips",
+              "items": [
+                "Always wear a seat belt",
+                "Make sure it fits properly",
+                "Ensure passengers are buckled",
+                "Replace damaged belts"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.7",
+          "title": "Airbag Safety",
+          "summary": "Airbags work together with seat belts to provide additional protection during crashes.",
+          "groups": [
+            {
+              "heading": "Airbag Warning Signs",
+              "items": [
+                "Airbag warning light",
+                "Electrical issues",
+                "Damaged components"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.8",
+          "title": "Emergency Preparedness",
+          "summary": "Unexpected situations can happen while driving, so preparation matters.",
+          "groups": [
+            {
+              "heading": "Emergency Items to Keep",
+              "items": [
+                "Flashlight",
+                "Phone charger",
+                "First aid supplies",
+                "Water",
+                "Blanket",
+                "Basic tools",
+                "Emergency contact information"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.9",
+          "title": "Road Trip Safety",
+          "summary": "Long trips require extra preparation because vehicles endure longer periods of use.",
+          "groups": [
+            {
+              "heading": "Before a Long Trip",
+              "items": [
+                "Check tire pressure",
+                "Check tire condition",
+                "Check oil level",
+                "Check fluids",
+                "Check brakes",
+                "Check lights",
+                "Check battery"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.10",
+          "title": "Safe Driving Habits",
+          "summary": "Driver behavior is just as important as vehicle maintenance.",
+          "groups": [
+            {
+              "heading": "Important Habits",
+              "items": [
+                "Avoid distracted driving",
+                "Follow speed limits",
+                "Drive according to conditions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.11",
+          "title": "Following Distance Safety",
+          "summary": "Maintaining space between vehicles gives drivers more time to react.",
+          "groups": [
+            {
+              "heading": "Benefits",
+              "items": [
+                "Reduces sudden braking",
+                "Improves reaction time",
+                "Helps prevent collisions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.12",
+          "title": "Vehicle Warning Signs",
+          "summary": "Your vehicle often gives warning signs before a major problem occurs.",
+          "groups": [
+            {
+              "heading": "Warning Signs",
+              "items": [
+                "Dashboard lights",
+                "Unusual sounds",
+                "Changes in driving"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.13",
+          "title": "Safe Vehicle Loading",
+          "summary": "Carrying too much weight can affect control and safety.",
+          "groups": [
+            {
+              "heading": "Safety Tips",
+              "items": [
+                "Do not exceed vehicle weight limits",
+                "Distribute weight evenly",
+                "Avoid unnecessary heavy items"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.14",
+          "title": "Child and Passenger Safety",
+          "summary": "Passengers need proper protection to reduce injury risks.",
+          "groups": [
+            {
+              "heading": "Safety Practices",
+              "items": [
+                "Use appropriate restraints",
+                "Ensure everyone wears seat belts",
+                "Keep passengers away from distractions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.15",
+          "title": "Preventing Breakdowns",
+          "summary": "Many breakdowns can be prevented through routine maintenance.",
+          "groups": [
+            {
+              "heading": "Preventative Steps",
+              "items": [
+                "Check fluids",
+                "Maintain tires",
+                "Inspect battery",
+                "Follow maintenance schedules"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10.16",
+          "title": "Safety Checklist",
+          "summary": "A simple checklist for safe driving and vehicle care.",
+          "groups": [
+            {
+              "heading": "Before Driving",
+              "items": [
+                "Adjust mirrors",
+                "Buckle seat belt",
+                "Check surroundings",
+                "Make sure lights work"
+              ]
+            },
+            {
+              "heading": "Monthly",
+              "items": [
+                "Check tires",
+                "Check fluids",
+                "Inspect lights",
+                "Look for damage"
+              ]
+            },
+            {
+              "heading": "Before Long Trips",
+              "items": [
+                "Inspect tires",
+                "Check oil",
+                "Test battery",
+                "Confirm emergency supplies"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const guideData = JSON.parse(document.getElementById('guide-data').textContent);
+    const partLabels = {
+      1: 'Part 1 — Tires 101',
+      2: 'Part 2 — Brakes',
+      3: 'Part 3 — Engine & Oil',
+      4: 'Part 4 — Tire Buying',
+      5: 'Part 5 — Tire Care',
+      6: 'Part 6 — Driving',
+      7: 'Part 7 — Maintenance',
+      8: 'Part 8 — Auto Services',
+      9: 'Part 9 — Weather & Season',
+      10: 'Part 10 — Safety'
+    };
+
+    const parts = Object.keys(partLabels).map(function (partNumber) {
+      const number = parseInt(partNumber, 10);
+      return {
+        key: number,
+        label: partLabels[number],
+        sections: guideData.sections.filter(function (section) {
+          return parseInt(String(section.id).split('.')[0], 10) === number;
+        })
+      };
+    });
+
+    new Vue({
+      el: '#app',
+      data: {
+        parts: parts,
+        searchQuery: '',
+        expandedParts: {},
+        expandedSections: {}
+      },
+      created: function () {
+        this.parts.forEach(function (part) {
+          this.$set(this.expandedParts, part.key, false);
+          part.sections.forEach(function (section) {
+            this.$set(this.expandedSections, section.id, false);
+          }, this);
+        }, this);
+      },
+      computed: {
+        filteredParts: function () {
+          const query = this.searchQuery.trim().toLowerCase();
+
+          if (!query) {
+            return this.parts.map(function (part) {
+              return Object.assign({}, part, {
+                matchesSearch: false,
+                sections: part.sections.map(function (section) {
+                  return Object.assign({}, section, { matchesSearch: false });
+                })
+              });
+            });
+          }
+
+          return this.parts.reduce(function (result, part) {
+            const partMatchesQuery = part.label.toLowerCase().includes(query);
+            const matchingSections = partMatchesQuery
+              ? part.sections
+              : part.sections.filter(function (section) {
+                  return this.sectionMatchesSearch(section, query);
+                }, this);
+
+            if (partMatchesQuery || matchingSections.length) {
+              result.push(Object.assign({}, part, {
+                matchesSearch: true,
+                sections: matchingSections.map(function (section) {
+                  return Object.assign({}, section, { matchesSearch: true });
+                })
+              }));
+            }
+
+            return result;
+          }.bind(this), []);
+        },
+        showEmptyState: function () {
+          return this.searchQuery.trim().length > 0 && this.filteredParts.length === 0;
+        }
+      },
+      methods: {
+        togglePart: function (id) {
+          this.$set(this.expandedParts, id, !this.expandedParts[id]);
+        },
+        isPartExpanded: function (id) {
+          return Boolean(this.expandedParts[id]);
+        },
+        toggleSection: function (id) {
+          this.$set(this.expandedSections, id, !this.expandedSections[id]);
+        },
+        isExpanded: function (id) {
+          return Boolean(this.expandedSections[id]);
+        },
+        sectionMatchesSearch: function (section, query) {
+          const text = [
+            section.title,
+            section.summary,
+            section.groups.map(function (group) {
+              return [group.heading, group.text, (group.items || []).join(' ')].filter(Boolean).join(' ');
+            }).join(' ')
+          ].join(' ').toLowerCase();
+
+          return text.includes(query);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
