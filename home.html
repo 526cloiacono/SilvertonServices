@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silverton | Home</title>
+<meta name="description" content="Silverton offers dependable tire service, oil changes, brake repairs, and honest auto care in Toms River.">
+<style>
+:root {
+  --color-primary: #002d5c;
+  --color-accent: #e2231a;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f4f5f6;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5a5a5a;
+  --font-heading: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --max-width: 1100px;
+  --radius: 8px;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family:var(--font-body); color:var(--color-text); background:var(--color-bg); line-height:1.6; }
+a { color:inherit; }
+.btn { display:inline-block; padding:0.75rem 1.35rem; border-radius:var(--radius); text-decoration:none; font-weight:bold; cursor:pointer; border:2px solid transparent; }
+.btn-primary { background:var(--color-accent); color:#fff; }
+.btn-outline { background:transparent; color:#fff; border-color:#fff; }
+.top-bar { background:var(--color-primary); color:#fff; font-size:0.85rem; }
+.top-bar-inner { max-width:var(--max-width); margin:0 auto; padding:0.6rem 1rem; display:flex; justify-content:flex-end; align-items:center; gap:1.25rem; flex-wrap:wrap; }
+.top-bar a { color:#fff; text-decoration:none; }
+.site-header { background:#fff; border-bottom:1px solid #eee; position:sticky; top:0; z-index:100; }
+.header-inner { max-width:var(--max-width); margin:0 auto; padding:0.8rem 1rem; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1.5rem; }
+.logo { display:flex; align-items:center; justify-self:start; }
+.logo img { height:64px; width:auto; border-radius:8px; }
+.main-nav { display:flex; justify-content:center; }
+.main-nav ul { list-style:none; display:flex; gap:1.5rem; margin:0; padding:0; flex-wrap:wrap; justify-content:center; }
+.main-nav a { text-decoration:none; color:var(--color-text); font-weight:600; font-size:0.95rem; }
+.hero-banner { background:linear-gradient(rgba(0,45,92,0.75),rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color:#fff; padding:5rem 1rem; }
+.hero-content { max-width:var(--max-width); margin:0 auto; display:grid; grid-template-columns:1.2fr 0.8fr; gap:2rem; align-items:center; }
+.hero-content h1 { font-family:var(--font-heading); font-size:clamp(2rem, 4vw, 3rem); margin:0 0 0.75rem; }
+.hero-content p { margin:0 0 1rem; color:rgba(255,255,255,0.95); }
+.hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem; }
+.hero-card { background:rgba(255,255,255,0.95); color:var(--color-text); border-radius:var(--radius); padding:1.25rem; box-shadow:0 10px 30px rgba(0,0,0,0.12); }
+.hero-card h2 { margin:0 0 0.4rem; color:var(--color-primary); font-size:1.1rem; }
+.hero-card p { color:var(--color-text-muted); margin:0; }
+.section { max-width:var(--max-width); margin:0 auto; padding:3rem 1rem; }
+.section h2 { font-family:var(--font-heading); color:var(--color-primary); margin-top:0; margin-bottom:1rem; }
+.grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; }
+.card { background:var(--color-bg-alt); border:1px solid #e5e5e5; border-radius:var(--radius); padding:1.25rem; }
+.card h3 { margin-top:0; color:var(--color-primary); }
+.card p { margin:0; color:var(--color-text-muted); }
+.cta-banner { max-width:var(--max-width); margin:0 auto 3rem; padding:2rem 1rem; background:linear-gradient(135deg,var(--color-primary),#004a8b); color:#fff; border-radius:20px; text-align:center; }
+.cta-banner h2 { margin-top:0; margin-bottom:0.5rem; }
+@media (max-width: 800px) { .hero-content { grid-template-columns:1fr; } .grid { grid-template-columns:1fr; } .header-inner { grid-template-columns:1fr; } .main-nav { justify-content:flex-start; } }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="tel:+17322176588">(732) 217-6588</a>
+    <a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a>
+  </div>
+</div>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="home.html" class="logo" aria-label="Silverton Services">
+      <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo">
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="shop-tires.html">Shop Tires</a></li>
+        <li><a href="auto-services.html">Auto Services</a></li>
+        <li><a href="coupons.html">Coupons</a></li>
+        <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="find-a-store.html">Find a Store</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<section class="hero-banner">
+  <div class="hero-content">
+    <div>
+      <p style="text-transform:uppercase; letter-spacing:0.08em; font-weight:700; margin-bottom:0.5rem;">Trusted local auto care</p>
+      <h1>Dependable service for tires, brakes, oil changes, and more.</h1>
+      <p>Silverton brings together honest advice, seasonal maintenance, and locally trusted care to keep your vehicle ready for the road.</p>
+      <div class="hero-ctas">
+        <a href="coupons.html" class="btn btn-primary">View Current Offers</a>
+        <a href="find-a-store.html" class="btn btn-outline">Visit the Shop</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h2>Why drivers choose us</h2>
+      <p>Friendly service, straightforward recommendations, and dependable care from a team that knows the local community.</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <h2>Our services</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Tire Service</h3>
+      <p>Rotation, balancing, replacements, and seasonal tire support.</p>
+    </div>
+    <div class="card">
+      <h3>Oil Changes</h3>
+      <p>Quick maintenance to keep your engine protected and running smoothly.</p>
+    </div>
+    <div class="card">
+      <h3>Brake Repair</h3>
+      <p>Inspections and repairs that keep your stopping power safe and reliable.</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <h2>Current offers</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Coupon Specials</h3>
+      <p>Browse the latest promotions and seasonal savings for tires and service.</p>
+    </div>
+    <div class="card">
+      <h3>Local Support</h3>
+      <p>Visit our Toms River location for direct, friendly help with your vehicle.</p>
+    </div>
+    <div class="card">
+      <h3>Easy Contact</h3>
+      <p>Call or stop by to talk through maintenance needs and next steps.</p>
+    </div>
+  </div>
+</section>
+<section class="cta-banner">
+  <h2>Ready to get started?</h2>
+  <p>Call us at (732) 217-6588 or visit the shop for dependable service and honest guidance.</p>
+</section>
+</body>
+</html>

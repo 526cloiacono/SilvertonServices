@@ -31,7 +31,7 @@
   .page {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 1rem 3rem;
+    padding: 0 1rem 4rem;
   }
   .top-bar {
     background: var(--color-primary);
@@ -50,6 +50,7 @@
   }
   .top-bar a { color: #fff; text-decoration: none; }
   .top-bar .btn-primary { padding: 0.7rem 1.1rem; font-size: 0.9rem; }
+  .top-bar .phone { font-weight: bold; }
   .site-header {
     background: #fff;
     border-bottom: 1px solid #eee;
@@ -185,6 +186,16 @@
     color: var(--color-text);
     font-weight: 600;
     font-size: 0.9rem;
+    display: inline-block;
+    white-space: nowrap;
+    padding: 0.2rem 0;
+  }
+  .main-nav a:hover,
+  .main-nav a:focus-visible {
+    color: var(--color-primary);
+  }
+  .main-nav a:visited {
+    color: inherit;
   }
   .btn {
     display: inline-block;
@@ -227,14 +238,17 @@
   .hero {
     background: linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat;
     color: #fff;
-    padding: 7rem 1rem;
     text-align: center;
-    margin: 0 0 2rem;
-    min-height: 70vh;
+    padding: 8rem 0;
+    min-height: 80vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
   }
   .hero h1 {
     font-family: var(--font-heading);
@@ -249,11 +263,10 @@
     gap: 1rem;
   }
   .coupon-card {
-    background: #fff;
+    background: var(--color-bg-alt);
     border: 1px solid #e5e5e5;
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
   .coupon-image {
     aspect-ratio: 16 / 9;
@@ -301,10 +314,12 @@
     border: 1px solid #e5e5e5;
     border-radius: var(--radius);
     padding: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
   .card h2 {
+    font-family: var(--font-heading);
     margin-top: 0;
+    margin-bottom: 0.75rem;
     color: var(--color-primary);
   }
   .section-header-row {
@@ -349,8 +364,8 @@
 <body>
   <div class="top-bar">
     <div class="top-bar-inner">
-      <a href="#">Call Today</a>
-      <a href="#">Find a Location</a>
+      <a href="tel:+17322176588">(732) 217-6588</a>
+      <a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a>
       <a href="#" class="btn btn-primary">Book Service</a>
     </div>
   </div>
@@ -358,13 +373,12 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="index.html" class="logo" aria-label="Silverton Services">
+        <a href="home.html" class="logo" aria-label="Silverton Services">
           <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:64px; width:auto; border-radius:8px;">
         </a>
       </div>
       <nav class="main-nav">
         <ul>
-          <li><a href="index.html">Home</a></li>
           <li><a href="shop-tires.html">Shop Tires</a></li>
           <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
