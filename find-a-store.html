@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Silverton | Find a Store</title>
+  <title>Silverton | Contact</title>
   <style>
     :root {
-      --color-primary: #002d5c;
-      --color-accent: #e2231a;
-      --color-highlight: #00838f;
-      --color-bg: #ffffff;
-      --color-bg-alt: #f4f5f6;
-      --color-text: #1a1a1a;
+      --color-primary: #3C60C1;
+      --color-accent: #2159A8;
+      --color-highlight: #3D5F9F;
+      --color-bg: #F2F2F4;
+      --color-bg-alt: #FEFEFF;
+      --color-text: #111111;
       --color-text-muted: #5a5a5a;
       --font-heading: Arial, Helvetica, sans-serif;
       --font-body: Arial, Helvetica, sans-serif;
@@ -51,33 +51,33 @@
     <div class="top-bar-inner">
       <a href="tel:+17322176588">(732) 217-6588</a>
       <a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a>
-      <a href="#" class="btn btn-primary">Book Service</a>
     </div>
   </div>
 
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="home.html" class="logo" aria-label="Silverton Services">
+        <a href="index.html" class="logo" aria-label="Silverton Services">
           <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:64px; width:auto; border-radius:8px;">
         </a>
       </div>
       <nav class="main-nav">
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="shop-tires.html">Shop Tires</a></li>
           <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="find-a-store.html">Find a Store</a></li>
+          <li><a href="find-a-store.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <div class="hero">
-    <h1>Find a Store</h1>
-    <p>Locate the Silverton service center closest to you.</p>
+    <h1>Contact Us</h1>
+    <p>Reach out to Silverton for service questions, appointments, and general support.</p>
     <div class="hero-ctas" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem;">
       <a href="coupons.html" class="btn btn-outline">View Coupons</a>
       <a href="shop-tires.html" class="btn btn-primary">Shop Tires</a>
@@ -86,8 +86,26 @@
 
   <div class="page">
     <div class="card">
-      <h2>Coming Soon</h2>
-      <p>This is a basic skeleton page for the store locator section.</p>
+      <h2>Send a Message</h2>
+      <form action="https://formspree.io/f/your-form-id" method="POST" style="display:block; margin-top:0.75rem;">
+        <div style="display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.9rem;">
+          <label for="name" style="font-weight:700;">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required style="border:1px solid #d9dce2; border-radius:8px; padding:0.75rem 0.85rem; font:inherit; width:100%;" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.9rem;">
+          <label for="email" style="font-weight:700;">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required style="border:1px solid #d9dce2; border-radius:8px; padding:0.75rem 0.85rem; font:inherit; width:100%;" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.9rem;">
+          <label for="phone" style="font-weight:700;">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="(732) 555-0123" style="border:1px solid #d9dce2; border-radius:8px; padding:0.75rem 0.85rem; font:inherit; width:100%;" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.9rem;">
+          <label for="message" style="font-weight:700;">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us how we can help." required style="border:1px solid #d9dce2; border-radius:8px; padding:0.75rem 0.85rem; font:inherit; width:100%; min-height:120px; resize:vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="border:none;">Send Message</button>
+      </form>
     </div>
   </div>
 </body>

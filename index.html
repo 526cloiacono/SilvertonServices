@@ -7,10 +7,10 @@
 <meta name="description" content="Silverton provides dependable tire service, oil changes, brake repairs, and general auto care for drivers who want quality service and honest advice.">
 <style>
 :root {
-  --color-primary: #002d5c;
-  --color-accent: #e2231a;
-  --color-bg: #ffffff;
-  --color-bg-alt: #f4f5f6;
+  --color-primary: #3C60C1;
+  --color-accent: #2159A8;
+  --color-bg: #F2F2F4;
+  --color-bg-alt: #FEFEFF;
   --color-text: #1a1a1a;
   --color-text-muted: #5a5a5a;
   --font-heading: Arial, Helvetica, sans-serif;
@@ -30,10 +30,12 @@ a { color:inherit; }
 .hero-banner { background:url('IMG/silvertonheadNW.png') center/cover no-repeat; color:#fff; padding:1rem; min-height:calc(100vh - 2.2rem); display:flex; align-items:center; justify-content:center; }
 .hero-content { max-width:760px; background:rgba(0,45,92,0.75); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:1.5rem 2rem; text-align:center; box-shadow:0 20px 42px rgba(0,0,0,0.2); }
 .hero-eyebrow { display:inline-block; padding:0.4rem 0.8rem; border-radius:999px; background:rgba(255,255,255,0.14); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem; }
-.hero-banner h1 { font-family:var(--font-heading); font-size:clamp(1.8rem, 3vw, 2.6rem); margin:0 0 0.6rem; }
-.hero-banner h1 .typing-text { display:inline-block; white-space:nowrap; overflow:hidden; border-right:2px solid rgba(255,255,255,0.9); animation: typing 2.2s steps(16, end), blink 0.8s step-end infinite; }
-@keyframes typing { from { width:0; } to { width:100%; } }
-@keyframes blink { 50% { border-color: transparent; } }
+.hero-banner h1 { font-family:var(--font-heading); font-size:clamp(1.8rem, 3vw, 2.6rem); margin:0 0 0.6rem; display:flex; flex-direction:column; align-items:center; gap:0.25rem; }
+.hero-banner h1 .typing-text { display:inline-block; white-space:nowrap; overflow:hidden; border-right:2px solid rgba(255,255,255,0.9); width:0; max-width:max-content; animation: typing 2.8s steps(16, end) both; }
+.hero-banner h1 .typing-text.second { opacity:0; animation: none; }
+.hero-banner h1 .typing-text.finished { border-right-color: transparent; }
+.hero-banner h1 .typing-text.second.show { opacity:1; animation: typing 2.8s steps(8, end) both; }
+@keyframes typing { from { width:0; } to { width:var(--line-width, 0px); } }
 .hero-subtitle { font-size:0.9rem; margin:0 0 0.75rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; opacity:0.95; }
 .hero-banner p { margin:0 auto 1rem; max-width:640px; opacity:0.95; font-size:0.95rem; }
 .hero-ctas { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
@@ -55,12 +57,16 @@ a { color:inherit; }
   <section class="hero-banner" id="hero-banner">
     <div class="hero-content">
       <p class="hero-eyebrow">Trusted local tire &amp; auto care</p>
-      <h1><span class="typing-text">Silverton Motors</span></h1>
+      <h1>
+        <span class="typing-text">Silverton Motors</span>
+        <span class="typing-text second">Services</span>
+      </h1>
       <p class="hero-subtitle">Proudly serving Toms River</p>
       <p>Silverton is a clean, simple place to explore tire service, auto repairs, coupons, and local support in one visit.</p>
-      <div class="hero-ctas">
+      <div class="hero-ctas" style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:1rem;">
         <a href="home.html" class="btn btn-primary">Go to Home</a>
         <a href="coupons.html" class="btn btn-outline">View Coupons</a>
+        <a href="find-a-store.html" class="btn btn-primary">Contact Us</a>
       </div>
     </div>
   </section>
@@ -74,6 +80,31 @@ function setHeroBackground() {
 }
 document.addEventListener('DOMContentLoaded', function () {
   setHeroBackground();
+
+  document.querySelectorAll('.typing-text').forEach(function (line) {
+    const text = line.textContent.trim();
+    if (!text) return;
+    const width = line.scrollWidth;
+    line.style.setProperty('--line-width', width + 'px');
+  });
+
+  const firstLine = document.querySelector('.typing-text');
+  const secondLine = document.querySelector('.typing-text.second');
+
+  if (firstLine) {
+    setTimeout(function () {
+      firstLine.classList.add('finished');
+    }, 3400);
+  }
+
+  if (secondLine) {
+    setTimeout(function () {
+      secondLine.classList.add('show');
+      setTimeout(function () {
+        secondLine.classList.add('finished');
+      }, 3400);
+    }, 3400);
+  }
 });
 </script>
 </body>

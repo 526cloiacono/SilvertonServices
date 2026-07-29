@@ -6,12 +6,12 @@
 <title>Silverton | Coupons</title>
 <style>
   :root {
-    --color-primary: #002d5c;
-    --color-accent: #e2231a;
-    --color-highlight: #00838f;
-    --color-bg: #ffffff;
-    --color-bg-alt: #f4f5f6;
-    --color-text: #1a1a1a;
+    --color-primary: #3C60C1;
+    --color-accent: #2159A8;
+    --color-highlight: #3D5F9F;
+    --color-bg: #F2F2F4;
+    --color-bg-alt: #FEFEFF;
+    --color-text: #111111;
     --color-text-muted: #5a5a5a;
     --font-heading: Arial, Helvetica, sans-serif;
     --font-body: Arial, Helvetica, sans-serif;
@@ -260,40 +260,41 @@
   .coupon-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1.2rem;
   }
   .coupon-card {
-    background: var(--color-bg-alt);
-    border: 1px solid #e5e5e5;
-    border-radius: var(--radius);
+    background: #fff;
+    border: 1px solid #e7ebef;
+    border-radius: 16px;
     overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,45,92,0.05);
   }
   .coupon-image {
     aspect-ratio: 16 / 9;
-    background: #f4f5f6;
+    background: linear-gradient(135deg, #f7f9fb, #eef3f7);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem;
+    padding: 0.8rem;
   }
   .coupon-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 6px;
+    border-radius: 10px;
   }
   .coupon-body {
-    padding: 1rem 1.1rem 1.15rem;
+    padding: 1rem 1.1rem 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
+    gap: 0.5rem;
   }
   .coupon-title {
     margin: 0;
     color: var(--color-primary);
-    font-size: 1.05rem;
+    font-size: 1.08rem;
   }
   .coupon-text {
     margin: 0;
@@ -310,11 +311,12 @@
     background: #fff;
   }
   .card {
-    background: var(--color-bg-alt);
-    border: 1px solid #e5e5e5;
-    border-radius: var(--radius);
-    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #e7ebef;
+    border-radius: 18px;
+    padding: 1.4rem;
     margin-bottom: 1.25rem;
+    box-shadow: 0 8px 24px rgba(0,45,92,0.04);
   }
   .card h2 {
     font-family: var(--font-heading);
@@ -356,8 +358,16 @@
     color: var(--color-text-muted);
     font-style: italic;
   }
+  @media (max-width: 900px) {
+    .coupon-list { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 700px) {
     .offer-grid { grid-template-columns: 1fr; }
+    .page { padding: 0 0.85rem 3rem; }
+    .card { padding: 1.1rem; }
+    .hero { padding: 6rem 0; min-height: 70vh; height: auto; }
+    .hero h1 { font-size: 2.2rem; }
   }
 </style>
 </head>
@@ -366,25 +376,25 @@
     <div class="top-bar-inner">
       <a href="tel:+17322176588">(732) 217-6588</a>
       <a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a>
-      <a href="#" class="btn btn-primary">Book Service</a>
     </div>
   </div>
 
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="home.html" class="logo" aria-label="Silverton Services">
+        <a href="index.html" class="logo" aria-label="Silverton Services">
           <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:64px; width:auto; border-radius:8px;">
         </a>
       </div>
       <nav class="main-nav">
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="shop-tires.html">Shop Tires</a></li>
           <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="find-a-store.html">Find a Store</a></li>
+          <li><a href="find-a-store.html">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -417,7 +427,7 @@
         <p>Discover current offers, seasonal deals, and service promotions from Silverton.</p>
         <div class="hero-ctas">
           <a href="shop-tires.html" class="btn btn-outline">Shop Tires</a>
-          <a href="find-a-store.html" class="btn btn-primary">Find a Store</a>
+          <a href="find-a-store.html" class="btn btn-primary">Contact</a>
         </div>
       </section>
 

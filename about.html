@@ -6,12 +6,12 @@
   <title>Silverton | About</title>
   <style>
     :root {
-      --color-primary: #002d5c;
-      --color-accent: #e2231a;
-      --color-highlight: #00838f;
-      --color-bg: #ffffff;
-      --color-bg-alt: #f4f5f6;
-      --color-text: #1a1a1a;
+      --color-primary: #3C60C1;
+      --color-accent: #2159A8;
+      --color-highlight: #3D5F9F;
+      --color-bg: #F2F2F4;
+      --color-bg-alt: #FEFEFF;
+      --color-text: #111111;
       --color-text-muted: #5a5a5a;
       --font-heading: Arial, Helvetica, sans-serif;
       --font-body: Arial, Helvetica, sans-serif;
@@ -42,6 +42,7 @@
     }
     .btn-primary { background: var(--color-accent); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .btn-outline { background: transparent; color: #fff; border-color: #fff; }
+    .btn-outline:hover, .btn-primary:hover { transform: translateY(-1px); transition: transform 0.2s ease; }
     .top-bar { background: var(--color-primary); color: #fff; font-size: 0.9rem; }
 
     .top-bar-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.6rem 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 1rem; flex-wrap: wrap; }
@@ -82,15 +83,33 @@
     .hero p { max-width: 680px; margin: 0 auto 2rem; opacity: 0.95; font-size: 1.05rem; }
     .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
 
-    .card { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); padding: 1.5rem; }
-    .card h2 { font-family: var(--font-heading); color: var(--color-primary); margin-top: 0; margin-bottom: 0.75rem; }
-    .card p { color: var(--color-text-muted); margin: 0; }
+    .card {
+      background: #fff;
+      border: 1px solid #e7ebef;
+      border-radius: 16px;
+      padding: 1.6rem;
+      box-shadow: 0 8px 24px rgba(0,45,92,0.05);
+      margin-bottom: 1.25rem;
+      height: 100%;
+    }
+    .card h2 {
+      font-family: var(--font-heading);
+      color: var(--color-primary);
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.35rem;
+    }
+    .card p {
+      color: var(--color-text-muted);
+      margin: 0 0 0.9rem;
+      font-size: 0.98rem;
+    }
 
     .section-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      margin: 0 0 1.5rem;
     }
 
     .section-nav a {
@@ -99,9 +118,10 @@
       background: #fff;
       border: 1px solid #d7dde4;
       border-radius: 999px;
-      padding: 0.5rem 0.9rem;
+      padding: 0.55rem 0.95rem;
       font-weight: 600;
       font-size: 0.95rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .grid {
@@ -110,11 +130,45 @@
       gap: 1rem;
     }
 
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .staff-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      padding: 0.25rem 0;
+    }
+
+    .staff-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--color-primary);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      background: #fff;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 1.25rem;
+    }
+
     .pill-list {
       display: grid;
-      gap: 0.6rem;
+      gap: 0.8rem;
       padding-left: 1rem;
       color: var(--color-text-muted);
+      margin: 0;
     }
 
     .pill-list li strong {
@@ -123,6 +177,13 @@
 
     @media (max-width: 700px) {
       .grid { grid-template-columns: 1fr; }
+      .staff-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .hero { padding: 6rem 0; min-height: 70vh; height: auto; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .section-nav { gap: 0.5rem; }
+      .section-nav a { width: 100%; text-align: center; }
     }
   </style>
 </head>
@@ -131,25 +192,25 @@
     <div class="top-bar-inner">
       <a href="tel:+17322176588" class="phone">(732) 217-6588</a>
       <a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a>
-      <a href="#" class="btn btn-primary">Book Service</a>
     </div>
   </div>
 
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="home.html" class="logo" aria-label="Silverton Services">
+        <a href="index.html" class="logo" aria-label="Silverton Services">
           <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:64px; width:auto; border-radius:8px;">
         </a>
       </div>
       <nav class="main-nav">
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="shop-tires.html">Shop Tires</a></li>
           <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="find-a-store.html">Find a Store</a></li>
+          <li><a href="find-a-store.html">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -161,24 +222,14 @@
       <p>Silverton is a local auto care partner focused on dependable tire service, oil changes, brake repairs, and general maintenance for drivers who want honest advice and quality care.</p>
       <div class="hero-ctas">
         <a href="coupons.html" class="btn btn-outline">View Coupons</a>
-        <a href="find-a-store.html" class="btn btn-primary">Find a Store</a>
+        <a href="find-a-store.html" class="btn btn-primary">Contact</a>
       </div>
     </section>
 
-    <div class="section-nav">
-      <a href="#about">About</a>
-      <a href="#about-us">About Us</a>
-      <a href="#contact-us">Contact Us</a>
-      <a href="#meet-the-staff">Meet the Staff</a>
-    </div>
-
-    <section class="card" id="about">
-      <h2>About</h2>
-      <p>With over 50 years of industry expertise, Silverton Motors stands as a beacon of automotive excellence. Our journey has been paved with strong relationships forged with both manufacturers and dealerships, allowing us to bring customers unparalleled discounts and exceptional value.</p>
-    </section>
-
+    <br>
     <section class="card" id="about-us">
       <h2>About Us</h2>
+      <p>With over 50 years of industry expertise, Silverton Motors stands as a beacon of automotive excellence. Our journey has been paved with strong relationships forged with both manufacturers and dealerships, allowing us to bring customers unparalleled discounts and exceptional value.</p>
       <p>Enter Silverton Motors, where simplicity and satisfaction come together for residents seeking new or pre-owned vehicles. We have transformed the car-buying experience by making it easier, more transparent, and far more enjoyable.</p>
       <p>Here is how we do it:</p>
       <ul class="pill-list">
@@ -188,28 +239,42 @@
       </ul>
     </section>
 
-    <section class="card" id="contact-us">
-      <h2>Contact Us</h2>
-      <p>Whether you are shopping for a new vehicle, a pre-owned option, or simply want expert advice, Silverton Motors is here to help. Reach out to our team for guidance on purchasing, financing, leasing, trade-ins, and more.</p>
-      <p><strong>Visit Us</strong><br><a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a><br><a href="tel:+17322176588">(732) 217-6588</a></p>
-    </section>
+    <div class="two-col">
+      <section class="card" id="contact-us">
+        <h2>Contact Us</h2>
+        <p>Whether you are shopping for a new vehicle, a pre-owned option, or simply want expert advice, Silverton Motors is here to help. Reach out to our team for guidance on purchasing, financing, leasing, trade-ins, and more.</p>
+        <p><strong>Visit Us</strong><br><a href="https://maps.app.goo.gl/ra6PMErhCujLM8128" target="_blank" rel="noopener noreferrer">1854 Hooper Ave, Toms River, NJ 08753</a><br><a href="tel:+17322176588">(732) 217-6588</a></p>
+      </section>
+
+      <section class="card">
+        <h2>Why Silverton Motors</h2>
+        <ul class="pill-list">
+          <li><strong>Your Perfect Car, Great Price:</strong> We help you find the right make, model, and features without sacrificing value.</li>
+          <li><strong>Unbeatable Prices:</strong> Thanks to our strong network and dealer fleet programs, we are able to secure lower prices and exclusive incentives for our customers.</li>
+          <li><strong>Powerful Savings:</strong> While other dealerships struggle to keep up, Silverton Motors delivers savings that make a real difference.</li>
+          <li><strong>Expert Guidance:</strong> From leasing and financing to trade-ins and used vehicles, our team is ready to guide you through every option.</li>
+        </ul>
+      </section>
+    </div>
 
     <section class="card" id="meet-the-staff">
       <h2>Meet the Staff</h2>
-      <p><strong>David Ventura</strong><br>Dealer Principal<br><a href="mailto:dventura@silvertonmotors.com">dventura@silvertonmotors.com</a><br><a href="tel:+17322176588">(732) 217-6588</a></p>
-      <p><strong>Kevin Kowalik</strong><br>Dealer Principal<br><a href="mailto:kkowalik@silvertonmotors.com">kkowalik@silvertonmotors.com</a></p>
-      <p><strong>Gillian Ventura</strong><br>Business Development Manager<br><a href="tel:+17322176588">(732) 217-6588</a></p>
+      <div class="staff-grid">
+        <div class="staff-card">
+          <img class="staff-photo" src="IMG/DV.avif" alt="David Ventura">
+          <p><strong>David Ventura</strong><br>Dealer Principal<br><a href="mailto:dventura@silvertonmotors.com">dventura@silvertonmotors.com</a><br><a href="tel:+17322176588">(732) 217-6588</a></p>
+        </div>
+        <div class="staff-card">
+          <img class="staff-photo" src="IMG/kevin.jpg" alt="Kevin Kowalik">
+          <p><strong>Kevin Kowalik</strong><br>Dealer Principal<br><a href="mailto:kkowalik@silvertonmotors.com">kkowalik@silvertonmotors.com</a></p>
+        </div>
+        <div class="staff-card">
+          <img class="staff-photo" src="IMG/GV.jpg" alt="Gillian Ventura">
+          <p><strong>Gillian Ventura</strong><br>Business Development Manager<br><a href="tel:+17322176588">(732) 217-6588</a></p>
+        </div>
+      </div>
     </section>
 
-    <section class="card">
-      <h2>Why Silverton Motors</h2>
-      <ul class="pill-list">
-        <li><strong>Your Perfect Car, Great Price:</strong> We help you find the right make, model, and features without sacrificing value.</li>
-        <li><strong>Unbeatable Prices:</strong> Thanks to our strong network and dealer fleet programs, we are able to secure lower prices and exclusive incentives for our customers.</li>
-        <li><strong>Powerful Savings:</strong> While other dealerships struggle to keep up, Silverton Motors delivers savings that make a real difference.</li>
-        <li><strong>Expert Guidance:</strong> From leasing and financing to trade-ins and used vehicles, our team is ready to guide you through every option.</li>
-      </ul>
-    </section>
   </div>
 </body>
 </html>
