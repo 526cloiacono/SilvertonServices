@@ -9,16 +9,20 @@
       --color-primary: #002d5c;
       --color-accent: #e2231a;
       --color-highlight: #00838f;
-      --color-bg: #f4f5f6;
+      --color-bg: #ffffff;
+      --color-bg-alt: #f4f5f6;
       --color-text: #1a1a1a;
       --color-text-muted: #5a5a5a;
+      --font-heading: Arial, Helvetica, sans-serif;
+      --font-body: Arial, Helvetica, sans-serif;
+      --max-width: 1200px;
       --radius: 8px;
     }
 
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: var(--font-body);
       background: var(--color-bg);
       color: var(--color-text);
       line-height: 1.6;
@@ -29,31 +33,41 @@
     .top-bar {
       background: var(--color-primary);
       color: #fff;
-      padding: 0.6rem 1rem;
-      text-align: right;
-      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .top-bar-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .top-bar a {
       color: #fff;
       text-decoration: none;
-      margin-left: 1rem;
     }
 
     .site-header {
       background: #fff;
-      border-bottom: 1px solid #e5e5e5;
-      padding: 0.9rem 1rem;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .header-inner {
-      max-width: 1100px;
+      max-width: var(--max-width);
       margin: 0 auto;
-      display: flex;
+      padding: 0.75rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
+      gap: 1.5rem;
     }
 
     .logo {
@@ -63,53 +77,68 @@
       font-size: 1.05rem;
     }
 
+    .main-nav {
+      display: flex;
+      justify-content: center;
+    }
+
     .main-nav ul {
       display: flex;
-      gap: 1.25rem;
+      gap: 1.5rem;
       list-style: none;
       padding: 0;
       margin: 0;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .main-nav a {
       text-decoration: none;
       color: var(--color-text);
       font-weight: 600;
+      font-size: 0.9rem;
     }
 
     .page {
-      max-width: 1100px;
+      max-width: var(--max-width);
       margin: 0 auto;
       padding: 2rem 1rem 3rem;
     }
 
     .hero {
-      background: linear-gradient(rgba(0,45,92,0.78), rgba(0,45,92,0.78)), url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      background: linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat;
       color: #fff;
-      padding: 4rem 1.5rem;
-      border-radius: var(--radius);
-      margin-bottom: 1.5rem;
+      padding: 7rem 1rem;
+      text-align: center;
+      margin: 0 0 2rem;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .hero h1 {
-      margin: 0 0 0.75rem;
-      font-size: 2.2rem;
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      margin: 0 0 1rem;
+      font-weight: 700;
       color: #fff;
     }
 
     .hero p {
-      margin: 0;
-      max-width: 700px;
-      font-size: 1rem;
+      max-width: 680px;
+      margin: 0 auto 2rem;
       opacity: 0.95;
+      font-size: 1.05rem;
     }
 
     .card {
       background: #fff;
+      border: 1px solid #e5e5e5;
       border-radius: var(--radius);
       padding: 1.5rem;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       margin-bottom: 1.25rem;
     }
 
@@ -117,11 +146,31 @@
       color: var(--color-primary);
       margin-top: 0;
       margin-bottom: 0.75rem;
+      font-size: 1.35rem;
     }
 
     .card p {
       margin: 0 0 0.8rem;
       color: var(--color-text-muted);
+      font-size: 0.98rem;
+    }
+
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-nav a {
+      text-decoration: none;
+      color: var(--color-primary);
+      background: #fff;
+      border: 1px solid #d7dde4;
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
 
     .grid {
@@ -175,32 +224,49 @@
       <p>Silverton is a local auto care partner focused on dependable tire service, oil changes, brake repairs, and general maintenance for drivers who want honest advice and quality care.</p>
     </section>
 
-    <section class="card">
-      <h2>Our Story</h2>
-      <p>Silverton was built around a simple idea: every driver deserves clear guidance, fair service, and dependable repairs. From routine maintenance to larger repair needs, the goal is to make the experience straightforward and stress-free.</p>
-      <p>We proudly serve the Toms River area and work hard to keep vehicles safe, reliable, and ready for the road.</p>
+    <div class="section-nav">
+      <a href="#about">About</a>
+      <a href="#about-us">About Us</a>
+      <a href="#contact-us">Contact Us</a>
+      <a href="#meet-the-staff">Meet the Staff</a>
+    </div>
+
+    <section class="card" id="about">
+      <h2>About</h2>
+      <p>With over 50 years of industry expertise, Silverton Motors stands as a beacon of automotive excellence. Our journey has been paved with strong relationships forged with both manufacturers and dealerships, allowing us to bring customers unparalleled discounts and exceptional value.</p>
     </section>
 
-    <section class="grid">
-      <div class="card">
-        <h2>What We Offer</h2>
-        <ul class="pill-list">
-          <li><strong>Tire service</strong> including tire sales, rotations, and replacements</li>
-          <li><strong>Oil changes</strong> and routine maintenance</li>
-          <li><strong>Brake repairs</strong> and safety inspections</li>
-          <li><strong>General auto care</strong> for everyday vehicle needs</li>
-        </ul>
-      </div>
+    <section class="card" id="about-us">
+      <h2>About Us</h2>
+      <p>Enter Silverton Motors, where simplicity and satisfaction come together for residents seeking new or pre-owned vehicles. We have transformed the car-buying experience by making it easier, more transparent, and far more enjoyable.</p>
+      <p>Here is how we do it:</p>
+      <ul class="pill-list">
+        <li><strong>Passion for Cars:</strong> Our team lives and breathes automobiles. Whether you are looking for a sleek sedan, a rugged SUV, or an eco-friendly hybrid, we understand that your vehicle is more than transportation—it is part of your lifestyle.</li>
+        <li><strong>Committed Sales Staff:</strong> We are not here to pressure you into a hasty decision. Our sales professionals take the time to understand your needs, preferences, and budget, offering genuine guidance every step of the way.</li>
+        <li><strong>Unbeatable Customer Experience:</strong> From the moment you walk into our showroom to the test drive and final paperwork, we focus on making your experience smooth, welcoming, and stress-free.</li>
+      </ul>
+    </section>
 
-      <div class="card">
-        <h2>Why Drivers Choose Silverton</h2>
-        <ul class="pill-list">
-          <li><strong>Dependable service</strong> that keeps your vehicle running smoothly</li>
-          <li><strong>Honest advice</strong> with clear recommendations and transparent pricing</li>
-          <li><strong>Quality care</strong> from a team that treats every visit with care</li>
-          <li><strong>Local focus</strong> with service built around the community</li>
-        </ul>
-      </div>
+    <section class="card" id="contact-us">
+      <h2>Contact Us</h2>
+      <p>Whether you are shopping for a new vehicle, a pre-owned option, or simply want expert advice, Silverton Motors is here to help. Reach out to our team for guidance on purchasing, financing, leasing, trade-ins, and more.</p>
+    </section>
+
+    <section class="card" id="meet-the-staff">
+      <h2>Meet the Staff</h2>
+      <p><strong>David Ventura</strong><br>Dealer Principal<br><a href="mailto:dventura@silvertonmotors.com">dventura@silvertonmotors.com</a><br><a href="tel:7322176588">732-217-6588</a></p>
+      <p><strong>Kevin Kowalik</strong><br>Dealer Principal<br><a href="mailto:kkowalik@silvertonmotors.com">kkowalik@silvertonmotors.com</a></p>
+      <p><strong>Gillian Ventura</strong><br>Business Development Manager<br><a href="tel:7322176588">732-217-6588</a></p>
+    </section>
+
+    <section class="card">
+      <h2>Why Silverton Motors</h2>
+      <ul class="pill-list">
+        <li><strong>Your Perfect Car, Great Price:</strong> We help you find the right make, model, and features without sacrificing value.</li>
+        <li><strong>Unbeatable Prices:</strong> Thanks to our strong network and dealer fleet programs, we are able to secure lower prices and exclusive incentives for our customers.</li>
+        <li><strong>Powerful Savings:</strong> While other dealerships struggle to keep up, Silverton Motors delivers savings that make a real difference.</li>
+        <li><strong>Expert Guidance:</strong> From leasing and financing to trade-ins and used vehicles, our team is ready to guide you through every option.</li>
+      </ul>
     </section>
   </div>
 </body>
