@@ -5,27 +5,203 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Silverton | About</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f5f6; color: #1a1a1a; }
-    .page { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem 3rem; }
-    .card { background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-    h1 { color: #002d5c; }
-    nav { background: #002d5c; padding: 1rem; }
-    nav a { color: #fff; text-decoration: none; margin-right: 1rem; }
+    :root {
+      --color-primary: #002d5c;
+      --color-accent: #e2231a;
+      --color-highlight: #00838f;
+      --color-bg: #f4f5f6;
+      --color-text: #1a1a1a;
+      --color-text-muted: #5a5a5a;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .top-bar {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    .top-bar a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 0.9rem 1rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-size: 1.05rem;
+    }
+
+    .main-nav ul {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0,45,92,0.78), rgba(0,45,92,0.78)), url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      color: #fff;
+      padding: 4rem 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.75rem;
+      font-size: 2.2rem;
+      color: #fff;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 700px;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      margin-bottom: 1.25rem;
+    }
+
+    .card h2 {
+      color: var(--color-primary);
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      margin: 0 0 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .pill-list {
+      display: grid;
+      gap: 0.6rem;
+      padding-left: 1rem;
+      color: var(--color-text-muted);
+    }
+
+    .pill-list li strong {
+      color: var(--color-primary);
+    }
+
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <nav>
+  <div class="top-bar">
+    <a href="#">Call Today</a>
+    <a href="#">Find a Location</a>
     <a href="index.html">Home</a>
-    <a href="coupons.html">Coupons</a>
-    <a href="services.html">Services</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-  <div class="page">
-    <div class="card">
-      <h1>About</h1>
-      <p>This is a basic skeleton page for the about section.</p>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Silverton Services</a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="coupons.html">Coupons</a></li>
+          <li><a href="shop-tires.html">Shop Tires</a></li>
+          <li><a href="auto-services.html">Auto Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="find-a-store.html">Find a Store</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
+
+  <div class="page">
+    <section class="hero">
+      <h1>About Silverton</h1>
+      <p>Silverton is a local auto care partner focused on dependable tire service, oil changes, brake repairs, and general maintenance for drivers who want honest advice and quality care.</p>
+    </section>
+
+    <section class="card">
+      <h2>Our Story</h2>
+      <p>Silverton was built around a simple idea: every driver deserves clear guidance, fair service, and dependable repairs. From routine maintenance to larger repair needs, the goal is to make the experience straightforward and stress-free.</p>
+      <p>We proudly serve the Toms River area and work hard to keep vehicles safe, reliable, and ready for the road.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>What We Offer</h2>
+        <ul class="pill-list">
+          <li><strong>Tire service</strong> including tire sales, rotations, and replacements</li>
+          <li><strong>Oil changes</strong> and routine maintenance</li>
+          <li><strong>Brake repairs</strong> and safety inspections</li>
+          <li><strong>General auto care</strong> for everyday vehicle needs</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Why Drivers Choose Silverton</h2>
+        <ul class="pill-list">
+          <li><strong>Dependable service</strong> that keeps your vehicle running smoothly</li>
+          <li><strong>Honest advice</strong> with clear recommendations and transparent pricing</li>
+          <li><strong>Quality care</strong> from a team that treats every visit with care</li>
+          <li><strong>Local focus</strong> with service built around the community</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </body>
 </html>

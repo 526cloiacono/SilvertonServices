@@ -71,68 +71,10 @@ h2.section-title {
 /* =========================================================
    TOP UTILITY BAR + HEADER
    ========================================================= */
-.edit-button {
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-.edit-button:hover { opacity: 0.9; }
 .header-left {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-}
-.edit-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.65);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-.edit-modal.show { display: flex; }
-.edit-modal-card {
-  background: #fff;
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  width: min(100%, 420px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-.edit-modal-card h3 { margin-top: 0; color: var(--color-primary); }
-.edit-modal-card label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin-bottom: 0.8rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-.edit-modal-card input[type="text"],
-.edit-modal-card input[type="password"],
-.edit-modal-card input[type="file"] {
-  border: 1px solid #d0d0d0;
-  border-radius: 6px;
-  padding: 0.6rem 0.75rem;
-  font: inherit;
-}
-.edit-form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-.edit-status {
-  margin-top: 0.8rem;
-  color: var(--color-primary);
-  font-size: 0.9rem;
-  min-height: 1.2rem;
 }
 .top-bar {
   background: var(--color-primary);
@@ -162,13 +104,16 @@ h2.section-title {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0.75rem 1rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 1.5rem;
-  flex-wrap: wrap;
 }
-.logo img { height: 44px; }
+.logo img { height: 64px; }
+.main-nav {
+  display: flex;
+  justify-content: center;
+}
 .main-nav ul {
   list-style: none;
   display: flex;
@@ -176,6 +121,13 @@ h2.section-title {
   margin: 0;
   padding: 0;
   flex-wrap: wrap;
+  justify-content: center;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-self: end;
 }
 .main-nav a {
   text-decoration: none;
@@ -271,58 +223,6 @@ h2.section-title {
 }
 .find-store-banner h2 { margin: 0 0 0.5rem; }
 .find-store-banner p { margin: 0 0 1.5rem; color: var(--color-text-muted); }
-
-/* =========================================================
-   COUPON EDITOR
-   ========================================================= */
-.coupon-editor-panel {
-  display: none;
-  max-width: var(--max-width);
-  margin: 1rem auto 1.5rem;
-  padding: 1rem;
-  background: var(--color-bg-alt);
-  border: 1px solid #e5e5e5;
-  border-radius: var(--radius);
-}
-.editor-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-.editor-card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: var(--radius);
-  padding: 1rem;
-}
-.editor-card h3 {
-  margin: 0 0 0.75rem;
-  font-size: 1rem;
-}
-.editor-card label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin-bottom: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-.editor-card input,
-.editor-card textarea {
-  border: 1px solid #d0d0d0;
-  border-radius: 6px;
-  padding: 0.6rem 0.75rem;
-  font: inherit;
-}
-.editor-card textarea {
-  min-height: 80px;
-  resize: vertical;
-}
-.coupon-editor-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
 
 /* =========================================================
    BRAND LOGO STRIP
@@ -536,8 +436,8 @@ h2.section-title {
 <header class="site-header">
   <div class="header-inner">
     <div class="header-left">
-      <a href="#" class="logo">
-        <span style="font-weight:700; color:#002d5c; font-size:1rem; text-decoration:none;">Silverton Services</span>
+      <a href="#" class="logo" aria-label="Silverton Services">
+        <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:64px; width:auto; border-radius:8px;">
       </a>
     </div>
     <nav class="main-nav">
@@ -546,7 +446,7 @@ h2.section-title {
         <li><a href="auto-services.html">Auto Services</a></li>
         <li><a href="coupons.html">Coupons</a></li>
         <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
-        <li><a href="financing.html">Financing</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="find-a-store.html">Find a Store</a></li>
       </ul>
     </nav>
@@ -570,59 +470,7 @@ h2.section-title {
 <section class="deals-section">
   <div class="section-header-row">
     <h2>Limited-Time Deals</h2>
-    <button type="button" class="btn btn-dark-outline" id="toggleCouponEditor">Edit Coupons</button>
   </div>
-
-  <div class="coupon-editor-panel" id="couponEditorPanel">
-    <div class="editor-grid">
-      <div class="editor-card">
-        <h3>Limited-Time Deal 1</h3>
-        <label>Title<input id="deal1Title" type="text"></label>
-        <label>Details<textarea id="deal1Details"></textarea></label>
-        <label>Button Text<input id="deal1Cta" type="text"></label>
-        <label>Expiry<input id="deal1Expiry" type="text"></label>
-      </div>
-      <div class="editor-card">
-        <h3>Limited-Time Deal 2</h3>
-        <label>Title<input id="deal2Title" type="text"></label>
-        <label>Details<textarea id="deal2Details"></textarea></label>
-        <label>Button Text<input id="deal2Cta" type="text"></label>
-        <label>Expiry<input id="deal2Expiry" type="text"></label>
-      </div>
-      <div class="editor-card">
-        <h3>Limited-Time Deal 3</h3>
-        <label>Title<input id="deal3Title" type="text"></label>
-        <label>Details<textarea id="deal3Details"></textarea></label>
-        <label>Button Text<input id="deal3Cta" type="text"></label>
-        <label>Expiry<input id="deal3Expiry" type="text"></label>
-      </div>
-      <div class="editor-card">
-        <h3>Service Special 1</h3>
-        <label>Title<input id="special1Title" type="text"></label>
-        <label>Details<textarea id="special1Details"></textarea></label>
-        <label>Button Text<input id="special1Cta" type="text"></label>
-        <label>Expiry<input id="special1Expiry" type="text"></label>
-      </div>
-      <div class="editor-card">
-        <h3>Service Special 2</h3>
-        <label>Title<input id="special2Title" type="text"></label>
-        <label>Details<textarea id="special2Details"></textarea></label>
-        <label>Button Text<input id="special2Cta" type="text"></label>
-        <label>Expiry<input id="special2Expiry" type="text"></label>
-      </div>
-      <div class="editor-card">
-        <h3>Service Special 3</h3>
-        <label>Title<input id="special3Title" type="text"></label>
-        <label>Details<textarea id="special3Details"></textarea></label>
-        <label>Button Text<input id="special3Cta" type="text"></label>
-        <label>Expiry<input id="special3Expiry" type="text"></label>
-      </div>
-    </div>
-    <div class="coupon-editor-actions">
-      <button type="button" class="btn btn-primary" id="saveCouponsBtn">Save Coupons</button>
-    </div>
-  </div>
-
   <div class="deal-grid" id="dealCards"></div>
 </section>
 
@@ -900,26 +748,12 @@ const defaultCoupons = {
   ]
 };
 
-function loadCoupons() {
-  try {
-    const saved = localStorage.getItem('silvertonCoupons');
-    return saved ? JSON.parse(saved) : defaultCoupons;
-  } catch (error) {
-    return defaultCoupons;
-  }
-}
-
-function saveCoupons(data) {
-  localStorage.setItem('silvertonCoupons', JSON.stringify(data));
-}
-
 function renderCoupons() {
-  const data = loadCoupons();
   const dealCards = document.getElementById('dealCards');
   const specialCards = document.getElementById('specialCards');
 
   if (dealCards) {
-    dealCards.innerHTML = data.deals.map(card => `
+    dealCards.innerHTML = defaultCoupons.deals.map(card => `
       <article class="deal-card">
         <div class="deal-image"></div>
         <div class="deal-body">
@@ -933,7 +767,7 @@ function renderCoupons() {
   }
 
   if (specialCards) {
-    specialCards.innerHTML = data.specials.map(card => `
+    specialCards.innerHTML = defaultCoupons.specials.map(card => `
       <article class="deal-card">
         <div class="deal-image"></div>
         <div class="deal-body">
@@ -947,187 +781,9 @@ function renderCoupons() {
   }
 }
 
-function populateEditor(data) {
-  const fields = [
-    ['deal1Title', data.deals[0].title],
-    ['deal1Details', data.deals[0].bullets.join('\n')],
-    ['deal1Cta', data.deals[0].cta],
-    ['deal1Expiry', data.deals[0].expiry],
-    ['deal2Title', data.deals[1].title],
-    ['deal2Details', data.deals[1].bullets.join('\n')],
-    ['deal2Cta', data.deals[1].cta],
-    ['deal2Expiry', data.deals[1].expiry],
-    ['deal3Title', data.deals[2].title],
-    ['deal3Details', data.deals[2].bullets.join('\n')],
-    ['deal3Cta', data.deals[2].cta],
-    ['deal3Expiry', data.deals[2].expiry],
-    ['special1Title', data.specials[0].title],
-    ['special1Details', data.specials[0].bullets.join('\n')],
-    ['special1Cta', data.specials[0].cta],
-    ['special1Expiry', data.specials[0].expiry],
-    ['special2Title', data.specials[1].title],
-    ['special2Details', data.specials[1].bullets.join('\n')],
-    ['special2Cta', data.specials[1].cta],
-    ['special2Expiry', data.specials[1].expiry],
-    ['special3Title', data.specials[2].title],
-    ['special3Details', data.specials[2].bullets.join('\n')],
-    ['special3Cta', data.specials[2].cta],
-    ['special3Expiry', data.specials[2].expiry]
-  ];
-
-  fields.forEach(([id, value]) => {
-    const field = document.getElementById(id);
-    if (field) field.value = value;
-  });
-}
-
-function collectCoupons() {
-  return {
-    deals: [
-      {
-        title: document.getElementById('deal1Title').value.trim() || 'Deal 1',
-        bullets: document.getElementById('deal1Details').value.split('\n').map(line => line.trim()).filter(Boolean),
-        cta: document.getElementById('deal1Cta').value.trim() || 'Learn More',
-        expiry: document.getElementById('deal1Expiry').value.trim() || 'Ends soon'
-      },
-      {
-        title: document.getElementById('deal2Title').value.trim() || 'Deal 2',
-        bullets: document.getElementById('deal2Details').value.split('\n').map(line => line.trim()).filter(Boolean),
-        cta: document.getElementById('deal2Cta').value.trim() || 'Learn More',
-        expiry: document.getElementById('deal2Expiry').value.trim() || 'Ends soon'
-      },
-      {
-        title: document.getElementById('deal3Title').value.trim() || 'Deal 3',
-        bullets: document.getElementById('deal3Details').value.split('\n').map(line => line.trim()).filter(Boolean),
-        cta: document.getElementById('deal3Cta').value.trim() || 'Learn More',
-        expiry: document.getElementById('deal3Expiry').value.trim() || 'Ends soon'
-      }
-    ],
-    specials: [
-      {
-        title: document.getElementById('special1Title').value.trim() || 'Special 1',
-        bullets: document.getElementById('special1Details').value.split('\n').map(line => line.trim()).filter(Boolean),
-        cta: document.getElementById('special1Cta').value.trim() || 'Learn More',
-        expiry: document.getElementById('special1Expiry').value.trim() || 'Ends soon'
-      },
-      {
-        title: document.getElementById('special2Title').value.trim() || 'Special 2',
-        bullets: document.getElementById('special2Details').value.split('\n').map(line => line.trim()).filter(Boolean),
-        cta: document.getElementById('special2Cta').value.trim() || 'Learn More',
-        expiry: document.getElementById('special2Expiry').value.trim() || 'Ends soon'
-      },
-      {
-        title: document.getElementById('special3Title').value.trim() || 'Special 3',
-        bullets: document.getElementById('special3Details').value.split('\n').map(line => line.trim()).filter(Boolean),
-        cta: document.getElementById('special3Cta').value.trim() || 'Learn More',
-        expiry: document.getElementById('special3Expiry').value.trim() || 'Ends soon'
-      }
-    ]
-  };
-}
-
 document.addEventListener('DOMContentLoaded', function () {
   setHeroBackground();
-
-  const data = loadCoupons();
   renderCoupons();
-  populateEditor(data);
-
-  const toggleBtn = document.getElementById('toggleCouponEditor');
-  const panel = document.getElementById('couponEditorPanel');
-  const saveBtn = document.getElementById('saveCouponsBtn');
-
-  if (toggleBtn && panel) {
-    toggleBtn.addEventListener('click', function () {
-      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-    });
-  }
-
-  if (saveBtn) {
-    saveBtn.addEventListener('click', function () {
-      const updated = collectCoupons();
-      saveCoupons(updated);
-      renderCoupons();
-      if (panel) panel.style.display = 'none';
-    });
-  }
-
-  const openBtn = document.getElementById('openEditModal');
-  const closeBtn = document.getElementById('closeEditModal');
-  const modal = document.getElementById('editModal');
-  const form = document.getElementById('editForm');
-  const status = document.getElementById('editStatus');
-
-  if (openBtn && modal) {
-    openBtn.addEventListener('click', function () {
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden', 'false');
-      if (status) status.textContent = '';
-    });
-  }
-
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', function () {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-    });
-  }
-
-  if (modal) {
-    modal.addEventListener('click', function (event) {
-      if (event.target === modal) {
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-      }
-    });
-  }
-
-  if (form) {
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
-      const fileInput = form.querySelector('input[name="heroImage"]');
-      const file = fileInput && fileInput.files[0];
-      if (status) status.textContent = 'Uploading...';
-
-      const completeUpload = function (message) {
-        if (status) status.textContent = message;
-        setHeroBackground();
-        form.reset();
-        setTimeout(function () {
-          modal.classList.remove('show');
-          modal.setAttribute('aria-hidden', 'true');
-        }, 800);
-      };
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = async function () {
-          localStorage.setItem('silvertonHeroImage', reader.result);
-          try {
-            const data = new FormData(form);
-            const response = await fetch('/api/upload-hero', {
-              method: 'POST',
-              body: data
-            });
-            const result = await response.json();
-            if (result.ok) {
-              completeUpload(result.message || 'Hero image updated successfully.');
-            } else {
-              completeUpload(result.message || 'Saved locally. Upload endpoint reported an error.');
-            }
-          } catch (error) {
-            completeUpload('Saved locally. The upload endpoint is not available on this machine.');
-          }
-        };
-        reader.onerror = function () {
-          completeUpload('Unable to read the selected image.');
-        };
-        reader.readAsDataURL(file);
-      } else {
-        completeUpload('Please choose an image file.');
-      }
-    });
-  }
 });
 </script>
 
