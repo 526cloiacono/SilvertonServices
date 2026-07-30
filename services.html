@@ -13,7 +13,27 @@
     .card { background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
     h1 { color: #002d5c; }
     nav { background: #002d5c; padding: 1rem; }
-    nav a { color: #fff; text-decoration: none; margin-right: 1rem; }
+    .main-nav-list { list-style: none; margin: 0; padding: 0; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    nav a { color: #fff; text-decoration: none; margin-right: 0; }
+    .nav-toggle {
+      display: none;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: transparent;
+      color: #fff;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    @media (max-width: 900px) {
+      .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      #mainNav { display: none; }
+      #mainNav.open { display: block; }
+      .main-nav-list { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
       /* Professional polish pass */
     .btn { transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease; }
     .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.18); transform: translateY(-1px); }
@@ -39,11 +59,18 @@
 </head>
 <body>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="coupons.html">Coupons</a>
-    <a href="services.html">Services</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="mainNav" aria-expanded="false">
+      <span aria-hidden="true">☰</span>
+    </button>
+    <div id="mainNav">
+      <ul class="main-nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="coupons.html">Coupons</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
   </nav>
   <div class="page">
     <div class="card">
@@ -51,6 +78,35 @@
       <p>This is a basic skeleton page for the services section.</p>
     </div>
   </div>
+<script>
+(function () {
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  if (!navToggle || !mainNav) return;
+
+  navToggle.addEventListener('click', function () {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', function (event) {
+    if (window.innerWidth > 900) return;
+    if (!mainNav.classList.contains('open')) return;
+    if (mainNav.contains(event.target) || navToggle.contains(event.target)) return;
+
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) {
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>
 </body>
 </html>
 

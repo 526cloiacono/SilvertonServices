@@ -41,6 +41,18 @@
     .logo { font-weight: 700; color: var(--color-primary); text-decoration: none; font-size: 1.05rem; }
     .main-nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; flex-wrap: wrap; }
     .main-nav a { text-decoration: none; color: var(--color-text); font-weight: 700; font-size: 1.02rem; }
+    .nav-toggle {
+      display: none;
+      border: 1px solid #dfe5ee;
+      background: #fff;
+      color: var(--color-primary);
+      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      line-height: 1;
+    }
     .hero { background: linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color: #fff; text-align: center; padding: 10rem 1rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin: 0 0 1rem; }
     .hero p { max-width: 680px; margin: 0 auto 2rem; opacity: 0.95; font-size: 1.05rem; }
@@ -150,8 +162,44 @@
       .shop-dropdown.open .shop-dropdown-menu { display: block; }
       .shop-dropdown:hover .shop-dropdown-menu { display: none; }
       .shop-dropdown.open:hover .shop-dropdown-menu { display: block; }
+    }    @media (max-width: 900px) {
+      .header-inner {
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .main-nav {
+        display: none;
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .main-nav.open {
+        display: block;
+      }
+
+      .main-nav ul {
+        flex-direction: column;
+        gap: 0.15rem;
+        background: #fff;
+        border: 1px solid #dfe5ee;
+        border-radius: 12px;
+        padding: 0.5rem;
+      }
+
+      .main-nav a {
+        display: block;
+        padding: 0.7rem 0.8rem;
+      }
     }
-    /* Professional polish pass */
+
     .btn { transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease; }
     .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.18); transform: translateY(-1px); }
     .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
@@ -190,7 +238,10 @@
           <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:84px; width:auto; border-radius:8px;">
         </a>
       </div>
-      <nav class="main-nav">
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="mainNav" aria-expanded="false">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+      <nav class="main-nav" id="mainNav">
         <ul>
           <li><a href="home.html">Home</a></li>
           <li class="shop-dropdown">
@@ -3576,6 +3627,35 @@
         if (viewAll) viewAll.textContent = 'veiw all brands';
       }
     });
+  });
+})();
+</script>
+<script>
+(function () {
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  if (!navToggle || !mainNav) return;
+
+  navToggle.addEventListener('click', function () {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', function (event) {
+    if (window.innerWidth > 900) return;
+    if (!mainNav.classList.contains('open')) return;
+    if (mainNav.contains(event.target) || navToggle.contains(event.target)) return;
+
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) {
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 })();
 </script>

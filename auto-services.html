@@ -41,6 +41,18 @@
     .logo { font-weight: 700; color: var(--color-primary); text-decoration: none; font-size: 1.05rem; }
     .main-nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; flex-wrap: wrap; }
     .main-nav a { text-decoration: none; color: var(--color-text); font-weight: 700; font-size: 1.02rem; }
+    .nav-toggle {
+      display: none;
+      border: 1px solid #dfe5ee;
+      background: #fff;
+      color: var(--color-primary);
+      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      line-height: 1;
+    }
     .hero { background: linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color: #fff; text-align: center; padding: 10rem 1rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin: 0 0 1rem; }
     .hero p { max-width: 680px; margin: 0 auto 2rem; opacity: 0.95; font-size: 1.05rem; }
@@ -49,6 +61,51 @@
     .card { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); padding: 1.5rem; }
     .card h2 { font-family: var(--font-heading); color: var(--color-primary); margin-top: 0; margin-bottom: 0.75rem; }
     .card p { color: var(--color-text-muted); margin: 0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 1.4rem;
+      box-shadow: 0 6px 18px rgba(11,24,54,0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .service-card:hover {
+      box-shadow: 0 14px 28px rgba(11,24,54,0.1);
+      transform: translateY(-2px);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(60,96,193,0.12);
+      color: var(--color-primary);
+      font-size: 1.4rem;
+      margin-bottom: 0.9rem;
+    }
+    .service-card h3 {
+      font-family: var(--font-heading);
+      color: var(--color-primary);
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+    .service-card p {
+      color: var(--color-text-muted);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    .services-note {
+      margin: 0 0 1.5rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
     .shop-dropdown { position: relative; }
     .shop-dropdown::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
     .shop-dropdown-menu {
@@ -125,8 +182,44 @@
       .shop-dropdown.open .shop-dropdown-menu { display: block; }
       .shop-dropdown:hover .shop-dropdown-menu { display: none; }
       .shop-dropdown.open:hover .shop-dropdown-menu { display: block; }
+    }    @media (max-width: 900px) {
+      .header-inner {
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .main-nav {
+        display: none;
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .main-nav.open {
+        display: block;
+      }
+
+      .main-nav ul {
+        flex-direction: column;
+        gap: 0.15rem;
+        background: #fff;
+        border: 1px solid #dfe5ee;
+        border-radius: 12px;
+        padding: 0.5rem;
+      }
+
+      .main-nav a {
+        display: block;
+        padding: 0.7rem 0.8rem;
+      }
     }
-    /* Professional polish pass */
+
     .btn { transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease; }
     .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.18); transform: translateY(-1px); }
     .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
@@ -165,7 +258,10 @@
           <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:84px; width:auto; border-radius:8px;">
         </a>
       </div>
-      <nav class="main-nav">
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="mainNav" aria-expanded="false">
+        <span aria-hidden="true">&#9776;</span>
+      </button>
+      <nav class="main-nav" id="mainNav">
         <ul>
           <li><a href="home.html">Home</a></li>
           <li class="shop-dropdown">
@@ -197,9 +293,48 @@
   </div>
 
   <div class="page">
-    <div class="card">
-      <h2>Coming Soon</h2>
-      <p>This is a basic skeleton page for the auto services section.</p>
+    <p class="services-note">Sample layout for review &mdash; final service list and pricing to be confirmed.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#128664;</div>
+        <h3>Oil Changes</h3>
+        <p>Conventional, synthetic blend, and full synthetic options to keep your engine running smoothly.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128692;</div>
+        <h3>Tire Services</h3>
+        <p>New tire installation, rotations, balancing, and flat repairs for all makes and models.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128295;</div>
+        <h3>Brake Repair</h3>
+        <p>Pad and rotor replacement, brake fluid flush, and full brake system inspections.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9881;&#65039;</div>
+        <h3>Engine Diagnostics</h3>
+        <p>Check engine light diagnostics and troubleshooting using up-to-date scan tools.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128167;</div>
+        <h3>Fluid Services</h3>
+        <p>Coolant, transmission, power steering, and differential fluid checks and flushes.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#9989;</div>
+        <h3>State Inspections</h3>
+        <p>Fast, reliable state safety and emissions inspections while you wait.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128736;&#65039;</div>
+        <h3>Battery &amp; Electrical</h3>
+        <p>Battery testing and replacement, alternator and starter checks, electrical diagnostics.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128200;</div>
+        <h3>Suspension &amp; Alignment</h3>
+        <p>Shocks, struts, and wheel alignments to keep your ride smooth and even.</p>
+      </div>
     </div>
   </div>
 <script>
@@ -280,6 +415,35 @@
         if (viewAll) viewAll.textContent = 'veiw all brands';
       }
     });
+  });
+})();
+</script>
+<script>
+(function () {
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  if (!navToggle || !mainNav) return;
+
+  navToggle.addEventListener('click', function () {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', function (event) {
+    if (window.innerWidth > 900) return;
+    if (!mainNav.classList.contains('open')) return;
+    if (mainNav.contains(event.target) || navToggle.contains(event.target)) return;
+
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) {
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 })();
 </script>
