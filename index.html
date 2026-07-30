@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <title>Silverton | Tires, Oil Changes & Auto Repair</title>
 <meta name="description" content="Silverton provides dependable tire service, oil changes, brake repairs, and general auto care for drivers who want quality service and honest advice.">
 <style>
@@ -13,7 +16,9 @@
   --color-bg-alt: #FEFEFF;
   --color-text: #1a1a1a;
   --color-text-muted: #5a5a5a;
-  --font-heading: Arial, Helvetica, sans-serif;
+  --color-navy: #0b1836;
+  --color-teal: #2fe0d0;
+  --font-heading: 'Poppins', Arial, Helvetica, sans-serif;
   --font-body: Arial, Helvetica, sans-serif;
   --max-width: 1100px;
   --radius: 8px;
@@ -24,11 +29,13 @@ a { color:inherit; }
 .btn { display:inline-block; padding:0.75rem 1.35rem; border-radius:var(--radius); text-decoration:none; font-weight:bold; cursor:pointer; border:2px solid transparent; }
 .btn-primary { background:var(--color-accent); color:#fff; }
 .btn-outline { background:transparent; color:#fff; border-color:#fff; }
-.top-bar { background:var(--color-primary); color:#fff; font-size:1rem; }
+.top-bar { background:var(--color-navy); color:#fff; font-size:1rem; }
 .top-bar-inner { max-width:var(--max-width); margin:0 auto; padding:0.85rem 1rem; display:flex; justify-content:flex-end; align-items:center; gap:1.15rem; flex-wrap:wrap; }
 .top-bar a { color:#fff; text-decoration:none; }
-.hero-banner { background:url('IMG/silvertonheadNW.png') center/cover no-repeat; color:#fff; padding:1.5rem; min-height:calc(100vh - 4.2rem); display:flex; align-items:center; justify-content:center; }
-.hero-content { max-width:760px; background:rgba(0,45,92,0.75); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:1.5rem 2rem; text-align:center; box-shadow:0 20px 42px rgba(0,0,0,0.2); }
+.hero-banner { background:url('IMG/silvertonheadNW.png') center/cover no-repeat; color:#fff; padding:1.5rem; min-height:calc(100vh - 4.2rem); display:flex; align-items:center; justify-content:center; position:relative; }
+.hero-corner-logo { position:absolute; top:1.2rem; left:1.2rem; z-index:2; display:inline-flex; border-radius:12px; background:rgba(255,255,255,0.9); padding:0.35rem; box-shadow:0 10px 22px rgba(0,0,0,0.2); }
+.hero-corner-logo img { width:120px; height:auto; border-radius:10px; }
+.hero-content { max-width:760px; background:rgba(11,24,54,0.75); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:1.5rem 2rem; text-align:center; box-shadow:0 20px 42px rgba(0,0,0,0.2); }
 .hero-eyebrow { display:inline-block; padding:0.4rem 0.8rem; border-radius:999px; background:rgba(255,255,255,0.14); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem; }
 .hero-banner h1 { font-family:var(--font-heading); font-size:clamp(1.8rem, 3vw, 2.6rem); margin:0 0 0.6rem; display:flex; flex-direction:column; align-items:center; gap:0.25rem; }
 .hero-banner h1 .typing-text { display:inline-block; white-space:nowrap; overflow:hidden; border-right:2px solid rgba(255,255,255,0.9); width:0; max-width:max-content; animation: typing 2.8s steps(16, end) both; }
@@ -43,8 +50,29 @@ a { color:inherit; }
 .card-grid a { display:block; text-decoration:none; background:#fff; border:1px solid #e5e5e5; border-radius:var(--radius); padding:1.1rem; box-shadow:0 6px 18px rgba(0,0,0,0.04); }
 .card-grid h3 { margin:0 0 0.35rem; color:var(--color-primary); }
 .card-grid p { margin:0; color:var(--color-text-muted); font-size:0.95rem; }
-@media (max-width: 700px) { .header-inner { flex-direction:column; align-items:flex-start; } .card-grid { grid-template-columns:1fr; } }
-</style>
+@media (max-width: 700px) { .header-inner { flex-direction:column; align-items:flex-start; } .card-grid { grid-template-columns:1fr; } .hero-corner-logo { display:none; } }
+    /* Professional polish pass */
+    .btn { transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease; }
+    .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.18); transform: translateY(-1px); }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline: 3px solid rgba(60,96,193,0.35); outline-offset: 2px; }
+    .main-nav a { transition: color 0.15s ease; }
+    .main-nav a:hover { color: var(--color-primary); }
+    .card { transition: box-shadow 0.2s ease; }
+    .card:hover { box-shadow: 0 10px 26px rgba(0,0,0,0.08); }
+    input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(60,96,193,0.22); outline-offset: 1px; }
+      /* Redesign refresh v2 - brand navy/teal accents + Poppins headings */
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.01em; }
+    .logo { font-family: var(--font-heading); }
+    .main-nav a { position: relative; padding-bottom: 4px; }
+    .main-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--color-teal, #2fe0d0); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
+    .main-nav a:hover::after { transform: scaleX(1); }
+    .btn-primary { background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); letter-spacing: 0.02em; }
+    .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
+    .hero-eyebrow { color: #bff5ef; }
+    .tire-price { color: #0f8f80; }
+  </style>
 </head>
 <body>
 <div class="top-bar">
@@ -56,6 +84,9 @@ a { color:inherit; }
 </div>
 <main>
   <section class="hero-banner" id="hero-banner">
+    <a href="index.html" class="hero-corner-logo" aria-label="Silverton home">
+      <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo">
+    </a>
     <div class="hero-content">
       <p class="hero-eyebrow">Trusted local tire &amp; auto care</p>
       <h1>
@@ -77,7 +108,7 @@ function setHeroBackground() {
   const banner = document.getElementById('hero-banner');
   if (!banner) return;
   const fallback = 'IMG/silvertonheadNW.png';
-  banner.style.background = `linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('${fallback}') center/cover no-repeat`;
+  banner.style.background = `linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)), url('${fallback}') center/cover no-repeat`;
 }
 document.addEventListener('DOMContentLoaded', function () {
   setHeroBackground();
@@ -110,4 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </body>
 </html>
+
+
 

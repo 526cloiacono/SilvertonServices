@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   <title>Silverton | Auto Services</title>
   <style>
     :root {
@@ -13,7 +16,9 @@
       --color-bg-alt: #FEFEFF;
       --color-text: #111111;
       --color-text-muted: #5a5a5a;
-      --font-heading: Arial, Helvetica, sans-serif;
+  --color-navy: #0b1836;
+  --color-teal: #2fe0d0;
+      --font-heading: 'Poppins', Arial, Helvetica, sans-serif;
       --font-body: Arial, Helvetica, sans-serif;
       --max-width: 1200px;
       --radius: 8px;
@@ -25,7 +30,7 @@
     .btn { display: inline-block; padding: 0.9rem 1.8rem; border-radius: var(--radius); text-decoration: none; font-weight: 700; cursor: pointer; border: 2px solid transparent; font-size: 1rem; }
     .btn-primary { background: var(--color-accent); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .btn-outline { background: transparent; color: #fff; border-color: #fff; }
-    .top-bar { background: var(--color-primary); color: #fff; font-size: 1rem; }
+    .top-bar { background: var(--color-navy); color: #fff; font-size: 1rem; }
     .top-bar-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.85rem 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 1.15rem; flex-wrap: wrap; }
     .top-bar a { color: #fff; text-decoration: none; }
     .top-bar .btn-primary { padding: 0.7rem 1.1rem; font-size: 0.9rem; }
@@ -36,7 +41,7 @@
     .logo { font-weight: 700; color: var(--color-primary); text-decoration: none; font-size: 1.05rem; }
     .main-nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; flex-wrap: wrap; }
     .main-nav a { text-decoration: none; color: var(--color-text); font-weight: 700; font-size: 1.02rem; }
-    .hero { background: linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color: #fff; text-align: center; padding: 10rem 1rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .hero { background: linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color: #fff; text-align: center; padding: 10rem 1rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin: 0 0 1rem; }
     .hero p { max-width: 680px; margin: 0 auto 2rem; opacity: 0.95; font-size: 1.05rem; }
     .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
@@ -44,6 +49,104 @@
     .card { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); padding: 1.5rem; }
     .card h2 { font-family: var(--font-heading); color: var(--color-primary); margin-top: 0; margin-bottom: 0.75rem; }
     .card p { color: var(--color-text-muted); margin: 0; }
+    .shop-dropdown { position: relative; }
+    .shop-dropdown::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
+    .shop-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      margin-top: 0.2rem;
+      left: 0;
+      width: min(86vw, 760px);
+      max-height: min(70vh, 620px);
+      overflow: auto;
+      padding: 0.9rem 1rem 1rem;
+      background: #ffffff;
+      border: 1px solid #dfe5ee;
+      border-radius: 10px;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+      display: none;
+      z-index: 250;
+    }
+    .shop-dropdown:hover .shop-dropdown-menu,
+    .shop-dropdown.open .shop-dropdown-menu { display: block; }
+    .shop-dropdown-title {
+      margin: 0;
+      color: var(--color-primary);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .shop-view-all {
+      display: inline-block;
+      margin-top: 0.2rem;
+      margin-bottom: 0.7rem;
+      color: #2f70d9;
+      font-size: 0.78rem;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+    .shop-view-all:hover { text-decoration: underline; }
+    .shop-popular-list,
+    .shop-all-brands {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.45rem;
+    }
+    .shop-all-brands[hidden] { display: none !important; }
+    .shop-popular-list { margin-bottom: 0.55rem; }
+    .shop-brand-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      border: 1px solid #d6dde8;
+      border-radius: 999px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.82rem;
+      line-height: 1.2;
+      color: #1f2d46;
+      background: #f8fbff;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .shop-all-brands {
+      margin-top: 0.65rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid #e7edf6;
+    }
+    @media (max-width: 900px) {
+      .shop-dropdown-menu {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-top: 0.5rem;
+      }
+      .shop-dropdown.open .shop-dropdown-menu { display: block; }
+      .shop-dropdown:hover .shop-dropdown-menu { display: none; }
+      .shop-dropdown.open:hover .shop-dropdown-menu { display: block; }
+    }
+    /* Professional polish pass */
+    .btn { transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease; }
+    .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.18); transform: translateY(-1px); }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline: 3px solid rgba(60,96,193,0.35); outline-offset: 2px; }
+    .main-nav a { transition: color 0.15s ease; }
+    .main-nav a:hover { color: var(--color-primary); }
+    .card { transition: box-shadow 0.2s ease; }
+    .card:hover { box-shadow: 0 10px 26px rgba(0,0,0,0.08); }
+    input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(60,96,193,0.22); outline-offset: 1px; }
+      /* Redesign refresh v2 - brand navy/teal accents + Poppins headings */
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.01em; }
+    .logo { font-family: var(--font-heading); }
+    .main-nav a { position: relative; padding-bottom: 4px; }
+    .main-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--color-teal, #2fe0d0); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
+    .main-nav a:hover::after { transform: scaleX(1); }
+    .btn-primary { background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); letter-spacing: 0.02em; }
+    .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
+    .hero-eyebrow { color: #bff5ef; }
+    .tire-price { color: #0f8f80; }
   </style>
 </head>
 <body>
@@ -65,7 +168,15 @@
       <nav class="main-nav">
         <ul>
           <li><a href="home.html">Home</a></li>
-          <li><a href="shop-tires.html">Shop Tires</a></li>
+          <li class="shop-dropdown">
+  <a href="shop-tires.html" class="shop-trigger" aria-expanded="false">Shop Tires</a>
+  <div class="shop-dropdown-menu" role="menu" aria-label="Tire brands">
+    <p class="shop-dropdown-title">Popular Brands</p>
+    <div class="shop-popular-list" data-popular-brands></div>
+    <a href="#" class="shop-view-all" data-toggle-brands="true">veiw all brands</a>
+    <div class="shop-all-brands" data-all-brands hidden></div>
+  </div>
+</li>
           <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
@@ -91,6 +202,95 @@
       <p>This is a basic skeleton page for the auto services section.</p>
     </div>
   </div>
+<script>
+(function () {
+  const shopDropdownData = {
+    popularBrands: [
+      'Bridgestone', 'BFGoodrich', 'Cooper', 'Continental', 'Firestone',
+      'Goodyear', 'Hankook', 'Michelin', 'Pirelli', 'Yokohama'
+    ],
+    allBrands: [
+      'Accelera','Achilles','Advance','Advanta','Agstar','Akuret','Alliance','American','American Roadstar','Americus','Ameritread','Amp','Antares','Aoteli','Aplus','Aptany','Arctic-Claw','Arisun','Armohero','Armstrong','Arroyo','As','Aspen','Atlander','Atlas','Atturo','Autogrip','Autoguard','Avon','BCT','BFGoodrich','Bigo','BKT','Blackbear','Blackhawk','Blacklion','Blakwulf','Bridgestone','Caddiemaster','Cambridge','Capitol','Caraway','Carbon','CargoMax','Carlisle','Castlerock','Celimo','Centennial','Classic','Continental','Cooper','Cordovan','Cosmo','Countrywide','Crop Max','Cropmaster','Crossmax','Crosswind','Custom','Daewoo','Deestone','Delinte','Delmax','Delnat','Delta','Dextero','DickCepek','Dixie','Doral','Double Coin','Douglas','Dunlop','Duraturn','Duro','Egy Stone','Eldorado','Epic','Eurogrip','Evoluxx','Excel','Falken','FarRoad','Federal','Ferentino','Fierce','Firemax','Firestone','Forceland','Forceum','Fortune','Free Country','Freedom Hauler','FreeStar','Fuel','Fullrun','Fullway','Fury','Fuzion','Galaxy','Gallant','General','Geoquest','GeoStar','Gislaved','Giti','Gladiator','Goalstar','Goform','Goodride','Goodtrip','Goodyear','Goodyearag','Greenball','GreenMax','Gremax','Grenlander','Gritking','Groundspeed','GTRadial','Hankook','HarvestKing','Hemisphere','Hercules','Heritage','Hi Run','Hi-Run','Hifly','High run','Highfly','Hoosier','Imperial','Inovic','Interco','Invovic','Iris','Ironman','ITP','JKTyre','Kanati','Kelly','Kenda','Kumho','Lancaster','Landsail','Landspider','Lanvigator','Laufenn','Leao','Lemans','Lexani','LingLong','Lionhart','Lionsport','Magna Grip','Marshal','Mastercraft','Maxauto','Maxtrac','Maxtrek','Maxxis','Mazzini','Mesa','Michelin','Mickey-Thompson','Mileplus','Milestar','Milever','Mirada','Mohave','Momo','Montreal','Mud-Digger','Mudclaw','Multimile','Nama','Nanco','Nankang','National','Nebula','Neoterra','Neptune','Nexen','Nika','Nitto','Nokian','Ohtsu','Oliver Retreads','Omni','Otani','OTR','Pacemark','Pantera','Pegasus','Performer','Petlas','Pirelli','Powerking','Powertrac','Presa','Primewell','Prinx','Provider','Radar','Rapid','Riken','RoadOne','Rovelo','Royal Black','Runway','Rydanz','Saffiro','Sailun','Samson','Sceptor','Sentury','Sierra','Sigma','SKS-1','Snowmark','Solar','Solid-Trac','Solideal','Sonny','StarFire','Starmaxx','Sumic','Sumitomo','Summit','Sunny','Suntex','Super','Super Cargo','SuperMax','Suredrive','Suretrac','Sutong','Synergy','Taskmaster','Tatko','TBB','TBC','Terrastorm','Thunderer','Titan','Tornel','TowMax','Towstar','Toyo','Tracgard','Tracmax','Traction Guard','Trailcutter','Trailer','TrailerKing','TrailGuide','Traker','Transeagle','Transporter','Treadura','Triangle','Unicorn','Uniroyal','Vanderbilt','Vanguard','Vantage','Veento','Veerubber','Velozza','Venezia','Venom','Vercelli','Viking','Vitour','Vizzoni','Vogue','Vortex','Vredestein','Wanda','WaterFall','Westlake','Wild Country','Wild Spirit','Wild Trail','Winda','Winrun','YKS','Yokohama','Zeemax','Zeetex','Zenna','Zeta'
+    ]
+  };
+
+  function createChip(name) {
+    const chip = document.createElement('span');
+    chip.className = 'shop-brand-chip';
+    chip.textContent = name;
+    return chip;
+  }
+
+  const dropdowns = document.querySelectorAll('.shop-dropdown');
+  dropdowns.forEach(function (dropdown) {
+    const popularWrap = dropdown.querySelector('[data-popular-brands]');
+    const allWrap = dropdown.querySelector('[data-all-brands]');
+    const trigger = dropdown.querySelector('.shop-trigger');
+    const viewAll = dropdown.querySelector('[data-toggle-brands]');
+
+    if (popularWrap && !popularWrap.childElementCount) {
+      shopDropdownData.popularBrands.forEach(function (name) {
+        popularWrap.appendChild(createChip(name));
+      });
+    }
+
+    if (allWrap) { allWrap.setAttribute('hidden', ''); }
+    if (allWrap && !allWrap.childElementCount) {
+      shopDropdownData.allBrands.forEach(function (name) {
+        allWrap.appendChild(createChip(name));
+      });
+    }
+
+    if (viewAll) {
+      viewAll.addEventListener('click', function (event) {
+        event.preventDefault();
+        const isHidden = allWrap.hasAttribute('hidden');
+        if (isHidden) {
+          allWrap.removeAttribute('hidden');
+          viewAll.textContent = 'Hide all brands';
+        } else {
+          allWrap.setAttribute('hidden', '');
+          viewAll.textContent = 'veiw all brands';
+        }
+      });
+    }
+
+    if (trigger) {
+      trigger.addEventListener('click', function (event) {
+        const shouldToggle = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+        if (!shouldToggle) return;
+
+        if (!dropdown.classList.contains('open')) {
+          event.preventDefault();
+          dropdown.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+  });
+  document.addEventListener('click', function (event) {
+    document.querySelectorAll('.shop-dropdown.open').forEach(function (openDropdown) {
+      if (!openDropdown.contains(event.target)) {
+        openDropdown.classList.remove('open');
+        const trigger = openDropdown.querySelector('.shop-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        const allWrap = openDropdown.querySelector('[data-all-brands]');
+        const viewAll = openDropdown.querySelector('[data-toggle-brands]');
+        if (allWrap) allWrap.setAttribute('hidden', '');
+        if (viewAll) viewAll.textContent = 'veiw all brands';
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 

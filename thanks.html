@@ -3,12 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   <title>Silverton | Thank You</title>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background: #F2F2F4; color: #111111; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; }
     .card { background: #fff; border-radius: 16px; padding: 2rem; max-width: 480px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
     h1 { color: #3C60C1; margin-top: 0; }
     a { color: #2159A8; font-weight: 700; }
+      /* Professional polish pass */
+    .btn { transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, opacity 0.15s ease; }
+    .btn-primary:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.18); transform: translateY(-1px); }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible { outline: 3px solid rgba(60,96,193,0.35); outline-offset: 2px; }
+    .main-nav a { transition: color 0.15s ease; }
+    .main-nav a:hover { color: var(--color-primary); }
+    .card { transition: box-shadow 0.2s ease; }
+    .card:hover { box-shadow: 0 10px 26px rgba(0,0,0,0.08); }
+    input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(60,96,193,0.22); outline-offset: 1px; }
+      /* Redesign refresh v2 - brand navy/teal accents + Poppins headings */
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.01em; }
+    .logo { font-family: var(--font-heading); }
+    .main-nav a { position: relative; padding-bottom: 4px; }
+    .main-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--color-teal, #2fe0d0); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
+    .main-nav a:hover::after { transform: scaleX(1); }
+    .btn-primary { background: linear-gradient(135deg, var(--color-accent), var(--color-primary)); letter-spacing: 0.02em; }
+    .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
+    .hero-eyebrow { color: #bff5ef; }
+    .tire-price { color: #0f8f80; }
   </style>
 </head>
 <body>
@@ -19,4 +43,6 @@
   </div>
 </body>
 </html>
+
+
 
