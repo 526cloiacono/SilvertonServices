@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -43,20 +43,20 @@
     .btn-primary { background: var(--color-accent); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .btn-outline { background: transparent; color: #fff; border-color: #fff; }
     .btn-outline:hover, .btn-primary:hover { transform: translateY(-1px); transition: transform 0.2s ease; }
-    .top-bar { background: var(--color-primary); color: #fff; font-size: 0.9rem; }
+    .top-bar { background: var(--color-primary); color: #fff; font-size: 1rem; }
 
-    .top-bar-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.6rem 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .top-bar-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.85rem 1rem; display: flex; justify-content: flex-end; align-items: center; gap: 1.15rem; flex-wrap: wrap; }
     .top-bar a { color: #fff; text-decoration: none; }
     .top-bar .btn-primary { padding: 0.7rem 1.1rem; font-size: 0.9rem; }
     .top-bar .phone { font-weight: bold; }
 
     .site-header { background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .header-inner { max-width: var(--max-width); margin: 0 auto; padding: 0.85rem 1rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; }
+    .header-inner { max-width: var(--max-width); margin: 0 auto; padding: 1.15rem 1rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.75rem; }
     .header-left { display: flex; align-items: center; }
     .logo { font-weight: 700; color: var(--color-primary); text-decoration: none; font-size: 1.05rem; }
 
     .main-nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; flex-wrap: wrap; }
-    .main-nav a { text-decoration: none; color: var(--color-text); font-weight: 600; font-size: 0.9rem; }
+    .main-nav a { text-decoration: none; color: var(--color-text); font-weight: 700; font-size: 1.02rem; }
 
     .page {
       max-width: var(--max-width);
@@ -68,16 +68,20 @@
       background: linear-gradient(rgba(0,45,92,0.75), rgba(0,45,92,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat;
       color: #fff;
       text-align: center;
-      padding: 8rem 0;
-      min-height: 80vh;
-      height: 80vh;
+      padding: 10rem 0;
+      min-height: 100vh;
+      height: auto;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       background-size: cover;
       background-position: center;
-      margin: 0;
+      margin-top: 0;
+      margin-bottom: 0;
     }
     .hero h1 { font-family: var(--font-heading); font-size: 3rem; margin: 0 0 1rem; }
     .hero p { max-width: 680px; margin: 0 auto 2rem; opacity: 0.95; font-size: 1.05rem; }
@@ -179,7 +183,7 @@
       .grid { grid-template-columns: 1fr; }
       .staff-grid { grid-template-columns: 1fr; }
       .two-col { grid-template-columns: 1fr; }
-      .hero { padding: 6rem 0; min-height: 70vh; height: auto; }
+      .hero { padding: 8rem 0; min-height: 90vh; height: auto; }
       .hero h1 { font-size: 2.2rem; }
       .hero-ctas { flex-direction: column; align-items: center; }
       .section-nav { gap: 0.5rem; }
@@ -200,7 +204,7 @@
     <div class="header-inner">
       <div class="header-left">
         <a href="index.html" class="logo" aria-label="Silverton Services">
-          <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:64px; width:auto; border-radius:8px;">
+          <img src="IMG/silvertonlogo.jpg" alt="Silverton Services logo" style="height:84px; width:auto; border-radius:8px;">
         </a>
       </div>
       <nav class="main-nav">
@@ -234,7 +238,7 @@
       <p>Enter Silverton Motors, where simplicity and satisfaction come together for residents seeking new or pre-owned vehicles. We have transformed the car-buying experience by making it easier, more transparent, and far more enjoyable.</p>
       <p>Here is how we do it:</p>
       <ul class="pill-list">
-        <li><strong>Passion for Cars:</strong> Our team lives and breathes automobiles. Whether you are looking for a sleek sedan, a rugged SUV, or an eco-friendly hybrid, we understand that your vehicle is more than transportation—it is part of your lifestyle.</li>
+        <li><strong>Passion for Cars:</strong> Our team lives and breathes automobiles. Whether you are looking for a sleek sedan, a rugged SUV, or an eco-friendly hybrid, we understand that your vehicle is more than transportationâ€”it is part of your lifestyle.</li>
         <li><strong>Committed Sales Staff:</strong> We are not here to pressure you into a hasty decision. Our sales professionals take the time to understand your needs, preferences, and budget, offering genuine guidance every step of the way.</li>
         <li><strong>Unbeatable Customer Experience:</strong> From the moment you walk into our showroom to the test drive and final paperwork, we focus on making your experience smooth, welcoming, and stress-free.</li>
       </ul>
@@ -280,3 +284,4 @@
   </div>
 </body>
 </html>
+
