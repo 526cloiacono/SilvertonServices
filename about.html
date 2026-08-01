@@ -485,7 +485,13 @@
     a:not(.btn):hover,
     a:not(.btn):focus-visible {
       color: #00138A;
-    }`r`n  </style>
+    }
+
+    /* Keep hero page titles white */
+    .hero h1 {
+      color: #FFFFFF !important;
+    }
+  </style>
 </head>
 <body>
   <div class="top-bar">
@@ -530,7 +536,7 @@
 
   <div class="page">
     <section class="hero">
-      <h1>About Silverton</h1>
+      <h1 style="color:#FFFFFF;">About Silverton</h1>
       <p>Silverton is a local auto care partner focused on ceramic coating, remote start, window tinting, and auto detailing for drivers who want quality results and honest service.</p>
       <div class="hero-ctas">
         <a href="coupons.html" class="btn btn-outline">View Coupons</a>

@@ -341,7 +341,13 @@
     a:not(.btn):hover,
     a:not(.btn):focus-visible {
       color: #00138A;
-    }`r`n  </style>
+    }
+
+    /* Keep hero page titles white */
+    .hero h1 {
+      color: #FFFFFF !important;
+    }
+  </style>
 </head>
 <body>
   <div class="top-bar">
@@ -385,7 +391,7 @@
   </header>
 
   <div class="hero">
-    <h1>Contact Us</h1>
+    <h1 style="color:#FFFFFF;">Contact Us</h1>
     <p>Reach out to Silverton for service questions, appointments, and general support.</p>
     <div class="hero-ctas" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem;">
       <a href="coupons.html" class="btn btn-outline">View Coupons</a>
