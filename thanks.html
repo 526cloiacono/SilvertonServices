@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -33,7 +33,153 @@
     .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
     .hero-eyebrow { color: #bff5ef; }
     .tire-price { color: #0f8f80; }
-  </style>
+  
+    /* Final brand override: navy / gold / white */
+    :root {
+      --color-primary: #00138A;
+      --color-accent: #FFC62D;
+      --color-highlight: #00138A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #FFFFFF;
+      --color-text: #0B1238;
+      --color-text-muted: #4A547A;
+      --color-navy: #00138A;
+      --color-teal: #FFC62D;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .top-bar {
+      background: #00138A;
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .main-nav a {
+      color: #00138A;
+    }
+
+    .main-nav a::after {
+      background: #FFC62D;
+    }
+
+    .btn-primary {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .btn-primary:hover {
+      background: #E6B325;
+    }
+
+    .btn-outline {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    .btn-dark-outline,
+    .btn-secondary {
+      color: #00138A;
+      border-color: #00138A;
+      background: #FFFFFF;
+    }
+
+    .btn-danger {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)),
+        url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      color: #FFFFFF;
+    }
+
+    .card,
+    .coupon-card,
+    .offer-card {
+      border: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .card h2,
+    .coupon-title,
+    .offer-card h3,
+    .logo {
+      color: #00138A;
+    }
+
+    .shop-view-all {
+      color: #00138A;
+    }
+
+    .shop-brand-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 19, 138, 0.2);
+      color: #00138A;
+    }
+
+    .edit-button {
+      background: #FFC62D;
+      color: #00138A;
+    }
+
+    .clear-storage-btn {
+      color: #00138A;
+      border-color: #00138A;
+    }
+
+    .hero-eyebrow {
+      color: #FFC62D;
+    }
+
+    .tire-price {
+      color: #00138A;
+    }
+  
+    /* Brand typography/color lock (no hero-image changes) */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading, 'Poppins', Arial, Helvetica, sans-serif);
+      color: #00138A;
+    }
+
+    .logo,
+    .main-nav a,
+    .main-nav a:visited,
+    .shop-dropdown-title,
+    .shop-view-all,
+    .coupon-title,
+    .offer-card h3,
+    .card h2,
+    .card h3,
+    .section h2,
+    .hero-card h2,
+    .hero-subtitle,
+    .compat-label,
+    .tire-brand,
+    label {
+      color: #00138A !important;
+    }
+
+    .hero-eyebrow,
+    .tire-price,
+    .placeholder {
+      color: #FFC62D !important;
+    }
+
+    a:not(.btn):hover,
+    a:not(.btn):focus-visible {
+      color: #00138A;
+    }`r`n  </style>
 </head>
 <body>
   <div class="card">

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -63,48 +63,105 @@
     .card p { color: var(--color-text-muted); margin: 0; }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .service-row {
+      display: grid;
+      gap: 0.5rem;
+    }
+    .service-title-desktop {
+      display: none;
+      margin: 0;
+      font-family: var(--font-heading);
+      color: var(--color-primary);
+      text-align: center;
+      font-size: 2.5rem;
+      line-height: 1.2;
     }
     .service-card {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 14px;
-      padding: 1.4rem;
-      box-shadow: 0 6px 18px rgba(11,24,54,0.05);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      transition: transform 0.2s ease;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      padding: 0;
+      overflow: visible;
     }
     .service-card:hover {
-      box-shadow: 0 14px 28px rgba(11,24,54,0.1);
       transform: translateY(-2px);
     }
-    .service-icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .service-media {
+      background: #fff;
+      border: 3px solid #FFC62D;
       border-radius: 12px;
-      background: rgba(60,96,193,0.12);
-      color: var(--color-primary);
-      font-size: 1.4rem;
-      margin-bottom: 0.9rem;
+      box-shadow: 0 6px 18px rgba(11,24,54,0.05);
+      overflow: hidden;
+      aspect-ratio: 6 / 5;
+    }
+    .service-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .service-content {
+      background: #fff;
+      border: 3px solid #FFC62D;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(11,24,54,0.05);
+      padding: 0.8rem 0.95rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .service-card.image-right .service-media {
+      order: 2;
+    }
+    .service-card.image-right .service-content {
+      order: 1;
     }
     .service-card h3 {
       font-family: var(--font-heading);
       color: var(--color-primary);
-      margin: 0 0 0.5rem;
-      font-size: 1.1rem;
+      margin: 0 0 0.55rem;
+      font-size: 1.12rem;
+      text-align: center;
     }
     .service-card p {
       color: var(--color-text-muted);
       margin: 0;
-      font-size: 0.95rem;
+      font-size: 0.86rem;
     }
     .services-note {
       margin: 0 0 1.5rem;
       color: var(--color-text-muted);
       font-style: italic;
+    }
+    @media (max-width: 700px) {
+      .service-card {
+        grid-template-columns: 1fr;
+      }
+      .service-card.image-right .service-media,
+      .service-card.image-right .service-content {
+        order: initial;
+      }
+      .service-media {
+        border-bottom: 0;
+      }
+    }
+    @media (min-width: 701px) {
+      .service-title-desktop {
+        display: block;
+      }
+      .service-content h3 {
+        display: none;
+      }
     }
     .shop-dropdown { position: relative; }
     .shop-dropdown::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
@@ -240,6 +297,153 @@
     .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
     .hero-eyebrow { color: #bff5ef; }
     .tire-price { color: #0f8f80; }
+  
+    /* Final brand override: navy / gold / white */
+    :root {
+      --color-primary: #00138A;
+      --color-accent: #FFC62D;
+      --color-highlight: #00138A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #FFFFFF;
+      --color-text: #0B1238;
+      --color-text-muted: #4A547A;
+      --color-navy: #00138A;
+      --color-teal: #FFC62D;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .top-bar {
+      background: #00138A;
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .main-nav a {
+      color: #00138A;
+    }
+
+    .main-nav a::after {
+      background: #FFC62D;
+    }
+
+    .btn-primary {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .btn-primary:hover {
+      background: #E6B325;
+    }
+
+    .btn-outline {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    .btn-dark-outline,
+    .btn-secondary {
+      color: #00138A;
+      border-color: #00138A;
+      background: #FFFFFF;
+    }
+
+    .btn-danger {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)),
+        url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      color: #FFFFFF;
+    }
+
+    .card,
+    .coupon-card,
+    .offer-card {
+      border: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .card h2,
+    .coupon-title,
+    .offer-card h3,
+    .logo {
+      color: #00138A;
+    }
+
+    .shop-view-all {
+      color: #00138A;
+    }
+
+    .shop-brand-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 19, 138, 0.2);
+      color: #00138A;
+    }
+
+    .edit-button {
+      background: #FFC62D;
+      color: #00138A;
+    }
+
+    .clear-storage-btn {
+      color: #00138A;
+      border-color: #00138A;
+    }
+
+    .hero-eyebrow {
+      color: #FFC62D;
+    }
+
+    .tire-price {
+      color: #00138A;
+    }
+  
+    /* Brand typography/color lock (no hero-image changes) */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading, 'Poppins', Arial, Helvetica, sans-serif);
+      color: #00138A;
+    }
+
+    .logo,
+    .main-nav a,
+    .main-nav a:visited,
+    .shop-dropdown-title,
+    .shop-view-all,
+    .coupon-title,
+    .offer-card h3,
+    .card h2,
+    .card h3,
+    .section h2,
+    .hero-card h2,
+    .hero-subtitle,
+    .compat-label,
+    .tire-brand,
+    label {
+      color: #00138A !important;
+    }
+
+    .hero-eyebrow,
+    .tire-price,
+    .placeholder {
+      color: #FFC62D !important;
+    }
+
+    a:not(.btn):hover,
+    a:not(.btn):focus-visible {
+      color: #00138A;
+    }
   </style>
 </head>
 <body>
@@ -264,6 +468,7 @@
       <nav class="main-nav" id="mainNav">
         <ul>
           <li><a href="home.html">Home</a></li>
+          <li><a href="auto-services.html">Auto Services</a></li>
           <li class="shop-dropdown">
   <a href="shop-tires.html" class="shop-trigger" aria-expanded="false">Shop Tires</a>
   <div class="shop-dropdown-menu" role="menu" aria-label="Tire brands">
@@ -273,7 +478,6 @@
     <div class="shop-all-brands" data-all-brands hidden></div>
   </div>
 </li>
-          <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
           <li><a href="about.html">About</a></li>
@@ -285,7 +489,7 @@
 
   <div class="hero">
     <h1>Auto Services</h1>
-    <p>Explore our maintenance and repair services in one place.</p>
+    <p>Explore our current specialty services in one place.</p>
     <div class="hero-ctas" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem;">
       <a href="coupons.html" class="btn btn-outline">View Coupons</a>
       <a href="find-a-store.html" class="btn btn-primary">Contact</a>
@@ -293,47 +497,63 @@
   </div>
 
   <div class="page">
-    <p class="services-note">Sample layout for review &mdash; final service list and pricing to be confirmed.</p>
+    <p class="services-note">Current services offered:</p>
     <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">&#128664;</div>
-        <h3>Oil Changes</h3>
-        <p>Conventional, synthetic blend, and full synthetic options to keep your engine running smoothly.</p>
+      <div class="service-row">
+        <br>
+        <br>
+        <h1 class="service-title-desktop">Ceramic Coating</h1>
+        <div class="service-card">
+          <div class="service-media">
+            <img src="IMG/silvertonheadNW.png" alt="Ceramic coating service" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Ceramic Coating</h3>
+            <p>Long-lasting paint protection with a deep gloss finish and easier cleaning.</p>
+          </div>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">&#128692;</div>
-        <h3>Tire Services</h3>
-        <p>New tire installation, rotations, balancing, and flat repairs for all makes and models.</p>
+      <div class="service-row">
+        <br>
+        <br>
+        <h1 class="service-title-desktop">Remote Start</h1>
+        <div class="service-card image-right">
+          <div class="service-media">
+            <img src="IMG/silvertonheadNW.png" alt="Remote start installation" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Remote Start</h3>
+            <p>Convenient remote start system installation for comfort in every season.</p>
+          </div>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">&#128295;</div>
-        <h3>Brake Repair</h3>
-        <p>Pad and rotor replacement, brake fluid flush, and full brake system inspections.</p>
+      <div class="service-row">
+        <br>
+        <br>
+        <h1 class="service-title-desktop">Window Tinting</h1>
+        <div class="service-card">
+          <div class="service-media">
+            <img src="IMG/silvertonheadNW.png" alt="Window tinting service" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Window Tinting</h3>
+            <p>Professional tint installation for privacy, UV protection, and heat reduction.</p>
+          </div>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">&#9881;&#65039;</div>
-        <h3>Engine Diagnostics</h3>
-        <p>Check engine light diagnostics and troubleshooting using up-to-date scan tools.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">&#128167;</div>
-        <h3>Fluid Services</h3>
-        <p>Coolant, transmission, power steering, and differential fluid checks and flushes.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">&#9989;</div>
-        <h3>State Inspections</h3>
-        <p>Fast, reliable state safety and emissions inspections while you wait.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">&#128736;&#65039;</div>
-        <h3>Battery &amp; Electrical</h3>
-        <p>Battery testing and replacement, alternator and starter checks, electrical diagnostics.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">&#128200;</div>
-        <h3>Suspension &amp; Alignment</h3>
-        <p>Shocks, struts, and wheel alignments to keep your ride smooth and even.</p>
+      <div class="service-row">
+        <br>
+        <br>
+        <h1 class="service-title-desktop">Auto Detailing</h1>
+        <div class="service-card image-right">
+          <div class="service-media">
+            <img src="IMG/silvertonheadNW.png" alt="Auto detailing service" loading="lazy">
+          </div>
+          <div class="service-content">
+            <h3>Auto Detailing</h3>
+            <p>Complete interior and exterior detailing to restore and maintain your vehicle&rsquo;s appearance.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

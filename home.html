@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <title>Silverton | Home</title>
-<meta name="description" content="Silverton offers dependable tire service, oil changes, brake repairs, and honest auto care in Toms River.">
+<meta name="description" content="Silverton offers ceramic coating, remote start, window tinting, and auto detailing in Toms River.">
 <style>
 :root {
   --color-primary: #3C60C1;
@@ -202,6 +202,157 @@ a { color:inherit; }
     .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
     .hero-eyebrow { color: #bff5ef; }
     .tire-price { color: #0f8f80; }
+  
+    /* Final brand override: navy / gold / white */
+    :root {
+      --color-primary: #00138A;
+      --color-accent: #FFC62D;
+      --color-highlight: #00138A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #FFFFFF;
+      --color-text: #0B1238;
+      --color-text-muted: #4A547A;
+      --color-navy: #00138A;
+      --color-teal: #FFC62D;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .top-bar {
+      background: #00138A;
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .main-nav a {
+      color: #00138A;
+    }
+
+    .main-nav a::after {
+      background: #FFC62D;
+    }
+
+    .btn-primary {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .btn-primary:hover {
+      background: #E6B325;
+    }
+
+    .btn-outline {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    .btn-dark-outline,
+    .btn-secondary {
+      color: #00138A;
+      border-color: #00138A;
+      background: #FFFFFF;
+    }
+
+    .btn-danger {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)),
+        url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      color: #FFFFFF;
+    }
+
+    .card,
+    .coupon-card,
+    .offer-card {
+      border: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .card h2,
+    .coupon-title,
+    .offer-card h3,
+    .logo {
+      color: #00138A;
+    }
+
+    .shop-view-all {
+      color: #00138A;
+    }
+
+    .shop-brand-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 19, 138, 0.2);
+      color: #00138A;
+    }
+
+    .edit-button {
+      background: #FFC62D;
+      color: #00138A;
+    }
+
+    .clear-storage-btn {
+      color: #00138A;
+      border-color: #00138A;
+    }
+
+    .hero-eyebrow {
+      color: #FFC62D;
+    }
+
+    .tire-price {
+      color: #00138A;
+    }
+  
+    /* Brand typography/color lock (no hero-image changes) */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading, 'Poppins', Arial, Helvetica, sans-serif);
+      color: #00138A;
+    }
+
+    .logo,
+    .main-nav a,
+    .main-nav a:visited,
+    .shop-dropdown-title,
+    .shop-view-all,
+    .coupon-title,
+    .offer-card h3,
+    .card h2,
+    .card h3,
+    .section h2,
+    .hero-card h2,
+    .hero-subtitle,
+    .compat-label,
+    .tire-brand,
+    label {
+      color: #00138A !important;
+    }
+
+    .hero-eyebrow,
+    .tire-price,
+    .placeholder {
+      color: #FFC62D !important;
+    }
+
+    a:not(.btn):hover,
+    a:not(.btn):focus-visible {
+      color: #00138A;
+    }
+
+    .cta-banner h2 {
+      color: #FFFFFF !important;
+    }
   </style>
 </head>
 <body>
@@ -223,7 +374,8 @@ a { color:inherit; }
       <nav class="main-nav" id="mainNav">
       <ul>
         <li><a href="home.html">Home</a></li>
-        <li class="shop-dropdown">
+        <li><a href="auto-services.html">Auto Services</a></li>
+          <li class="shop-dropdown">
   <a href="shop-tires.html" class="shop-trigger" aria-expanded="false">Shop Tires</a>
   <div class="shop-dropdown-menu" role="menu" aria-label="Tire brands">
     <p class="shop-dropdown-title">Popular Brands</p>
@@ -232,7 +384,6 @@ a { color:inherit; }
     <div class="shop-all-brands" data-all-brands hidden></div>
   </div>
 </li>
-        <li><a href="auto-services.html">Auto Services</a></li>
         <li><a href="coupons.html">Coupons</a></li>
         <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
         <li><a href="about.html">About</a></li>
@@ -245,7 +396,7 @@ a { color:inherit; }
   <div class="hero-content">
     <div>
       <p style="text-transform:uppercase; letter-spacing:0.08em; font-weight:700; margin-bottom:0.5rem;">Trusted local auto care</p>
-      <h1>Dependable service for tires, brakes, oil changes, and more.</h1>
+      <h1 style="color:#FFFFFF;">Ceramic coating, remote start, window tinting, and auto detailing.</h1>
       <p>Silverton brings together honest advice, seasonal maintenance, and locally trusted care to keep your vehicle ready for the road.</p>
       <div class="hero-ctas">
         <a href="coupons.html" class="btn btn-primary">View Current Offers</a>
@@ -262,16 +413,20 @@ a { color:inherit; }
   <h2>Our services</h2>
   <div class="grid">
     <div class="card">
-      <h3>Tire Service</h3>
-      <p>Rotation, balancing, replacements, and seasonal tire support.</p>
+      <h3>Ceramic Coating</h3>
+      <p>Durable paint protection with long-lasting shine and easier maintenance.</p>
     </div>
     <div class="card">
-      <h3>Oil Changes</h3>
-      <p>Quick maintenance to keep your engine protected and running smoothly.</p>
+      <h3>Remote Start</h3>
+      <p>Remote start installations for convenience and comfort year-round.</p>
     </div>
     <div class="card">
-      <h3>Brake Repair</h3>
-      <p>Inspections and repairs that keep your stopping power safe and reliable.</p>
+      <h3>Window Tinting</h3>
+      <p>Clean, professional tinting for UV protection, privacy, and cabin comfort.</p>
+    </div>
+    <div class="card">
+      <h3>Auto Detailing</h3>
+      <p>Interior and exterior detailing to keep your vehicle looking its best.</p>
     </div>
   </div>
 </section>

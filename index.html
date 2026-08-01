@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-<title>Silverton | Tires, Oil Changes & Auto Repair</title>
-<meta name="description" content="Silverton provides dependable tire service, oil changes, brake repairs, and general auto care for drivers who want quality service and honest advice.">
+<title>Silverton | Ceramic Coating, Remote Start, Window Tinting & Auto Detailing</title>
+<meta name="description" content="Silverton provides ceramic coating, remote start, window tinting, and auto detailing for drivers who want quality service and honest advice.">
 <style>
 :root {
   --color-primary: #3C60C1;
@@ -32,7 +32,7 @@ a { color:inherit; }
 .top-bar { background:var(--color-navy); color:#fff; font-size:1rem; }
 .top-bar-inner { max-width:var(--max-width); margin:0 auto; padding:0.85rem 1rem; display:flex; justify-content:flex-end; align-items:center; gap:1.15rem; flex-wrap:wrap; }
 .top-bar a { color:#fff; text-decoration:none; }
-.hero-banner { background:url('IMG/silvertonheadNW.png') center/cover no-repeat; color:#fff; padding:1.5rem; min-height:calc(100vh - 4.2rem); display:flex; align-items:center; justify-content:center; position:relative; }
+.hero-banner { background:linear-gradient(rgba(11,24,54,0.75),rgba(11,24,54,0.75)), url('IMG/silvertonheadNW.png') center/cover no-repeat; color:#fff; padding:1.5rem; min-height:calc(100vh - 4.2rem); display:flex; align-items:center; justify-content:center; position:relative; }
 .hero-corner-logo { position:absolute; top:1.2rem; left:1.2rem; z-index:2; display:inline-flex; border-radius:12px; background:rgba(255,255,255,0.9); padding:0.35rem; box-shadow:0 10px 22px rgba(0,0,0,0.2); }
 .hero-corner-logo img { width:120px; height:auto; border-radius:10px; }
 .hero-content { max-width:760px; background:rgba(11,24,54,0.75); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:1.5rem 2rem; text-align:center; box-shadow:0 20px 42px rgba(0,0,0,0.2); }
@@ -72,7 +72,118 @@ a { color:inherit; }
     .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
     .hero-eyebrow { color: #bff5ef; }
     .tire-price { color: #0f8f80; }
-  </style>
+  
+    /* Final brand override: navy / gold / white */
+    :root {
+      --color-primary: #00138A;
+      --color-accent: #FFC62D;
+      --color-highlight: #00138A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #FFFFFF;
+      --color-text: #0B1238;
+      --color-text-muted: #4A547A;
+      --color-navy: #00138A;
+      --color-teal: #FFC62D;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .top-bar {
+      background: #00138A;
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .main-nav a {
+      color: #00138A;
+    }
+
+    .main-nav a::after {
+      background: #FFC62D;
+    }
+
+    .btn-primary {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .btn-primary:hover {
+      background: #E6B325;
+    }
+
+    .btn-outline {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    .btn-dark-outline,
+    .btn-secondary {
+      color: #00138A;
+      border-color: #00138A;
+      background: #FFFFFF;
+    }
+
+    .btn-danger {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)),
+        url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      color: #FFFFFF;
+    }
+
+    .card,
+    .coupon-card,
+    .offer-card {
+      border: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .card h2,
+    .coupon-title,
+    .offer-card h3,
+    .logo {
+      color: #00138A;
+    }
+
+    .shop-view-all {
+      color: #00138A;
+    }
+
+    .shop-brand-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 19, 138, 0.2);
+      color: #00138A;
+    }
+
+    .edit-button {
+      background: #FFC62D;
+      color: #00138A;
+    }
+
+    .clear-storage-btn {
+      color: #00138A;
+      border-color: #00138A;
+    }
+
+    .hero-eyebrow {
+      color: #FFC62D;
+    }
+
+    .tire-price {
+      color: #00138A;
+    }`r`n  </style>
 </head>
 <body>
 <div class="top-bar">
@@ -94,7 +205,7 @@ a { color:inherit; }
         <span class="typing-text second">Services</span>
       </h1>
       <p class="hero-subtitle">Proudly serving Toms River</p>
-      <p>Silverton is a clean, simple place to explore tire service, auto repairs, coupons, and local support in one visit.</p>
+      <p>Silverton is a clean, simple place to explore ceramic coating, remote start, window tinting, auto detailing, coupons, and local support in one visit.</p>
       <div class="hero-ctas" style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:1rem;">
         <a href="home.html" class="btn btn-primary">Go to Home</a>
         <a href="coupons.html" class="btn btn-outline">View Coupons</a>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -66,6 +66,13 @@
     .search-box input { width: 100%; border: 1px solid #d8dce6; border-radius: var(--radius); padding: 0.8rem 0.95rem; font-size: 0.95rem; }
     .search-box input:focus { outline: 2px solid rgba(60,96,193,0.18); border-color: var(--color-primary); }
     .search-empty { margin: 0 0 1rem; color: var(--color-text-muted); }
+    .search-highlight {
+      background: #FFC62D;
+      color: #00138A;
+      border-radius: 4px;
+      padding: 0 0.15em;
+      font-weight: 700;
+    }
     .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: start; }
     .part-accordion { display: grid; gap: 1rem; }
     .part-panel { background: var(--color-bg-alt); border: 1px solid #e5e5e5; border-radius: var(--radius); box-shadow: 0 6px 18px rgba(0,0,0,0.04); overflow: hidden; }
@@ -220,6 +227,153 @@
     .btn-primary:hover { box-shadow: 0 8px 22px rgba(11,24,54,0.28); }
     .hero-eyebrow { color: #bff5ef; }
     .tire-price { color: #0f8f80; }
+  
+    /* Final brand override: navy / gold / white */
+    :root {
+      --color-primary: #00138A;
+      --color-accent: #FFC62D;
+      --color-highlight: #00138A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #FFFFFF;
+      --color-text: #0B1238;
+      --color-text-muted: #4A547A;
+      --color-navy: #00138A;
+      --color-teal: #FFC62D;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .top-bar {
+      background: #00138A;
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .main-nav a {
+      color: #00138A;
+    }
+
+    .main-nav a::after {
+      background: #FFC62D;
+    }
+
+    .btn-primary {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .btn-primary:hover {
+      background: #E6B325;
+    }
+
+    .btn-outline {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+
+    .btn-dark-outline,
+    .btn-secondary {
+      color: #00138A;
+      border-color: #00138A;
+      background: #FFFFFF;
+    }
+
+    .btn-danger {
+      background: #FFC62D;
+      color: #00138A;
+      border-color: #FFC62D;
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11,24,54,0.75), rgba(11,24,54,0.75)),
+        url('IMG/silvertonheadNW.png') center/cover no-repeat;
+      color: #FFFFFF;
+    }
+
+    .card,
+    .coupon-card,
+    .offer-card {
+      border: 1px solid rgba(0, 19, 138, 0.12);
+    }
+
+    .card h2,
+    .coupon-title,
+    .offer-card h3,
+    .logo {
+      color: #00138A;
+    }
+
+    .shop-view-all {
+      color: #00138A;
+    }
+
+    .shop-brand-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 19, 138, 0.2);
+      color: #00138A;
+    }
+
+    .edit-button {
+      background: #FFC62D;
+      color: #00138A;
+    }
+
+    .clear-storage-btn {
+      color: #00138A;
+      border-color: #00138A;
+    }
+
+    .hero-eyebrow {
+      color: #FFC62D;
+    }
+
+    .tire-price {
+      color: #00138A;
+    }
+  
+    /* Brand typography/color lock (no hero-image changes) */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading, 'Poppins', Arial, Helvetica, sans-serif);
+      color: #00138A;
+    }
+
+    .logo,
+    .main-nav a,
+    .main-nav a:visited,
+    .shop-dropdown-title,
+    .shop-view-all,
+    .coupon-title,
+    .offer-card h3,
+    .card h2,
+    .card h3,
+    .section h2,
+    .hero-card h2,
+    .hero-subtitle,
+    .compat-label,
+    .tire-brand,
+    label {
+      color: #00138A !important;
+    }
+
+    .hero-eyebrow,
+    .tire-price,
+    .placeholder {
+      color: #FFC62D !important;
+    }
+
+    a:not(.btn):hover,
+    a:not(.btn):focus-visible {
+      color: #00138A;
+    }
   </style>
 </head>
 <body>
@@ -244,6 +398,7 @@
       <nav class="main-nav" id="mainNav">
         <ul>
           <li><a href="home.html">Home</a></li>
+          <li><a href="auto-services.html">Auto Services</a></li>
           <li class="shop-dropdown">
   <a href="shop-tires.html" class="shop-trigger" aria-expanded="false">Shop Tires</a>
   <div class="shop-dropdown-menu" role="menu" aria-label="Tire brands">
@@ -253,7 +408,6 @@
     <div class="shop-all-brands" data-all-brands hidden></div>
   </div>
 </li>
-          <li><a href="auto-services.html">Auto Services</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
           <li><a href="about.html">About</a></li>
@@ -289,7 +443,7 @@
       <div class="part-accordion">
         <article v-for="part in filteredParts" :key="part.key" class="part-panel">
           <button class="part-toggle" type="button" @click="togglePart(part.key)">
-            <span class="part-title">{{ part.label }}</span>
+            <span class="part-title" v-html="highlightText(part.label)"></span>
             <span class="part-toggle-icon">{{ isPartExpanded(part.key) || part.matchesSearch ? '-' : '+' }}</span>
           </button>
 
@@ -300,20 +454,20 @@
                   <button class="guide-card-toggle" type="button" @click="toggleSection(section.id)">
                     <p class="guide-card-kicker">{{ section.id }}</p>
                     <div class="guide-card-title-row">
-                      <h3>{{ section.title }}</h3>
+                      <h3 v-html="highlightText(section.title)"></h3>
                       <span class="guide-card-toggle-icon">{{ isExpanded(section.id) || section.matchesSearch ? '-' : '+' }}</span>
                     </div>
                   </button>
                 </div>
-                <p class="guide-card-summary">{{ section.summary }}</p>
+                <p class="guide-card-summary" v-html="highlightText(section.summary)"></p>
 
                 <div v-show="isExpanded(section.id) || section.matchesSearch">
                   <div v-for="group in section.groups" :key="group.heading" class="guide-card-group">
-                    <h4>{{ group.heading }}</h4>
+                    <h4 v-html="highlightText(group.heading)"></h4>
                     <ul v-if="group.items">
-                      <li v-for="item in group.items" :key="item">{{ item }}</li>
+                      <li v-for="item in group.items" :key="item" v-html="highlightText(item)"></li>
                     </ul>
-                    <p v-else>{{ group.text }}</p>
+                    <p v-else v-html="highlightText(group.text)"></p>
                   </div>
                 </div>
               </article>
@@ -3534,6 +3688,35 @@
         },
         isExpanded: function (id) {
           return Boolean(this.expandedSections[id]);
+        },
+        escapeHtml: function (text) {
+          return String(text == null ? '' : text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        },
+        escapeRegExp: function (value) {
+          return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        },
+        highlightText: function (text) {
+          const safeText = this.escapeHtml(text);
+          const query = this.searchQuery.trim();
+
+          if (!query) return safeText;
+
+          const terms = query
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(Boolean)
+            .map(this.escapeRegExp)
+            .sort(function (a, b) { return b.length - a.length; });
+
+          if (!terms.length) return safeText;
+
+          const pattern = new RegExp('(' + terms.join('|') + ')', 'gi');
+          return safeText.replace(pattern, '<mark class="search-highlight">$1</mark>');
         },
         sectionMatchesSearch: function (section, query) {
           const text = [
