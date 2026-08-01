@@ -97,7 +97,7 @@
       transform: translateY(-2px);
     }
     .service-media {
-      background: #fff;
+      background: #D9DCE1;
       border: 3px solid #FFC62D;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(11,24,54,0.05);
@@ -110,8 +110,14 @@
       object-fit: cover;
       display: block;
     }
+    .service-media img.ceramic-photo {
+      object-fit: contain;
+      padding: 0.2rem;
+      transform: scale(1.06);
+      transform-origin: center;
+    }
     .service-content {
-      background: #fff;
+      background: #00138A;
       border: 3px solid #FFC62D;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(11,24,54,0.05);
@@ -128,15 +134,16 @@
     }
     .service-card h3 {
       font-family: var(--font-heading);
-      color: var(--color-primary);
+      color: #FFFFFF;
       margin: 0 0 0.55rem;
-      font-size: 1.12rem;
+      font-size: 2rem;
       text-align: center;
     }
     .service-card p {
-      color: var(--color-text-muted);
+      color: #E8EEFF;
       margin: 0;
-      font-size: 0.86rem;
+      font-size: 1.35rem;
+      line-height: 1.55;
     }
     .services-note {
       margin: 0 0 1.5rem;
@@ -497,7 +504,6 @@
   </div>
 
   <div class="page">
-    <p class="services-note">Current services offered:</p>
     <div class="services-grid">
       <div class="service-row">
         <br>
@@ -505,7 +511,7 @@
         <h1 class="service-title-desktop">Ceramic Coating</h1>
         <div class="service-card">
           <div class="service-media">
-            <img src="IMG/silvertonheadNW.png" alt="Ceramic coating service" loading="lazy">
+            <img src="IMG/ceramic.jpg" alt="Ceramic coating service" loading="lazy" class="ceramic-photo">
           </div>
           <div class="service-content">
             <h3>Ceramic Coating</h3>
