@@ -40,7 +40,7 @@ a { color:inherit; }
 .hero-banner h1 { font-family:var(--font-heading); font-size:clamp(1.8rem, 3vw, 2.6rem); margin:0 0 0.6rem; display:flex; flex-direction:column; align-items:center; gap:0.25rem; }
 .hero-banner h1 .typing-text { display:inline-block; white-space:nowrap; overflow:hidden; border-right:2px solid rgba(255,255,255,0.9); width:0; max-width:max-content; animation: typing 2.8s steps(16, end) both; }
 .hero-banner h1 .typing-text.second { opacity:0; animation: none; }
-.hero-banner h1 .typing-text.finished { border-right-color: transparent; }
+.hero-banner h1 .typing-text.finished { border-right-color: transparent; overflow: visible; width: auto; max-width: none; }
 .hero-banner h1 .typing-text.second.show { opacity:1; animation: typing 2.8s steps(8, end) both; }
 @keyframes typing { from { width:0; } to { width:var(--line-width, 0px); } }
 .hero-subtitle { font-size:0.9rem; margin:0 0 0.75rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; opacity:0.95; }
