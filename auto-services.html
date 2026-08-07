@@ -152,12 +152,17 @@
       font-style: italic;
     }
     @media (max-width: 700px) {
-      .service-card {
+      .service-card,
+      .service-card.image-right {
         grid-template-columns: 1fr;
       }
-      .service-card.image-right .service-media,
+      .service-card .service-content,
       .service-card.image-right .service-content {
-        order: initial;
+        order: 1;
+      }
+      .service-card .service-media,
+      .service-card.image-right .service-media {
+        order: 2;
       }
       .service-media {
         border-bottom: 0;
@@ -485,15 +490,7 @@
         <ul>
           <li><a href="home.html">Home</a></li>
           <li><a href="auto-services.html">Auto Services</a></li>
-          <li class="shop-dropdown">
-  <a href="shop-tires.html" class="shop-trigger" aria-expanded="false">Shop Tires</a>
-  <div class="shop-dropdown-menu" role="menu" aria-label="Tire brands">
-    <p class="shop-dropdown-title">Popular Brands</p>
-    <div class="shop-popular-list" data-popular-brands></div>
-    <a href="#" class="shop-view-all" data-toggle-brands="true">veiw all brands</a>
-    <div class="shop-all-brands" data-all-brands hidden></div>
-  </div>
-</li>
+          <li><a href="shop-tires.html">Shop Tires</a></li>
           <li><a href="coupons.html">Coupons</a></li>
           <li><a href="tips-guides.html">Tips &amp; Guides</a></li>
           <li><a href="about.html">About</a></li>
